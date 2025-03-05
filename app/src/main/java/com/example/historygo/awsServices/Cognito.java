@@ -1,6 +1,7 @@
 package com.example.historygo.awsServices;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice;
@@ -18,8 +19,13 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHa
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidentityprovider.model.SignUpResult;
+import com.example.historygo.Login;
+import com.example.historygo.MainActivity;
+import com.example.historygo.ReviewManagement;
 
 import static  android.content.ContentValues.TAG;
+import static androidx.core.content.ContextCompat.startActivity;
+
 public class Cognito {
     // ############################################################# Information about Cognito Pool
     //Check how to put this in secrets
@@ -106,6 +112,13 @@ public class Cognito {
         @Override
         public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
             Toast.makeText(appContext,"Sign in success", Toast.LENGTH_LONG).show();
+            String userId = userSession.getUsername();
+
+            Intent intent = new Intent(appContext, ReviewManagement.class);
+            intent.putExtra("USER_ID", userId);
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            appContext.startActivity(intent);
         }
         @Override
         public void getAuthenticationDetails(AuthenticationContinuation authenticationContinuation, String userId) {
@@ -126,7 +139,7 @@ public class Cognito {
         @Override
         public void onFailure(Exception exception) {
             // Sign-in failed, check exception for the cause
-            Toast.makeText(appContext,"Sign in Failure", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext,"Sign in Failure.\n" + exception.toString(), Toast.LENGTH_LONG).show();
         }
     };
 }
