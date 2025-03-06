@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -15,11 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HistoryGo">
         <activity
-            android:name=".ReviewManagement"
+            android:name=".Activities.RatingManagement"
             android:exported="false" />
         <!-- LoginActivity will be the entry point -->
         <activity
-            android:name=".Login"
+            android:name=".Activities.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="false"></activity>
     </application>
 

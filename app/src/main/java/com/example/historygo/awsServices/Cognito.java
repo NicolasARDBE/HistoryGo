@@ -4,10 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserAttributes;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserCodeDeliveryDetails;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.AuthenticationContinuation;
@@ -17,14 +18,12 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.Mult
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.AuthenticationHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.tokens.CognitoAccessToken;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidentityprovider.model.SignUpResult;
-import com.example.historygo.Login;
-import com.example.historygo.MainActivity;
-import com.example.historygo.ReviewManagement;
+import com.example.historygo.Activities.RatingManagement;
 
 import static  android.content.ContentValues.TAG;
-import static androidx.core.content.ContextCompat.startActivity;
 
 public class Cognito {
     // ############################################################# Information about Cognito Pool
@@ -112,10 +111,11 @@ public class Cognito {
         @Override
         public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
             Toast.makeText(appContext,"Sign in success", Toast.LENGTH_LONG).show();
-            String userId = userSession.getUsername();
 
-            Intent intent = new Intent(appContext, ReviewManagement.class);
-            intent.putExtra("USER_ID", userId);
+            CognitoAccessToken token = userSession.getAccessToken();
+
+            Intent intent = new Intent(appContext, RatingManagement.class);
+            intent.putExtra("TOKEN", token.getJWTToken());
 
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             appContext.startActivity(intent);
@@ -142,4 +142,10 @@ public class Cognito {
             Toast.makeText(appContext,"Sign in Failure.\n" + exception.toString(), Toast.LENGTH_LONG).show();
         }
     };
+
+    //Connection with DynamoDB
+    public CognitoCachingCredentialsProvider MyDynamoDBHelper(Context context) {
+        return new CognitoCachingCredentialsProvider(
+        context, poolID, awsRegion);
+    }
 }

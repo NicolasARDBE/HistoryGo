@@ -53,7 +53,8 @@ dependencies {
     implementation(libs.annotation)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
-
+    implementation(libs.core.ktx)
+    implementation(libs.projectlombok.lombok)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -62,4 +63,8 @@ dependencies {
     implementation(libs.aws.android.sdk.core)
     implementation(libs.aws.android.sdk.cognitoidentityprovider)
     implementation(libs.aws.android.sdk.ddb)
+    implementation(libs.aws.android.sdk.ddb.document)
+
+    //lombok
+    compileOnly(libs.lombok)
 }
