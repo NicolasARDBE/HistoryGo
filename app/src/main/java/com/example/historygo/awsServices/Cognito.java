@@ -28,7 +28,8 @@ import static  android.content.ContentValues.TAG;
 public class Cognito {
     // ############################################################# Information about Cognito Pool
     //Check how to put this in secrets
-    private String poolID = "us-east-2_OuaxYxAbc";
+    private String userPoolID = "us-east-2_OuaxYxAbc";
+    private String identityPoolID = "us-east-2:68e86ddc-a7fa-4a70-9e79-5985e2280a7d";
     private String clientID = "6qcath8m13v7iv8tf33aafd8n5";
     private Regions awsRegion = Regions.US_EAST_2;         // Place your Region
     // ############################################################# End of Information about Cognito Pool
@@ -39,7 +40,7 @@ public class Cognito {
 
     public Cognito(Context context){
         appContext = context;
-        userPool = new CognitoUserPool(context, this.poolID, this.clientID, null, this.awsRegion);
+        userPool = new CognitoUserPool(context, this.userPoolID, this.clientID, null, this.awsRegion);
         userAttributes = new CognitoUserAttributes();
     }
     public void signUpInBackground(String userId, String password){
@@ -145,7 +146,6 @@ public class Cognito {
 
     //Connection with DynamoDB
     public CognitoCachingCredentialsProvider MyDynamoDBHelper(Context context) {
-        return new CognitoCachingCredentialsProvider(
-        context, poolID, awsRegion);
+        return new CognitoCachingCredentialsProvider(context, identityPoolID, awsRegion);
     }
 }

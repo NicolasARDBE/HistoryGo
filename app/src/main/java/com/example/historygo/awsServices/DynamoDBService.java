@@ -23,6 +23,7 @@ public class DynamoDBService {
 
     public DynamoDBService(String accessToken, Context context) {
         this.context = context;
+        this.cognito = new Cognito(this.context);
         dynamoConnection();
     }
 

@@ -1,5 +1,5 @@
 [versions]
-agp = "8.8.0"
+agp = "8.8.2"
 awsAndroidSdkCore = "2.79.0"
 awsJavaSdkDynamodb = "1.12.782"
 dynamodbEnhanced = "2.30.33"
