@@ -25,24 +25,50 @@ import com.example.historygo.Activities.RatingManagement;
 
 import static  android.content.ContentValues.TAG;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 public class Cognito {
-    // ############################################################# Information about Cognito Pool
-    //Check how to put this in secrets
-    private String userPoolID = "us-east-2_OuaxYxAbc";
-    private String identityPoolID = "us-east-2:68e86ddc-a7fa-4a70-9e79-5985e2280a7d";
-    private String clientID = "6qcath8m13v7iv8tf33aafd8n5";
-    private Regions awsRegion = Regions.US_EAST_2;         // Place your Region
+    private final String identityPoolID = "us-east-2:68e86ddc-a7fa-4a70-9e79-5985e2280a7d";
+    private final Regions awsRegion = Regions.US_EAST_2;         // Place your Region
     // ############################################################# End of Information about Cognito Pool
-    private CognitoUserPool userPool;
-    private CognitoUserAttributes userAttributes;       // Used for adding attributes to the user
-    private Context appContext;
+    private final CognitoUserPool userPool;
+    private final CognitoUserAttributes userAttributes;       // Used for adding attributes to the user
+    private final Context appContext;
     private String userPassword;                        // Used for Login
 
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+
     public Cognito(Context context){
-        appContext = context;
-        userPool = new CognitoUserPool(context, this.userPoolID, this.clientID, null, this.awsRegion);
+        this.appContext = context;
+        //appContext = context;
+        // ############################################################# Information about Cognito Pool
+        //Check how to put this in secrets
+        String userPoolID = "us-east-2_OuaxYxAbc";
+        String clientID = "6qcath8m13v7iv8tf33aafd8n5";
+        userPool = new CognitoUserPool(context, userPoolID, clientID, null, this.awsRegion);
         userAttributes = new CognitoUserAttributes();
     }
+
+    public Future<CognitoCachingCredentialsProvider> getDynamoDBCredentials(String idToken) {
+        return executor.submit(() -> {
+            CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                    appContext, identityPoolID, awsRegion
+            );
+
+            // Configurar las credenciales autenticadas con el ID Token del usuario
+            Map<String, String> logins = new HashMap<>();
+            logins.put("cognito-idp.us-east-2.amazonaws.com/us-east-2_OuaxYxAbc", idToken);
+            credentialsProvider.setLogins(logins);
+
+            credentialsProvider.refresh(); // Forzar actualización
+            return credentialsProvider;
+        });
+    }
+
     public void signUpInBackground(String userId, String password){
         userPool.signUpInBackground(userId, password, this.userAttributes, null, signUpCallback);
         //userPool.signUp(userId, password, this.userAttributes, null, signUpCallback);
