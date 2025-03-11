@@ -32,27 +32,27 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Cognito {
+    private final Regions awsRegion = Regions.US_EAST_2;
     private final String identityPoolID = "us-east-2:68e86ddc-a7fa-4a70-9e79-5985e2280a7d";
-    private final Regions awsRegion = Regions.US_EAST_2;         // Place your Region
-    // ############################################################# End of Information about Cognito Pool
+    private final String userPoolID = "us-east-2_OuaxYxAbc";
+    private final String clientID = "6qcath8m13v7iv8tf33aafd8n5";
     private final CognitoUserPool userPool;
-    private final CognitoUserAttributes userAttributes;       // Used for adding attributes to the user
+    private final CognitoUserAttributes userAttributes; // Used for adding attributes to the user
     private final Context appContext;
-    private String userPassword;                        // Used for Login
+    private String userPassword;
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    public Cognito(Context context){
+    public Cognito(Context context) {
         this.appContext = context;
-        //appContext = context;
-        // ############################################################# Information about Cognito Pool
-        //Check how to put this in secrets
-        String userPoolID = "us-east-2_OuaxYxAbc";
-        String clientID = "6qcath8m13v7iv8tf33aafd8n5";
+        //Information about Cognito Pool
+
         userPool = new CognitoUserPool(context, userPoolID, clientID, null, this.awsRegion);
         userAttributes = new CognitoUserAttributes();
     }
 
+    //Review
+    /*
     public Future<CognitoCachingCredentialsProvider> getDynamoDBCredentials(String idToken) {
         return executor.submit(() -> {
             CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
@@ -68,6 +68,7 @@ public class Cognito {
             return credentialsProvider;
         });
     }
+    */
 
     public void signUpInBackground(String userId, String password){
         userPool.signUpInBackground(userId, password, this.userAttributes, null, signUpCallback);
@@ -124,7 +125,7 @@ public class Cognito {
     }
 
     public void userLogin(String userId, String password){
-        CognitoUser cognitoUser =  userPool.getUser(userId);
+        CognitoUser cognitoUser = userPool.getUser(userId);
         this.userPassword = password;
         cognitoUser.getSessionInBackground(authenticationHandler);
     }
@@ -139,10 +140,20 @@ public class Cognito {
         public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
             Toast.makeText(appContext,"Sign in success", Toast.LENGTH_LONG).show();
 
-            CognitoAccessToken token = userSession.getAccessToken();
+            CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(appContext, identityPoolID, awsRegion);
+
+            String idToken = userSession.getIdToken().getJWTToken();
+            Map<String, String> logins = new HashMap<String, String>();
+            logins.put("cognito-idp.us-east-2.amazonaws.com/"+userPoolID, userSession.getIdToken().getJWTToken());
+            credentialsProvider.setLogins(logins);
+
+            String identityId = credentialsProvider.getIdentityId();
+            Log.i("AWS", "Identity ID obtenido: " + identityId);
+
 
             Intent intent = new Intent(appContext, RatingManagement.class);
-            intent.putExtra("TOKEN", token.getJWTToken());
+            intent.putExtra("JWTTOKEN", idToken);
+            intent.putExtra("IDTOKEN", idToken);
 
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             appContext.startActivity(intent);
@@ -169,9 +180,7 @@ public class Cognito {
             Toast.makeText(appContext,"Sign in Failure.\n" + exception.toString(), Toast.LENGTH_LONG).show();
         }
     };
-
-    //Connection with DynamoDB
-    public CognitoCachingCredentialsProvider MyDynamoDBHelper(Context context) {
-        return new CognitoCachingCredentialsProvider(context, identityPoolID, awsRegion);
+    public CognitoCachingCredentialsProvider getCognitoCachingCredentialsProvider(){
+        return new CognitoCachingCredentialsProvider(appContext, identityPoolID, awsRegion);
     }
 }
