@@ -23,9 +23,8 @@ class RatingService(private var dynamoService: DynamoDBService) {
         try {
             val ratingDoc = RatingMapper.ratingToDynamoDocument(ratingDto)
             Log.e("test", ratingDoc.toString())
-            val updatedDoc = dbTable.updateItem(
-                ratingDoc,
-                UpdateItemOperationConfig().withReturnValues(ReturnValue.ALL_NEW)
+            val updatedDoc = dbTable.putItem(
+                ratingDoc
             )
             Log.d("DynamoDBService", "Updated document: $updatedDoc")
         } catch (e: java.lang.Exception) {

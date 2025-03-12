@@ -37,12 +37,12 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
         }
 
         binding.CreateBtn.setOnClickListener(){
-            val rating = RatingDto(1, 1, 4, "Me encanto", "2025-02-21T17:42:34Z", "b1ab6510-50a1-70b4-7dd2-492227c8a63d")
+            val rating = RatingDto(1, 1, 4, "Me FASCINO", "2025-02-21T17:42:34Z", "b1ab6510-50a1-70b4-7dd2-492227c8a63d")
             ratingService.createRating(rating)
         }
 
         binding.UpdateBtn.setOnClickListener(){
-            val rating = RatingDto(1, 1, 5, "Me FASCINO", "2025-02-21T17:42:34Z", "b1ab6510-50a1-70b4-7dd2-492227c8a63d")
+            val rating = RatingDto(1, 1, 2, "Un Horror", "2025-02-21T17:42:34Z", "b1ab6510-50a1-70b4-7dd2-492227c8a63d")
             ratingService.update(rating)
         }
 
