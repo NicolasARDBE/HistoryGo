@@ -1,16 +1,19 @@
 package com.example.historygo.Activities
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.historygo.awsServices.DynamoDBService
-import com.example.historygo.awsServices.DynamoDBInitializationCallback
-import com.example.historygo.databinding.ActivityReviewManagementBinding
 import com.amazonaws.mobileconnectors.dynamodbv2.document.datatype.Document
 import com.amazonaws.mobileconnectors.dynamodbv2.document.datatype.Primitive
 import com.example.historygo.Services.RatingService
 import com.example.historygo.Services.TouristSpotService
+import com.example.historygo.awsServices.Cognito
+import com.example.historygo.awsServices.DynamoDBInitializationCallback
+import com.example.historygo.awsServices.DynamoDBService
+import com.example.historygo.databinding.ActivityReviewManagementBinding
 import com.example.historygo.dto.RatingDto
 
 class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
@@ -18,6 +21,7 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
     private lateinit var dynamoService: DynamoDBService
     private lateinit var ratingService: RatingService
     private lateinit var touristSpotService: TouristSpotService
+    private lateinit var cognito: Cognito
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,8 +31,11 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
         val jwtToken = intent.getStringExtra("JWTTOKEN")
         val idToken = intent.getStringExtra("IDTOKEN")
 
+
+
         // Callback
         dynamoService = DynamoDBService(baseContext) //Aquí ya se ejecuta el dynamoConnectionAndAuth
+        cognito = Cognito(applicationContext)
         dynamoService.setCallback(this)
 
         binding.GetAllBtn.setOnClickListener(){
@@ -49,6 +56,14 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
         binding.DeleteBtn.setOnClickListener(){
             ratingService.delete(Primitive(1),Primitive(1))
         }
+
+        binding.signOutBtn.setOnClickListener(){
+            SignOut()
+            val i = Intent(this, Login::class.java)
+            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(i)
+            finish()
+        }
     }
 
     // El callback que se ejecutará cuando DynamoDB esté listo
@@ -67,5 +82,13 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
             binding.Review.setText(review.getValue("review").toString())
             binding.Rating.setText(review.getValue("rating").toString())
         }
+    }
+    private fun SignOut(){
+        //Cierra sesión localmente
+        val sharedPreferences = getSharedPreferences("mi_app_pref", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
+        cognito.UserSignOut()
     }
 }
