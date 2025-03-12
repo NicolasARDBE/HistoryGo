@@ -18,7 +18,6 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.Mult
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.AuthenticationHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.tokens.CognitoAccessToken;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidentityprovider.model.SignUpResult;
 import com.example.historygo.Activities.RatingManagement;
@@ -29,7 +28,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class Cognito {
     private final Regions awsRegion = Regions.US_EAST_2;
@@ -50,25 +48,6 @@ public class Cognito {
         userPool = new CognitoUserPool(context, userPoolID, clientID, null, this.awsRegion);
         userAttributes = new CognitoUserAttributes();
     }
-
-    //Review
-    /*
-    public Future<CognitoCachingCredentialsProvider> getDynamoDBCredentials(String idToken) {
-        return executor.submit(() -> {
-            CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
-                    appContext, identityPoolID, awsRegion
-            );
-
-            // Configurar las credenciales autenticadas con el ID Token del usuario
-            Map<String, String> logins = new HashMap<>();
-            logins.put("cognito-idp.us-east-2.amazonaws.com/us-east-2_OuaxYxAbc", idToken);
-            credentialsProvider.setLogins(logins);
-
-            credentialsProvider.refresh(); // Forzar actualización
-            return credentialsProvider;
-        });
-    }
-    */
 
     public void signUpInBackground(String userId, String password){
         userPool.signUpInBackground(userId, password, this.userAttributes, null, signUpCallback);

@@ -3,18 +3,6 @@ package com.example.historygo.dto;
 import java.util.HashMap;
 import java.util.Map;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Data
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-
 public class RatingDto {
     private Integer touristSpotId;
     private Integer ratingId;
@@ -22,6 +10,15 @@ public class RatingDto {
     private String review;
     private String timestamp;
     private String userId;
+
+    public RatingDto(Integer touristSpotId, Integer ratingId, int rating, String review, String timestamp, String userId) {
+        this.touristSpotId = touristSpotId;
+        this.ratingId = ratingId;
+        this.rating = rating;
+        this.review = review;
+        this.timestamp = timestamp;
+        this.userId = userId;
+    }
 
     // Getters
     public Integer getTouristSpotId() {
