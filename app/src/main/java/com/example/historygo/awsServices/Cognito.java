@@ -1,5 +1,6 @@
 package com.example.historygo.awsServices;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -38,6 +39,8 @@ public class Cognito {
     private final CognitoUserAttributes userAttributes; // Used for adding attributes to the user
     private final Context appContext;
     private String userPassword;
+    @SuppressLint("StaticFieldLeak")
+    private static CognitoUser cognitoUser;
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -80,7 +83,7 @@ public class Cognito {
     };
 
     public void confirmUser(String userId, String code){
-        CognitoUser cognitoUser =  userPool.getUser(userId);
+        cognitoUser =  userPool.getUser(userId);
         cognitoUser.confirmSignUpInBackground(code,false, confirmationCallback);
         //cognitoUser.confirmSignUp(code,false, confirmationCallback);
     }
@@ -104,7 +107,7 @@ public class Cognito {
     }
 
     public void userLogin(String userId, String password){
-        CognitoUser cognitoUser = userPool.getUser(userId);
+        cognitoUser = userPool.getUser(userId);
         this.userPassword = password;
         cognitoUser.getSessionInBackground(authenticationHandler);
     }
@@ -136,6 +139,7 @@ public class Cognito {
 
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             appContext.startActivity(intent);
+
         }
         @Override
         public void getAuthenticationDetails(AuthenticationContinuation authenticationContinuation, String userId) {
@@ -159,6 +163,10 @@ public class Cognito {
             Toast.makeText(appContext,"Sign in Failure.\n" + exception.toString(), Toast.LENGTH_LONG).show();
         }
     };
+
+    public void UserSignOut(){
+        cognitoUser.signOut();
+    }
     public CognitoCachingCredentialsProvider getCognitoCachingCredentialsProvider(){
         return new CognitoCachingCredentialsProvider(appContext, identityPoolID, awsRegion);
     }
