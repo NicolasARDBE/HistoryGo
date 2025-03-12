@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -9,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.example.historygo"
         minSdk = 31
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -33,6 +34,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
     buildFeatures {
         viewBinding = true
     }
@@ -47,7 +53,8 @@ dependencies {
     implementation(libs.annotation)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
-
+    implementation(libs.core.ktx)
+    implementation(libs.projectlombok.lombok)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -55,4 +62,9 @@ dependencies {
     //AWS
     implementation(libs.aws.android.sdk.core)
     implementation(libs.aws.android.sdk.cognitoidentityprovider)
+    implementation(libs.aws.android.sdk.ddb)
+    implementation(libs.aws.android.sdk.ddb.document)
+
+    //lombok
+    compileOnly(libs.lombok)
 }

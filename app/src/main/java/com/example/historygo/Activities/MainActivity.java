@@ -1,11 +1,9 @@
-package com.example.historygo;
+package com.example.historygo.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
-import androidx.activity.EdgeToEdge;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.historygo.awsServices.Cognito;
 import com.example.historygo.databinding.ActivityMainBinding;
