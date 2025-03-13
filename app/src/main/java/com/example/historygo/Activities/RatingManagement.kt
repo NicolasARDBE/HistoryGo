@@ -31,8 +31,6 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
         val jwtToken = intent.getStringExtra("JWTTOKEN")
         val idToken = intent.getStringExtra("IDTOKEN")
 
-
-
         // Callback
         dynamoService = DynamoDBService(baseContext) //Aquí ya se ejecuta el dynamoConnectionAndAuth
         cognito = Cognito(applicationContext)
@@ -63,6 +61,10 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
             i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(i)
             finish()
+        }
+        binding.s3Btn.setOnClickListener(){
+            val intent = Intent(this, S3RetrieveActivity::class.java)
+            startActivity(intent)
         }
     }
 

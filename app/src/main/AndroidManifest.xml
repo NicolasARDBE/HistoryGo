@@ -16,9 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HistoryGo">
         <activity
-            android:name=".Activities.RatingManagement"
+            android:name=".Activities.S3RetrieveActivity"
             android:exported="false" />
-        <!-- LoginActivity will be the entry point -->
+        <activity
+            android:name=".Activities.RatingManagement"
+            android:exported="false" /> <!-- LoginActivity will be the entry point -->
         <activity
             android:name=".Activities.Login"
             android:exported="true">
@@ -30,7 +32,7 @@
         </activity>
         <activity
             android:name=".Activities.MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>
