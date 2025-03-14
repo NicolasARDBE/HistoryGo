@@ -67,4 +67,7 @@ dependencies {
 
     //lombok
     compileOnly(libs.lombok)
+
+    //glide (image loading)
+    implementation (libs.glide)
 }
