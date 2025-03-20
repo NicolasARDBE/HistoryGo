@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:allowBackup="true"
@@ -15,6 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HistoryGo">
+        <activity
+            android:name=".Activities.NavegacionPopUpGeozona"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.MenuOpcionesGuia"
+            android:exported="false" />
         <activity
             android:name=".Activities.S3RetrieveActivity"
             android:exported="false" />
@@ -33,6 +40,10 @@
         <activity
             android:name=".Activities.MainActivity"
             android:exported="false" />
+
+        <service
+            android:name=".Services.NotificationService"
+            android:enabled="true" />
     </application>
 
 </manifest>

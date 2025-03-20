@@ -58,6 +58,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation(libs.preference.ktx)
 
     //AWS
     implementation(libs.aws.android.sdk.core)
@@ -70,4 +71,7 @@ dependencies {
 
     //glide (image loading)
     implementation (libs.glide)
+
+    //OSM
+    implementation (libs.osmdroid.android)
 }
