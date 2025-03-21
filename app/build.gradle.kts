@@ -70,4 +70,11 @@ dependencies {
 
     //glide (image loading)
     implementation (libs.glide)
+
+    // open street map
+    implementation (libs.play.services.location)
+    implementation (libs.play.services.maps)
+    implementation (libs.gson)
+    implementation(libs.osmbonuspack)
+
 }
