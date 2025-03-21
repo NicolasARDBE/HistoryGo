@@ -4,6 +4,7 @@ awsAndroidSdkCore = "2.79.0"
 awsJavaSdkDynamodb = "1.12.782"
 dynamodbEnhanced = "2.30.33"
 glide = "4.16.0"
+gson = "2.10.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -18,6 +19,16 @@ lifecycleViewmodelKtx = "2.6.1"
 kotlin = "1.9.24"
 coreKtx = "1.15.0"
 lombokVersion = "1.18.30"
+osmbonuspack = "6.9.0"
+playServicesLocation = "21.3.0"
+playServicesMaps = "19.1.0"
+supportAnnotations = "28.0.0"
+navigationFragmentKtx = "2.6.0"
+navigationUiKtx = "2.6.0"
+filamentAndroid = "1.17.1"
+constraintlayoutCore = "1.1.1"
+constraintlayoutSolver = "2.0.4"
+
 
 [libraries]
 aws-android-sdk-cognitoidentityprovider = { module = "com.amazonaws:aws-android-sdk-cognitoidentityprovider", version.ref = "awsAndroidSdkCore" }
@@ -27,6 +38,7 @@ aws-android-sdk-ddb-document = { module = "com.amazonaws:aws-android-sdk-ddb-doc
 aws-java-sdk-dynamodb = { module = "com.amazonaws:aws-java-sdk-dynamodb", version.ref = "awsJavaSdkDynamodb" }
 dynamodb-enhanced = { module = "software.amazon.awssdk:dynamodb-enhanced", version.ref = "dynamodbEnhanced" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -39,7 +51,20 @@ annotation = { group = "androidx.annotation", name = "annotation", version.ref =
 lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+osmbonuspack = { module = "com.github.MKergall:osmbonuspack", version.ref = "osmbonuspack" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
+play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
 projectlombok-lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombokVersion" }
+support-annotations = { group = "com.android.support", name = "support-annotations", version.ref = "supportAnnotations" }
+preference-ktx = { module = "androidx.preference:preference-ktx", version = "1.2.1" }
+osmdroid-android = { module = "org.osmdroid:osmdroid-android", version = "6.1.14" }
+
+
+navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+filament-android = { group = "com.google.ar.sceneform", name = "filament-android", version.ref = "filamentAndroid" }
+constraintlayout-core = { group = "androidx.constraintlayout", name = "constraintlayout-core", version.ref = "constraintlayoutCore" }
+constraintlayout-solver = { group = "androidx.constraintlayout", name = "constraintlayout-solver", version.ref = "constraintlayoutSolver" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
