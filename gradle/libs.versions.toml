@@ -23,6 +23,12 @@ osmbonuspack = "6.9.0"
 playServicesLocation = "21.3.0"
 playServicesMaps = "19.1.0"
 supportAnnotations = "28.0.0"
+navigationFragmentKtx = "2.6.0"
+navigationUiKtx = "2.6.0"
+filamentAndroid = "1.17.1"
+constraintlayoutCore = "1.1.1"
+constraintlayoutSolver = "2.0.4"
+
 
 [libraries]
 aws-android-sdk-cognitoidentityprovider = { module = "com.amazonaws:aws-android-sdk-cognitoidentityprovider", version.ref = "awsAndroidSdkCore" }
@@ -54,6 +60,11 @@ preference-ktx = { module = "androidx.preference:preference-ktx", version = "1.2
 osmdroid-android = { module = "org.osmdroid:osmdroid-android", version = "6.1.14" }
 
 
+navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+filament-android = { group = "com.google.ar.sceneform", name = "filament-android", version.ref = "filamentAndroid" }
+constraintlayout-core = { group = "androidx.constraintlayout", name = "constraintlayout-core", version.ref = "constraintlayoutCore" }
+constraintlayout-solver = { group = "androidx.constraintlayout", name = "constraintlayout-solver", version.ref = "constraintlayoutSolver" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

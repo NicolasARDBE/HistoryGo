@@ -28,32 +28,37 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HistoryGo">
         <activity
-            android:name=".Activities.Maps.MapsActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activities.NavegacionPopUpGeozona"
-            android:exported="false" />
+            android:exported="true" />
+        <activity
+            android:name=".Activities.Maps.MapsActivity"
+            android:exported="true" />
         <activity
             android:name=".Activities.MenuOpcionesGuia"
-            android:exported="false" />
+            android:exported="true" />
+        <activity
+            android:name=".Activities.ExpererienceMenuActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activities.SelectedExperience"
+            android:exported="true" />
         <activity
             android:name=".Activities.S3RetrieveActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Activities.RatingManagement"
-            android:exported="false" /> <!-- LoginActivity will be the entry point -->
+            android:exported="true" /> <!-- LoginActivity will be the entry point -->
         <activity
             android:name=".Activities.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Activities.MainActivity"
-            android:exported="false" />
+            android:exported="true" />
 
         <service
             android:name=".Services.NotificationService"

@@ -25,7 +25,7 @@
         android:inputType="text"
         android:padding="10dp"
         android:textColor="@color/white"
-
+        android:visibility="gone"
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout

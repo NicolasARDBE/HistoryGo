@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/orange"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:gravity="center">
+
+    <ImageButton
+        android:id="@+id/btnHome"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:src="@drawable/house_icon"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Home"/>
+
+    <ImageButton
+        android:id="@+id/btnFavorites"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:src="@drawable/heart_icon"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Favorites"/>
+
+    <ImageButton
+        android:id="@+id/btnArchive"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:src="@drawable/inbox_icon"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Archive"/>
+
+    <ImageButton
+        android:id="@+id/btnProfile"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:src="@drawable/profile_icon"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Profile"/>
+
+</LinearLayout>

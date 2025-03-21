@@ -2,6 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="yellow">#F3C623</color>
+    <color name="orange">#FF8811</color>
+    <color name="blue">#005678</color>
+    <color name="blue2">#10375C</color>
+    <color name="bone">#F4F6FF</color>
+    <color name="skin">#F3E9B5</color>
     <color name="azulOscuro">#10375C</color>
     <color name="azulClaro">#315f8B</color>
     <color name="blanco">#F4F6FF</color>

@@ -3,7 +3,10 @@ package com.example.historygo.Activities
 import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import com.example.historygo.R
 import com.example.historygo.databinding.ActivityNavegacionPopUpGeozonaBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
@@ -26,6 +29,7 @@ class NavegacionPopUpGeozona : AppCompatActivity() {
         map.setMultiTouchControls(true)
 
         geocoder = Geocoder(this)
+        mostrarPopup()
     }
 
     override fun onResume() {
@@ -37,5 +41,33 @@ class NavegacionPopUpGeozona : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         map.onPause()
+    }
+
+    fun mostrarPopup() {
+        // 1. Infla el layout
+        val dialogView = layoutInflater.inflate(R.layout.dialog_custom_popup, null)
+
+        // 2. Crea el diálogo usando MaterialAlertDialogBuilder o AlertDialog.Builder
+        val dialog = MaterialAlertDialogBuilder(this)
+            .setView(dialogView)
+            .create()
+
+        // 3. Referencia los elementos del layout
+        val btnDespues = dialogView.findViewById<Button>(R.id.btnDespues)
+        val btnIniciar = dialogView.findViewById<Button>(R.id.btnIniciar)
+
+        // 4. Configura eventos de clic
+        btnDespues.setOnClickListener {
+            // Acciones para "Después"
+            dialog.dismiss()
+        }
+        btnIniciar.setOnClickListener {
+            // Acciones para "Iniciar"
+            dialog.dismiss()
+            // Por ejemplo: iniciar otra Activity o lo que necesites
+        }
+
+        // 5. Muestra el diálogo
+        dialog.show()
     }
 }
