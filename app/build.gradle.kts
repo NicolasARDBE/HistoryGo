@@ -55,9 +55,11 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.core.ktx)
     implementation(libs.projectlombok.lombok)
+    implementation(libs.support.annotations)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation(libs.preference.ktx)
 
     //AWS
     implementation(libs.aws.android.sdk.core)
@@ -71,7 +73,8 @@ dependencies {
     //glide (image loading)
     implementation (libs.glide)
 
-    // open street map
+    //OSM
+    implementation (libs.osmdroid.android)
     implementation (libs.play.services.location)
     implementation (libs.play.services.maps)
     implementation (libs.gson)

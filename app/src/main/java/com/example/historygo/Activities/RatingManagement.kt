@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.amazonaws.mobileconnectors.dynamodbv2.document.datatype.Document
 import com.amazonaws.mobileconnectors.dynamodbv2.document.datatype.Primitive
+import com.example.historygo.Services.NotificationService
 import com.example.historygo.Services.RatingService
 import com.example.historygo.Services.TouristSpotService
 import com.example.historygo.awsServices.Cognito
@@ -87,6 +88,8 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
     }
     private fun SignOut(){
         //Cierra sesión localmente
+        val serviceIntent = Intent(this, NotificationService::class.java)
+        stopService(serviceIntent)
         val sharedPreferences = getSharedPreferences("mi_app_pref", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.clear()
