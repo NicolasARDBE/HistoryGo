@@ -18,6 +18,12 @@ lifecycleViewmodelKtx = "2.6.1"
 kotlin = "1.9.24"
 coreKtx = "1.15.0"
 lombokVersion = "1.18.30"
+navigationFragmentKtx = "2.6.0"
+navigationUiKtx = "2.6.0"
+filamentAndroid = "1.17.1"
+constraintlayoutCore = "1.1.1"
+constraintlayoutSolver = "2.0.4"
+
 
 [libraries]
 aws-android-sdk-cognitoidentityprovider = { module = "com.amazonaws:aws-android-sdk-cognitoidentityprovider", version.ref = "awsAndroidSdkCore" }
@@ -40,6 +46,11 @@ lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-lived
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 projectlombok-lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombokVersion" }
+navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+filament-android = { group = "com.google.ar.sceneform", name = "filament-android", version.ref = "filamentAndroid" }
+constraintlayout-core = { group = "androidx.constraintlayout", name = "constraintlayout-core", version.ref = "constraintlayoutCore" }
+constraintlayout-solver = { group = "androidx.constraintlayout", name = "constraintlayout-solver", version.ref = "constraintlayoutSolver" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@color/yellow"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Imagen circular -->
+        <ImageView
+            android:id="@+id/LocationImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/circle_bg"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_placeholder"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Título del lugar -->
+        <TextView
+            android:id="@+id/ExperienceTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Nombre del lugar"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/LocationImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Descripción del lugar -->
+        <TextView
+            android:id="@+id/tvDescripcion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Descripción corta..."
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/ExperienceTitle"
+            app:layout_constraintTop_toBottomOf="@id/ExperienceTitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/yellow"
+    tools:context=".Activities.SelectedExperience"
+    tools:ignore="ExtraText">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="PLAZA DEL CHORRO DE QUEVEDO"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="670dp"
+        android:background="@drawable/background_rounded"
+        android:elevation="-1dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_text_background"
+        android:padding="8dp"
+        android:text="Cl. 12b #22 2-98"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/ivExperience"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        android:layout_marginTop="20dp"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivExperience"
+        android:layout_width="317dp"
+        android:layout_height="237.75dp"
+        android:padding="4dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/chorro_quevedo"
+        app:layout_constraintBottom_toTopOf="@id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/view"
+        app:shapeAppearanceOverlay="@style/RoundedImage"
+        app:strokeColor="@color/yellow"
+        app:strokeWidth="4dp" />
+
+    />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="313dp"
+        android:layout_height="137.83dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Contextualización"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivExperience"
+        android:layout_marginTop="15dp"/>
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="135dp"
+        android:layout_height="53dp"
+        android:background="@drawable/rounden_button"
+        android:contentDescription="Mapa"
+        android:padding="10dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/map_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="135dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="20dp"
+        android:backgroundTint="@color/blue"
+        android:fontFamily="@font/poppins_regular"
+        android:padding="10dp"
+        android:scaleType="centerInside"
+        android:text="Iniciar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.832"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <include
+        android:id="@+id/navigationBar"
+        layout="@layout/navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

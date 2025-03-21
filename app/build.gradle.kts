@@ -55,9 +55,17 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.core.ktx)
     implementation(libs.projectlombok.lombok)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+    implementation(libs.filament.android)
+    implementation(libs.material)
+    implementation(libs.constraintlayout.core)
+    implementation(libs.constraintlayout.solver)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+
 
     //AWS
     implementation(libs.aws.android.sdk.core)

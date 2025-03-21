@@ -16,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HistoryGo">
         <activity
+            android:name=".Activities.SelectedExperience"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ExpererienceMenuActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activities.S3RetrieveActivity"
             android:exported="false" />
         <activity
