@@ -38,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
         binding.SignupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    userId = binding.Email.getText().toString().replace(" ", "");
-                    authentication.addAttribute("family_name", userId);
-                    authentication.addAttribute("email", binding.Email.getText().toString().replace(" ", ""));
-                    authentication.signUpInBackground(userId, binding.Password.getText().toString());
+                userId = binding.Email.getText().toString().replace(" ", "");
+                authentication.addAttribute("family_name", userId);
+                authentication.addAttribute("email", binding.Email.getText().toString().replace(" ", ""));
+                authentication.signUpInBackground(userId, binding.Password.getText().toString());
             }
         });
 
@@ -50,6 +50,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 authentication.confirmUser(userId, binding.ConfirmationCode.getText().toString().replace(" ", ""));
                 //finish();
+            }
+        });
+
+        binding.ForgotPasswordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
             }
         });
     }

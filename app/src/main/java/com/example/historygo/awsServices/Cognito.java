@@ -15,8 +15,10 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.AuthenticationContinuation;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.AuthenticationDetails;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.ChallengeContinuation;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.ForgotPasswordContinuation;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.MultiFactorAuthenticationContinuation;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.AuthenticationHandler;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.ForgotPasswordHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
 import com.amazonaws.regions.Regions;
@@ -39,6 +41,7 @@ public class Cognito {
     private final CognitoUserAttributes userAttributes; // Used for adding attributes to the user
     private final Context appContext;
     private String userPassword;
+    private ForgotPasswordContinuation forgotPasswordContinuation;
     @SuppressLint("StaticFieldLeak")
     private static CognitoUser cognitoUser;
 
@@ -167,6 +170,43 @@ public class Cognito {
     public void UserSignOut(){
         cognitoUser.signOut();
     }
+
+    public void forgotPassword(String userId) {
+        cognitoUser = userPool.getUser(userId);
+        cognitoUser.forgotPasswordInBackground(forgotPasswordHandler);
+    }
+
+    ForgotPasswordHandler forgotPasswordHandler = new ForgotPasswordHandler() {
+        @Override
+        public void onSuccess() {
+            Toast.makeText(appContext, "Contraseña restablecida correctamente", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void getResetCode(ForgotPasswordContinuation continuation) {
+            // Guardar la referencia para continuar el proceso más tarde
+            forgotPasswordContinuation = continuation;
+            Toast.makeText(appContext, "Código de verificación enviado. Verifica tu email o SMS.", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onFailure(Exception exception) {
+            Toast.makeText(appContext, "Error al restablecer contraseña: " + exception.getMessage(), Toast.LENGTH_LONG).show();
+            Log.e(TAG, "Error en recuperación de contraseña", exception);
+        }
+    };
+
+    public void confirmForgotPassword(String verificationCode, String newPassword) {
+        if (forgotPasswordContinuation != null) {
+            forgotPasswordContinuation.setPassword(newPassword);
+            forgotPasswordContinuation.setVerificationCode(verificationCode);
+            forgotPasswordContinuation.continueTask();
+        } else {
+            Toast.makeText(appContext, "Primero solicita la recuperación de contraseña", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
     public CognitoCachingCredentialsProvider getCognitoCachingCredentialsProvider(){
         return new CognitoCachingCredentialsProvider(appContext, identityPoolID, awsRegion);
     }
