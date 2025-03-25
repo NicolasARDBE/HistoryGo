@@ -14,7 +14,7 @@ import lombok.Setter;
 
 public class Rating {
     private Integer touristSpotId;
-    private Integer ratingId;
+    private String ratingId;
     private Stars rating;
     private String review;
     private String timestamp;
