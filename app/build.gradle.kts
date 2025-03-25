@@ -72,6 +72,7 @@ dependencies {
     implementation(libs.aws.android.sdk.cognitoidentityprovider)
     implementation(libs.aws.android.sdk.ddb)
     implementation(libs.aws.android.sdk.ddb.document)
+    implementation (libs.aws.android.sdk.apigateway.core)
 
     //lombok
     compileOnly(libs.lombok)
@@ -85,5 +86,11 @@ dependencies {
     implementation (libs.play.services.maps)
     implementation (libs.gson)
     implementation(libs.osmbonuspack)
+
+    //API Gateway
+    implementation(files("libs/historygo-sdk-1.0.0.jar"))
+
+    //JWT
+    implementation(libs.jwtdecode)
 
 }

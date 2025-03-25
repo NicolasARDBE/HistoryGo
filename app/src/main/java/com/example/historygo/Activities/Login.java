@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.historygo.awsServices.Cognito;
 import com.example.historygo.databinding.ActivityLoginBinding;
@@ -40,12 +41,19 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    private void initViewComponents(){
+    private void initViewComponents() {
         binding.LoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cognito authentication = new Cognito(getApplicationContext());
-                authentication.userLogin(binding.Email.getText().toString().replace(" ", ""), binding.Password.getText().toString());
+                String email = binding.Email.getText().toString().trim();
+                String password = binding.Password.getText().toString().trim();
+
+                if (email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Por favor, completa todos los campos.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Cognito authentication = new Cognito(getApplicationContext());
+                    authentication.userLogin(email, password);
+                }
             }
         });
     }

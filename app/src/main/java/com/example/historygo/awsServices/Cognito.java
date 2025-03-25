@@ -23,6 +23,7 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHa
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidentityprovider.model.SignUpResult;
+import com.auth0.android.jwt.JWT;
 import com.example.historygo.Activities.RatingManagement;
 
 import static  android.content.ContentValues.TAG;
@@ -127,7 +128,8 @@ public class Cognito {
 
             CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(appContext, identityPoolID, awsRegion);
 
-            String idToken = userSession.getIdToken().getJWTToken();
+            String jwtToken = userSession.getIdToken().getJWTToken();
+
             Map<String, String> logins = new HashMap<String, String>();
             logins.put("cognito-idp.us-east-2.amazonaws.com/"+userPoolID, userSession.getIdToken().getJWTToken());
             credentialsProvider.setLogins(logins);
@@ -137,8 +139,7 @@ public class Cognito {
 
 
             Intent intent = new Intent(appContext, RatingManagement.class);
-            intent.putExtra("JWTTOKEN", idToken);
-            intent.putExtra("IDTOKEN", idToken);
+            intent.putExtra("JWTTOKEN", jwtToken);
 
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             appContext.startActivity(intent);
