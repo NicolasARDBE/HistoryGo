@@ -32,7 +32,13 @@
             android:exported="false" />
         <activity
             android:name=".Activities.Inicio.InicioActivity"
-            android:exported="false" />
+            android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
         <activity
             android:name=".Activities.NavegacionPopUpGeozona"
             android:exported="true" />
@@ -56,16 +62,10 @@
             android:exported="true" /> <!-- LoginActivity will be the entry point -->
         <activity
             android:name=".Activities.Login"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true"/>
         <activity
             android:name=".Activities.S3RetrieveActivity"
             android:exported="true" />
-
         <service
             android:name=".Services.NotificationService"
             android:enabled="true" />
