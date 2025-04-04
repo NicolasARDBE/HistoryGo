@@ -93,4 +93,7 @@ dependencies {
     //JWT
     implementation(libs.jwtdecode)
 
+    //360 Degree Display
+    implementation("com.github.hannesa2:panoramagl:1.12")
+
 }
