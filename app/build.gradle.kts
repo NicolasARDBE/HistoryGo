@@ -96,4 +96,7 @@ dependencies {
     //360 Degree Display
     implementation("com.github.hannesa2:panoramagl:1.12")
 
+    //GeoFencing
+    implementation("com.google.android.gms:play-services-location:21.3.0")
+
 }

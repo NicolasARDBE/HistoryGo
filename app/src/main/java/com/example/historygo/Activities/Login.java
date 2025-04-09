@@ -1,18 +1,25 @@
 package com.example.historygo.Activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.historygo.awsServices.Cognito;
 import com.example.historygo.databinding.ActivityLoginBinding;
 
 public class Login extends AppCompatActivity {
 
+    private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1;
     private ActivityLoginBinding binding;
 
     @Override
@@ -31,6 +38,9 @@ public class Login extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         initViewComponents();
+
+        // ✅ Request notification permission if Android 13+
+        requestNotificationPermission();
 
         binding.RegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,5 +66,35 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // ✅ Function to request POST_NOTIFICATIONS permission
+    private void requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(
+                        this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                        NOTIFICATION_PERMISSION_REQUEST_CODE
+                );
+            }
+        }
+    }
+
+    // ✅ Handle the result of the permission request (optional but recommended)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permiso de notificaciones concedido.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Permiso de notificaciones denegado.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

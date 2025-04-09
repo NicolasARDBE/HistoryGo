@@ -12,10 +12,13 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
 
     <application
         android:allowBackup="true"
@@ -43,7 +46,8 @@
             android:exported="true" />
         <activity
             android:name=".Activities.MenuOpcionesGuia"
-            android:exported="true" />
+            android:exported="true"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".Activities.ExpererienceMenuActivity"
             android:exported="true" />
@@ -72,6 +76,14 @@
         <service
             android:name=".Services.NotificationService"
             android:enabled="true" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="API_KEY_VALUE" />
+        <receiver
+            android:name=".GeofenceReceiver.GeofenceBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
     </application>
 
 </manifest>
