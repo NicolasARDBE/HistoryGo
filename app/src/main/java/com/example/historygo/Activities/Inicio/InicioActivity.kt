@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.historygo.Activities.Login
-import com.example.historygo.Activities.MainActivity
+import com.example.historygo.Activities.RegisterActivity
 import com.example.historygo.databinding.ActivityInicioBinding
 
 class InicioActivity : AppCompatActivity() {
@@ -27,7 +27,7 @@ class InicioActivity : AppCompatActivity() {
         }
 
         binding.btnRegistrarse.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
     }

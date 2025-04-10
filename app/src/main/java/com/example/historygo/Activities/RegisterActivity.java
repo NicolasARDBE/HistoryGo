@@ -6,11 +6,12 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.historygo.awsServices.Cognito;
-import com.example.historygo.databinding.ActivityMainBinding;
+import com.example.historygo.databinding.ActivityRegisterBinding;
+import com.example.historygo.databinding.ActivityRegisterBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+    private ActivityRegisterBinding binding;
 
     Cognito authentication;
     private String userId;
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
         initViewComponents();
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(MainActivity.this, "This is a Toast message!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, Login.class);
+                Intent intent = new Intent(RegisterActivity.this, Login.class);
                 startActivity(intent);
             }
         });
