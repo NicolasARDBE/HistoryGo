@@ -35,7 +35,7 @@ public class Login extends AppCompatActivity {
         binding.RegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Login.this, MainActivity.class);
+                Intent intent = new Intent(Login.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
@@ -54,6 +54,14 @@ public class Login extends AppCompatActivity {
                     Cognito authentication = new Cognito(getApplicationContext());
                     authentication.userLogin(email, password);
                 }
+            }
+        });
+
+        binding.ForgotPasswordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, ForgotPasswordActivity.class);
+                startActivity(intent);
             }
         });
     }

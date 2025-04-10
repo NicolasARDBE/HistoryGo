@@ -24,6 +24,7 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHan
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidentityprovider.model.SignUpResult;
 import com.auth0.android.jwt.JWT;
+import com.example.historygo.Activities.ExpererienceMenuActivity;
 import com.example.historygo.Activities.RatingManagement;
 
 import static  android.content.ContentValues.TAG;
@@ -138,7 +139,7 @@ public class Cognito {
             Log.i("AWS", "Identity ID obtenido: " + identityId);
 
 
-            Intent intent = new Intent(appContext, RatingManagement.class);
+            Intent intent = new Intent(appContext, ExpererienceMenuActivity.class);
             intent.putExtra("JWTTOKEN", jwtToken);
 
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
