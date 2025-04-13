@@ -5,7 +5,7 @@ import com.amazonaws.mobileconnectors.dynamodbv2.document.ScanOperationConfig
 import com.amazonaws.mobileconnectors.dynamodbv2.document.Table
 import com.amazonaws.mobileconnectors.dynamodbv2.document.datatype.Document
 import com.amazonaws.mobileconnectors.dynamodbv2.document.datatype.Primitive
-import com.example.historygo.awsServices.DynamoDBService
+import com.example.historygo.AwsServices.DynamoDBService
 
 class TouristSpotService (private var dynamoService: DynamoDBService){
     private var dbTable: Table = dynamoService.setTableTouristSpot()

@@ -1,4 +1,4 @@
-package com.example.historygo.awsServices;
+package com.example.historygo.AwsServices;
 
 public interface DynamoDBInitializationCallback {
     void onDynamoDBInitialized();
