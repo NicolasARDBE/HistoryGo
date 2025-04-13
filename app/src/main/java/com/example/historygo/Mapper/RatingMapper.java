@@ -1,7 +1,7 @@
 package com.example.historygo.Mapper;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.document.datatype.Document;
-import com.example.historygo.dto.RatingDto;
+import com.example.historygo.Dto.RatingDto;
 
 public class RatingMapper {
     public static Document ratingToDynamoDocument(RatingDto ratingRequest) {

@@ -1,6 +1,7 @@
 package com.example.historygo.Activities.Maps
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.hardware.Sensor
@@ -8,7 +9,6 @@ import android.hardware.SensorEvent
 import android.hardware.SensorManager
 import android.location.Geocoder
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.os.StrictMode
 import android.preference.PreferenceManager
@@ -16,17 +16,14 @@ import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.historygo.Activities.Fragments.ReproductorFragment
 import com.example.historygo.R
 import com.example.historygo.databinding.ActivityMapsBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.json.JSONArray
-import org.json.JSONObject
 import org.osmdroid.api.IGeoPoint
 import org.osmdroid.bonuspack.routing.RoadManager
 import org.osmdroid.config.Configuration.getInstance
@@ -40,11 +37,7 @@ import org.osmdroid.views.overlay.Polyline
 import org.osmdroid.views.overlay.TilesOverlay
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
-import java.io.File
-import java.io.FileWriter
 import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 import org.osmdroid.bonuspack.routing.OSRMRoadManager
 
@@ -100,16 +93,16 @@ class MapsActivity : AppCompatActivity() {
         centerOnUserLocation()
         locationOverlay.enableFollowLocation()
 
-        val parrillada = GeoPoint(4.628596, -74.066345)
-        val giornatta = GeoPoint(4.697936, -74.054965)
-        val chula = GeoPoint(4.699182, -74.050430)
-        addMarkerWithAddress(parrillada)
-        addMarkerWithAddress(giornatta)
-        addMarkerWithAddress(chula)
+//        val parrillada = GeoPoint(4.628596, -74.066345)
+//        val giornatta = GeoPoint(4.697936, -74.054965)
+//        val chula = GeoPoint(4.699182, -74.050430)
+//        addMarkerWithAddress(parrillada)
+//        addMarkerWithAddress(giornatta)
+//        addMarkerWithAddress(chula)
 
         //buscar y longclick
-        buscar()
-        longClick()
+        //buscar()
+       // longClick()
 
 
         //rutas
@@ -117,9 +110,14 @@ class MapsActivity : AppCompatActivity() {
         StrictMode.setThreadPolicy(policy)
         roadManager = OSRMRoadManager(this, "ANDROID")
 
-
+        //REPRODUCTOR AUDIO
+        setupAudioPlayback()
 
     }
+
+
+
+
     //Attribute
     private fun drawRoute(start: GeoPoint, finish: GeoPoint) {
         val routePoints = ArrayList<GeoPoint>()
@@ -243,7 +241,7 @@ class MapsActivity : AppCompatActivity() {
         locationOverlay.disableMyLocation()
 
         // Detener la escucha del sensor de luz
-        //  mSensorManager.unregisterListener(this)
+        // mSensorManager.unregisterListener(this)
     }
 
     private fun askPermiso() {
@@ -301,7 +299,6 @@ class MapsActivity : AppCompatActivity() {
                 if (lastKnownLocation != null) {
                     val distance = lastKnownLocation!!.distanceToAsDouble(lastLocation)
                     if (distance > 30) {
-                        saveLocationToJson(lastLocation)
                         lastKnownLocation = lastLocation
                     }
                 } else {
@@ -316,31 +313,7 @@ class MapsActivity : AppCompatActivity() {
         }, 1000)
     }
 
-    private fun saveLocationToJson(location: GeoPoint) {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-        val currentDateAndTime: String = dateFormat.format(Date())
 
-        val locationData = LocationData(location.latitude, location.longitude, currentDateAndTime)
-        val jsonData = JSONObject()
-        jsonData.put("latitude", locationData.latitude)
-        jsonData.put("longitude", locationData.longitude)
-        jsonData.put("timestamp", locationData.timestamp)
-
-        jsonArray.put(jsonData)
-
-        try {
-            val directory = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
-            val file = File(directory, "location_data.json")
-            val fileWriter = FileWriter(file)
-            fileWriter.write(jsonArray.toString())
-            fileWriter.close()
-            Toast.makeText(this, "Ubicación guardada en $file", Toast.LENGTH_LONG).show()
-        } catch (e: Exception) {
-            e.printStackTrace()
-
-            Toast.makeText(this, "Error al guardar la ubicación", Toast.LENGTH_LONG).show()
-        }
-    }
 
     data class LocationData(val latitude: Double, val longitude: Double, val timestamp: String)
 
@@ -402,4 +375,24 @@ class MapsActivity : AppCompatActivity() {
         // 5. Muestra el diálogo
         dialog.show()
     }
+
+
+    //REPRODUCTOR AUDIO
+    private fun setupAudioPlayback() {
+        // Use the helper function to get the URI :
+        val audioUri = getRawUri(this, R.raw.sample_audio)
+        Log.d("MainActivity", "Audio URI: $audioUri") // Log the URI
+        val audioName = "Hard times"  // CAMBIAR A NOMBRE DE AUDIO
+
+
+        val fragment = ReproductorFragment.newInstance(audioUri, audioName)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView2, fragment)
+            .commit()
+    }
+    private fun getRawUri(context: Context, rawResId: Int): String {
+        return "android.resource://${context.packageName}/$rawResId"
+    }
+
+
 }

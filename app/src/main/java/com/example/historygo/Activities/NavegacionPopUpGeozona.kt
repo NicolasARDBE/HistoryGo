@@ -15,8 +15,8 @@ import org.osmdroid.views.MapView
 class NavegacionPopUpGeozona : AppCompatActivity() {
     private lateinit var binding: ActivityNavegacionPopUpGeozonaBinding
     private lateinit var geocoder: Geocoder
-    lateinit var map : MapView
-    var testLocation = GeoPoint(4.59, -74.06)
+    private lateinit var map : MapView
+    private var testLocation = GeoPoint(4.59, -74.06)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
