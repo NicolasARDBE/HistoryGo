@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.historygo.awsServices.Cognito;
+import com.example.historygo.awsServices.CognitoManager;
 import com.example.historygo.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         initViewComponents();
-        authentication = new Cognito(getApplicationContext());
+        authentication = CognitoManager.Companion.getInstance(getApplicationContext()).getCognito();
 
         binding.LoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override

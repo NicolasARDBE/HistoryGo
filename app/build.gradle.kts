@@ -66,6 +66,7 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.preference.ktx)
+    implementation(libs.okhttp)
 
     //AWS
     implementation(libs.aws.android.sdk.core)
@@ -94,9 +95,8 @@ dependencies {
     implementation(libs.jwtdecode)
 
     //360 Degree Display
-    implementation("com.github.hannesa2:panoramagl:1.12")
+    implementation(libs.panoramagl)
 
     //GeoFencing
-    implementation("com.google.android.gms:play-services-location:21.3.0")
-
+    implementation(libs.play.services.location)
 }

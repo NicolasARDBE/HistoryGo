@@ -11,6 +11,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import com.example.historygo.awsServices.CognitoManager;
 
 public class DynamoDBService {
     private static final String RATING_DYNAMODB_TABLE = "Rating";
@@ -23,7 +24,7 @@ public class DynamoDBService {
 
 
     public DynamoDBService(Context context) {
-        cognito = new Cognito(context);
+        cognito = CognitoManager.Companion.getInstance(context).getCognito();
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(this::dynamoConnectionAndAuth);
 

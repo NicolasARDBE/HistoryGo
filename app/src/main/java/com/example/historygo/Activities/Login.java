@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.historygo.awsServices.Cognito;
 import com.example.historygo.databinding.ActivityLoginBinding;
+import com.example.historygo.awsServices.CognitoManager;
 
 public class Login extends AppCompatActivity {
 
@@ -61,7 +62,8 @@ public class Login extends AppCompatActivity {
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Por favor, completa todos los campos.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Cognito authentication = new Cognito(getApplicationContext());
+                    Cognito authentication = CognitoManager.Companion.getInstance(getApplicationContext()).getCognito();
+                    assert authentication != null;
                     authentication.userLogin(email, password);
                 }
             }

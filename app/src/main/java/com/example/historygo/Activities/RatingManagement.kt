@@ -14,6 +14,7 @@ import com.example.historygo.Services.NotificationService
 import com.example.historygo.Services.RatingService
 import com.example.historygo.Services.TouristSpotService
 import com.example.historygo.awsServices.Cognito
+import com.example.historygo.awsServices.CognitoManager
 import com.example.historygo.awsServices.DynamoDBInitializationCallback
 import com.example.historygo.awsServices.DynamoDBService
 import com.example.historygo.clientsdk.HistorygoapiClient
@@ -47,7 +48,7 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
 
         // Callback
         dynamoService = DynamoDBService(baseContext) //Aquí ya se ejecuta el dynamoConnectionAndAuth
-        cognito = Cognito(applicationContext)
+        cognito = CognitoManager.getInstance(applicationContext).getCognito()!!
         dynamoService.setCallback(this)
 
         Log.d("JWT", "token: $jwtToken")

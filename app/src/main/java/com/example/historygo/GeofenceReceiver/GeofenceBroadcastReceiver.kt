@@ -4,13 +4,10 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import android.widget.Button
 import com.example.historygo.Activities.MenuOpcionesGuia
-import com.example.historygo.R
 import com.example.historygo.Services.NotificationService
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class GeofenceBroadcastReceiver : BroadcastReceiver() {
 

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.historygo.awsServices.Cognito
+import com.example.historygo.awsServices.CognitoManager
 import com.example.historygo.databinding.ActivityForgotPasswordBinding
 
 class ForgotPasswordActivity : AppCompatActivity() {
@@ -12,7 +13,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
-        cognito = Cognito(applicationContext)
+        cognito = CognitoManager.getInstance(applicationContext).getCognito()!!
         setContentView(binding.root)
 
         binding.StartProcessBtn.setOnClickListener(){
