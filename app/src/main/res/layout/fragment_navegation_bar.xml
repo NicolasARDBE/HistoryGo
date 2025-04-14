@@ -3,10 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/orange"
     android:orientation="horizontal"
+    android:gravity="center"
     android:padding="8dp"
-    android:gravity="center">
+    android:backgroundTint="@color/orange">
 
     <ImageButton
         android:id="@+id/btnHome"
@@ -15,7 +17,7 @@
         android:layout_weight="1"
         android:src="@drawable/house_icon"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Home"/>
+        android:contentDescription="@string/home"/>
 
     <ImageButton
         android:id="@+id/btnFavorites"
@@ -24,7 +26,7 @@
         android:layout_weight="1"
         android:src="@drawable/heart_icon"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Favorites"/>
+        android:contentDescription="@string/favorites"/>
 
     <ImageButton
         android:id="@+id/btnArchive"
@@ -33,7 +35,7 @@
         android:layout_weight="1"
         android:src="@drawable/inbox_icon"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Archive"/>
+        android:contentDescription="@string/archive"/>
 
     <ImageButton
         android:id="@+id/btnProfile"
@@ -42,6 +44,6 @@
         android:layout_weight="1"
         android:src="@drawable/profile_icon"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Profile"/>
+        android:contentDescription="@string/profile"/>
 
 </LinearLayout>
