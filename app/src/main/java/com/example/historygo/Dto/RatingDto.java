@@ -1,4 +1,4 @@
-package com.example.historygo.dto;
+package com.example.historygo.Dto;
 
 import java.util.HashMap;
 import java.util.Map;

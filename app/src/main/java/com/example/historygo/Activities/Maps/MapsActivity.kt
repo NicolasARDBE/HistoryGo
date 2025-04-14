@@ -9,7 +9,6 @@ import android.hardware.SensorEvent
 import android.hardware.SensorManager
 import android.location.Geocoder
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.os.StrictMode
 import android.preference.PreferenceManager
@@ -17,18 +16,14 @@ import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.historygo.Activities.Fragments.ReproductorFragment
 import com.example.historygo.R
 import com.example.historygo.databinding.ActivityMapsBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.json.JSONArray
-import org.json.JSONObject
 import org.osmdroid.api.IGeoPoint
 import org.osmdroid.bonuspack.routing.RoadManager
 import org.osmdroid.config.Configuration.getInstance
@@ -42,11 +37,7 @@ import org.osmdroid.views.overlay.Polyline
 import org.osmdroid.views.overlay.TilesOverlay
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
-import java.io.File
-import java.io.FileWriter
 import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 import org.osmdroid.bonuspack.routing.OSRMRoadManager
 

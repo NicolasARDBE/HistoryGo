@@ -20,7 +20,6 @@ class NotificationService : Service() {
     var notid = 0
     override fun onCreate(){
         super.onCreate()
-        Log.i("Nicolas", "Se esta escuchando notificacion")
         createNotificationChannel()
     }
 
@@ -78,9 +77,15 @@ class NotificationService : Service() {
 
     @SuppressLint("SuspiciousIndentation")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.i("Nicolas", "Entre a start")
-        notify(buildNotification("HistoryGO", "Has llegado al Chorro de Quevedo",
-            R.drawable.baseline_circle_notifications_24, MenuOpcionesGuia::class.java))
+        val message = intent?.getStringExtra("notification_message") ?: "Estás en la zona"
+        notify(
+            buildNotification(
+                "HistoryGO",
+                message,
+                R.drawable.baseline_circle_notifications_24,
+                MenuOpcionesGuia::class.java
+            )
+        )
         return START_STICKY
     }
 }

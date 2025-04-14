@@ -3,13 +3,11 @@ package com.example.historygo.Services
 import android.util.Log
 import com.amazonaws.mobileconnectors.dynamodbv2.document.ScanOperationConfig
 import com.amazonaws.mobileconnectors.dynamodbv2.document.Table
-import com.amazonaws.mobileconnectors.dynamodbv2.document.UpdateItemOperationConfig
 import com.amazonaws.mobileconnectors.dynamodbv2.document.datatype.Document
 import com.amazonaws.mobileconnectors.dynamodbv2.document.datatype.Primitive
-import com.amazonaws.services.dynamodbv2.model.ReturnValue
 import com.example.historygo.Mapper.RatingMapper
-import com.example.historygo.awsServices.DynamoDBService
-import com.example.historygo.dto.RatingDto
+import com.example.historygo.AwsServices.DynamoDBService
+import com.example.historygo.Dto.RatingDto
 
 
 class RatingService(private var dynamoService: DynamoDBService) {

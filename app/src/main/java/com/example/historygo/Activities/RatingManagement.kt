@@ -8,27 +8,23 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.amazonaws.mobileconnectors.dynamodbv2.document.datatype.Document
-import com.amazonaws.mobileconnectors.dynamodbv2.document.datatype.Primitive
 import com.example.historygo.Services.JWTDecoder
 import com.example.historygo.Services.NotificationService
 import com.example.historygo.Services.RatingService
-import com.example.historygo.Services.TouristSpotService
-import com.example.historygo.awsServices.Cognito
-import com.example.historygo.awsServices.DynamoDBInitializationCallback
-import com.example.historygo.awsServices.DynamoDBService
+import com.example.historygo.AwsServices.Cognito
+import com.example.historygo.AwsServices.CognitoManager
+import com.example.historygo.AwsServices.DynamoDBInitializationCallback
+import com.example.historygo.AwsServices.DynamoDBService
 import com.example.historygo.clientsdk.HistorygoapiClient
-import com.example.historygo.clientsdk.model.RatingGet
 import com.example.historygo.clientsdk.model.RatingPOST
 import com.example.historygo.clientsdk.model.RatingPUT
 import com.example.historygo.databinding.ActivityReviewManagementBinding
-import com.example.historygo.dto.RatingDto
 import java.math.BigDecimal
 
 class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
     private lateinit var binding: ActivityReviewManagementBinding
     private lateinit var dynamoService: DynamoDBService
     private lateinit var ratingService: RatingService
-    private lateinit var touristSpotService: TouristSpotService
     private lateinit var cognito: Cognito
     private val jwtDecoder: JWTDecoder = JWTDecoder()
 
@@ -47,7 +43,7 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
 
         // Callback
         dynamoService = DynamoDBService(baseContext) //Aquí ya se ejecuta el dynamoConnectionAndAuth
-        cognito = Cognito(applicationContext)
+        cognito = CognitoManager.getInstance(applicationContext).getCognito()!!
         dynamoService.setCallback(this)
 
         Log.d("JWT", "token: $jwtToken")
@@ -55,7 +51,7 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
         val response1 = client.ratingTableGetAllGet(jwtToken)
         val response2 = client.touristSpotTableGetAllGet(jwtToken)
 
-        binding.GetAllBtn.setOnClickListener(){
+        binding.GetAllBtn.setOnClickListener{
             Log.d("GetAllRating", "Response: $response1")
             response1.ratings?.forEach { rating ->
                 Log.d("GetAllRating", "Rating Item: $rating")
@@ -67,7 +63,7 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
             }
         }
 
-        binding.CreateBtn.setOnClickListener(){
+        binding.CreateBtn.setOnClickListener{
             val rating = RatingPOST()
             rating.touristSpotId = "1"
             rating.rating = BigDecimal(1)
@@ -76,7 +72,7 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
             client.ratingTablePost(jwtToken, rating)
         }
 
-        binding.UpdateBtn.setOnClickListener(){
+        binding.UpdateBtn.setOnClickListener{
             val rating = RatingPUT()
             rating.rating = BigDecimal(1)
             rating.review = "Me gustó la experiencia"
@@ -84,18 +80,18 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
             client.ratingTableTouristSpotIdRatingIdPut("123","da00444d-fb5e-43be-8245-e2ab58c5dee5",jwtToken, rating)
         }
 
-        binding.DeleteBtn.setOnClickListener(){
+        binding.DeleteBtn.setOnClickListener{
             client.ratingTableTouristSpotIdRatingIdDelete("123", "da00444d-fb5e-43be-8245-e2ab58c5dee5", jwtToken)
         }
 
-        binding.signOutBtn.setOnClickListener(){
-            SignOut()
+        binding.signOutBtn.setOnClickListener{
+            signOut()
             val i = Intent(this, Login::class.java)
             i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(i)
             finish()
         }
-        binding.s3Btn.setOnClickListener(){
+        binding.s3Btn.setOnClickListener{
             val intent = Intent(this, S3RetrieveActivity::class.java)
             intent.putExtra("JWTTOKEN", jwtToken)
             startActivity(intent)
@@ -120,7 +116,7 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
         }
     }
 
-    private fun SignOut(){
+    private fun signOut(){
         //Cierra sesión localmente
         cognito.cognitoCachingCredentialsProvider.clear()
         val serviceIntent = Intent(this, NotificationService::class.java)

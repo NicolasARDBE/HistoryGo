@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.historygo.awsServices.Cognito;
-import com.example.historygo.databinding.ActivityRegisterBinding;
+import com.example.historygo.AwsServices.Cognito;
+import com.example.historygo.AwsServices.CognitoManager;
 import com.example.historygo.databinding.ActivityRegisterBinding;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -23,35 +23,26 @@ public class RegisterActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         initViewComponents();
-        authentication = new Cognito(getApplicationContext());
+        authentication = CognitoManager.Companion.getInstance(getApplicationContext()).getCognito();
 
-        binding.LoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(MainActivity.this, "This is a Toast message!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(RegisterActivity.this, Login.class);
-                startActivity(intent);
-            }
+        binding.LoginBtn.setOnClickListener(v -> {
+            //Toast.makeText(MainActivity.this, "This is a Toast message!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(RegisterActivity.this, Login.class);
+            startActivity(intent);
         });
     }
 
     private void initViewComponents(){
-        binding.SignupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                userId = binding.Email.getText().toString().replace(" ", "");
-                authentication.addAttribute("family_name", userId);
-                authentication.addAttribute("email", binding.Email.getText().toString().replace(" ", ""));
-                authentication.signUpInBackground(userId, binding.Password.getText().toString());
-            }
+        binding.SignupBtn.setOnClickListener(view -> {
+            userId = binding.Email.getText().toString().replace(" ", "");
+            authentication.addAttribute("family_name", userId);
+            authentication.addAttribute("email", binding.Email.getText().toString().replace(" ", ""));
+            authentication.signUpInBackground(userId, binding.Password.getText().toString());
         });
 
-        binding.VerifyBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                authentication.confirmUser(userId, binding.ConfirmationCode.getText().toString().replace(" ", ""));
-                //finish();
-            }
+        binding.VerifyBtn.setOnClickListener(view -> {
+            authentication.confirmUser(userId, binding.ConfirmationCode.getText().toString().replace(" ", ""));
+            //finish();
         });
 
 

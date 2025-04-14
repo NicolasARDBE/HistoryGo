@@ -1,14 +1,12 @@
-package com.example.historygo.awsServices;
+package com.example.historygo.AwsServices;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.document.Table;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -23,7 +21,7 @@ public class DynamoDBService {
 
 
     public DynamoDBService(Context context) {
-        cognito = new Cognito(context);
+        cognito = CognitoManager.Companion.getInstance(context).getCognito();
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(this::dynamoConnectionAndAuth);
 

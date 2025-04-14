@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.amazonaws.mobileconnectors.apigateway.ApiRequest
 import com.amazonaws.mobileconnectors.apigateway.ApiResponse
-import com.amazonaws.util.IOUtils
 import com.bumptech.glide.Glide
 import com.example.historygo.clientsdk.HistorygoapiClient
 import com.example.historygo.databinding.ActivityS3RetrieveBinding
