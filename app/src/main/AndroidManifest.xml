@@ -21,11 +21,14 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_historygo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_historygo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HistoryGo">
+        <activity
+            android:name=".Activities.Profile"
+            android:exported="false" />
         <activity
             android:name=".Activities.Display360DegreeImage"
             android:exported="false" />
@@ -49,10 +52,13 @@
             android:exported="true" />
         <activity
             android:name=".Activities.SelectedExperience"
-            android:exported="true" />
-        <activity
-            android:name=".Activities.MainActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan" />
+        <!--
+ <activity
+             android:name=".Activities.MainActivity"
+             android:exported="true" />
+        -->
         <activity
             android:name=".Activities.RatingManagement"
             android:exported="true" /> <!-- LoginActivity will be the entry point -->

@@ -53,4 +53,13 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="home">Home</string>
+    <string name="favorites">Favorites</string>
+    <string name="archive">Archive</string>
+    <string name="profile">Profile</string>
+    <string name="perfil">PERFIL</string>
+    <string name="nombre">Nombre</string>
+    <string name="correo_electronico">Correo Electronico</string>
+    <string name="password">Password</string>
+    <string name="enviar_c_digo">Enviar Código</string>
 </resources>

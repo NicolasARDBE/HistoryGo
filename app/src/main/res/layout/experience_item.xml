@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardExperience"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:background="@color/yellow"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="4dp"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?attr/selectableItemBackground">
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/yellow"
         android:padding="16dp">
 
-        <!-- Imagen circular -->
         <ImageView
             android:id="@+id/LocationImage"
             android:layout_width="50dp"
@@ -29,26 +30,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Título del lugar -->
         <TextView
             android:id="@+id/ExperienceTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Nombre del lugar"
-            android:textSize="15sp"
-            android:textStyle="bold"
             android:layout_marginLeft="15dp"
+            android:text="Nombre del lugar"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/LocationImage"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Descripción del lugar -->
         <TextView
             android:id="@+id/tvDescripcion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Descripción corta..."
-            android:textSize="13sp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/ExperienceTitle"

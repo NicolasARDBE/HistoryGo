@@ -8,15 +8,14 @@
     tools:context=".Activities.ExpererienceMenuActivity"
     android:background="@color/bone">
 
-
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="NUESTRAS EXPERIENCIAS"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/poppins_medium"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,20 +31,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <include
-        android:id="@+id/navigationBar"
-        layout="@layout/navigation_bar"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/navigationBarFragmentContainer"
+        android:name="com.example.historygo.Activities.Fragments.NavegationBarFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        />
-
-
-
-
-
-
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout="@layout/fragment_navegation_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

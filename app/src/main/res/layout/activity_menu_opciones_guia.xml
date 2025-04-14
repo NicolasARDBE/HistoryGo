@@ -25,8 +25,8 @@
 
     <Button
         android:id="@+id/ExpCompletaBtn"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="274dp"
+        android:layout_height="73dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="64dp"
@@ -36,14 +36,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/map"
         android:autoSizeTextType="uniform"
-        android:autoSizeMaxTextSize="25sp"
-        android:backgroundTint="@color/azulClaro"
-        />
+        android:autoSizeMaxTextSize="18sp"
+        android:backgroundTint="@color/blue2"/>
 
     <Button
         android:id="@+id/RepAudioBtn"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="274dp"
+        android:layout_height="73dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="64dp"
@@ -53,26 +52,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ExpCompletaBtn"
         android:autoSizeTextType="uniform"
-        android:autoSizeMaxTextSize="25sp"
-        android:backgroundTint="@color/azulOscuro"
-        />
+        android:autoSizeMaxTextSize="18sp"
+        android:backgroundTint="@color/azulOscuro"/>
 
     <Button
         android:id="@+id/RepVideosBtn"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="274dp"
+        android:layout_height="73dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="64dp"
         android:layout_marginBottom="32dp"
         android:text="Reproducción de Videos"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/RepAudioBtn"
         android:autoSizeTextType="uniform"
-        android:autoSizeMaxTextSize="25sp"
-        android:backgroundTint="@color/azulOscuro"
-        />
+        android:autoSizeMaxTextSize="18sp"
+        android:backgroundTint="@color/azulOscuro"/>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/navigationBarFragmentContainer"
+        android:name="com.example.historygo.Activities.Fragments.NavegationBarFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout="@layout/fragment_navegation_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
