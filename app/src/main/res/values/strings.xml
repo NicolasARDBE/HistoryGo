@@ -62,4 +62,20 @@
     <string name="correo_electronico">Correo Electronico</string>
     <string name="password">Password</string>
     <string name="enviar_c_digo">Enviar Código</string>
+    <string name="crea_tu_cuenta">Crea tu cuenta</string>
+    <string name="crea_tu_cuenta_y_comienza_a_disfrutar_de_nuestras_experiencias">Crea tu cuenta y comienza a disfrutar de nuestras experiencias</string>
+    <string name="continuar">Continuar</string>
+    <string name="correo">Correo</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="confirmar_contrasena">Confirmar contraseña</string>
+    <string name="te_hemos_enviado_un_c_digo_de_verificaci_n_a_tu_correo_electr_nico">Te hemos enviado un código de verificación a tu correo electrónico</string>
+    <string name="verificar">Verificar</string>
+    <string name="c_digo_verficaci_n">Código Verficación</string>
+    <string name="verificar_cuenta">Verificar Cuenta</string>
+    <string name="regresar">Regresar</string>
+    <string name="ya_tengo_una_cuenta">Ya tengo una cuenta</string>
+    <string name="crear_nueva_cuenta">Crear nueva cuenta</string>
+    <string name="iniciar_sesi_n">Iniciar Sesión</string>
+    <string name="olvidaste_t_contrase_a">¿Olvidaste tú contraseña?</string>
+    <string name="bienvenido">¡Bienvenido!</string>
 </resources>

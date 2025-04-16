@@ -3,11 +3,15 @@ package com.example.historygo.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.historygo.AwsServices.Cognito;
 import com.example.historygo.AwsServices.CognitoManager;
 import com.example.historygo.databinding.ActivityRegisterBinding;
+
+import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -32,19 +36,33 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void initViewComponents(){
+    private void initViewComponents() {
         binding.SignupBtn.setOnClickListener(view -> {
+            String name = binding.Name.getText().toString().trim();
+            String email = binding.Email.getText().toString().trim();
+            String password = Objects.requireNonNull(binding.Password.getText()).toString().trim();
+            String confirmPassword = Objects.requireNonNull(binding.ConfirmPassword.getText()).toString().trim();
+
+
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                // Muestra un mensaje de error
+                Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!password.equals(confirmPassword)) {
+                Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             userId = binding.Email.getText().toString().replace(" ", "");
             authentication.addAttribute("family_name", userId);
             authentication.addAttribute("email", binding.Email.getText().toString().replace(" ", ""));
             authentication.signUpInBackground(userId, binding.Password.getText().toString());
+
+            Intent intent = new Intent(RegisterActivity.this, VerifyAcountActivity.class);
+            intent.putExtra("userId", userId); // si necesitas pasarlo
+            startActivity(intent);
         });
-
-        binding.VerifyBtn.setOnClickListener(view -> {
-            authentication.confirmUser(userId, binding.ConfirmationCode.getText().toString().replace(" ", ""));
-            //finish();
-        });
-
-
     }
 }
