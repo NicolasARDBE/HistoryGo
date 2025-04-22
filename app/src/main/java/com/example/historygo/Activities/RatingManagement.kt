@@ -121,10 +121,17 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
         cognito.cognitoCachingCredentialsProvider.clear()
         val serviceIntent = Intent(this, NotificationService::class.java)
         stopService(serviceIntent)
+
         val sharedPreferences = getSharedPreferences("mi_app_pref", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.clear()
         editor.apply()
+
+        val sharedPreferencesJwt = getSharedPreferences("auth", Context.MODE_PRIVATE)
+        val editorJwt = sharedPreferencesJwt.edit()
+        editorJwt.remove("jwt_token")
+        editorJwt.apply()
+
         cognito.UserSignOut()
     }
 }

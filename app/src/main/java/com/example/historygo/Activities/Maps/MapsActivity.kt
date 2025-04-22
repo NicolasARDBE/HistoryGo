@@ -19,8 +19,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.example.historygo.Activities.Fragments.ReproductorFragment
 import com.example.historygo.R
+import com.example.historygo.clientsdk.HistorygoapiClient
 import com.example.historygo.databinding.ActivityMapsBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.json.JSONArray
@@ -77,6 +79,16 @@ class MapsActivity : AppCompatActivity() {
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val factory = ApiClientFactory()
+        val client: HistorygoapiClient = factory.build(HistorygoapiClient::class.java)
+
+        val jwtToken = getSharedPreferences("auth", Context.MODE_PRIVATE)
+            .getString("jwt_token", null)
+
+        if (jwtToken != null) {
+            Log.d("mapTest", "token: $jwtToken")
+        }
+
         map = findViewById<MapView>(R.id.map)
         map.setTileSource(TileSourceFactory.MAPNIK)
         map.setMultiTouchControls(true)
@@ -111,7 +123,9 @@ class MapsActivity : AppCompatActivity() {
         roadManager = OSRMRoadManager(this, "ANDROID")
 
         //REPRODUCTOR AUDIO
-        setupAudioPlayback()
+        if (jwtToken != null) {
+            setupAudioPlayback(client, jwtToken)
+        }
 
     }
 
@@ -378,14 +392,18 @@ class MapsActivity : AppCompatActivity() {
 
 
     //REPRODUCTOR AUDIO
-    private fun setupAudioPlayback() {
+    private fun setupAudioPlayback(client: HistorygoapiClient, jwtToken: String) {
         // Use the helper function to get the URI :
-        val audioUri = getRawUri(this, R.raw.sample_audio)
-        Log.d("MainActivity", "Audio URI: $audioUri") // Log the URI
-        val audioName = "Hard times"  // CAMBIAR A NOMBRE DE AUDIO
+        //val audioUri = getRawUri(this, R.raw.sample_audio)
+        //Log.d("MainActivity", "Audio URI: $audioUri") // Log the URI
+        val audioName = "Narración Histórica Chorro de Quevedo"  // CAMBIAR A NOMBRE DE AUDIO
+
+        val audioKey = "guion-v2-chorro.mp3"
+        val cloudFrontBaseUrl = "https://d3krfb04kdzji1.cloudfront.net/"
+        val audioUrl = "$cloudFrontBaseUrl$audioKey"
 
 
-        val fragment = ReproductorFragment.newInstance(audioUri, audioName)
+        val fragment = ReproductorFragment.newInstance(audioUrl, audioName)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView2, fragment)
             .commit()
@@ -393,6 +411,4 @@ class MapsActivity : AppCompatActivity() {
     private fun getRawUri(context: Context, rawResId: Int): String {
         return "android.resource://${context.packageName}/$rawResId"
     }
-
-
 }

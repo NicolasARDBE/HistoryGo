@@ -3,6 +3,7 @@ package com.example.historygo.AwsServices;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.example.historygo.Activities.ExpererienceMenuActivity;
 import com.example.historygo.Azure.AzureSecretsManager;
 
 import static android.content.ContentValues.TAG;
+import static android.content.Context.MODE_PRIVATE;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -154,6 +156,11 @@ public class Cognito {
 
             String identityId = credentialsProvider.getIdentityId();
             Log.i("AWS", "Identity ID obtenido: " + identityId);
+
+            SharedPreferences sharedPreferences = appContext.getSharedPreferences("auth", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("jwt_token", jwtToken); // token es tu JWT en String
+            editor.apply();
 
 
             Intent intent = new Intent(appContext, ExpererienceMenuActivity.class);

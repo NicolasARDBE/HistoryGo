@@ -3,12 +3,11 @@ package com.example.historygo.Helper
 import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.example.historygo.AwsServices.Cognito
 import com.example.historygo.AwsServices.CognitoManager
-import com.example.historygo.Services.NotificationService
+
 
 class MyApplication : Application() {
 
@@ -38,6 +37,12 @@ class MyApplication : Application() {
                     val editor = sharedPreferences.edit()
                     editor.clear()
                     editor.apply()
+
+                    val sharedPreferencesJwt = getSharedPreferences("auth", Context.MODE_PRIVATE)
+                    val editorJwt = sharedPreferencesJwt.edit()
+                    editorJwt.remove("jwt_token")
+                    editorJwt.apply()
+
                     cognito.UserSignOut()
                 }
             }
