@@ -30,6 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HistoryGo">
         <activity
+            android:name=".Activities.ExperienciaCompletaActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.VerifyAcountActivity"
             android:exported="false" />
         <activity

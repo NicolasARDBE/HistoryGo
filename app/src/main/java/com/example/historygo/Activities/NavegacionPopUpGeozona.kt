@@ -62,7 +62,9 @@ class NavegacionPopUpGeozona : AppCompatActivity() {
             dialog.dismiss()
         }
         btnIniciar.setOnClickListener {
-            // Acciones para "Iniciar"
+            //Binding a menu opciones guia
+            val intent = android.content.Intent(this, MenuOpcionesGuia::class.java)
+            startActivity(intent)
             dialog.dismiss()
             // Por ejemplo: iniciar otra Activity o lo que necesites
         }

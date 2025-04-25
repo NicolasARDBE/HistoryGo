@@ -33,9 +33,9 @@ class SelectedExperience : AppCompatActivity() {
             insets
         }
 
-        //Función de prueba
+
         binding.startRoute.setOnClickListener {
-            startActivity(Intent(this, MapsActivity::class.java))
+            startActivity(Intent(this, NavegacionPopUpGeozona::class.java))
         }
 
 
