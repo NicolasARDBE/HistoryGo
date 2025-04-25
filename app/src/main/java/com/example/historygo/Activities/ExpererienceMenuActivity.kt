@@ -22,8 +22,8 @@ class ExpererienceMenuActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val experiences = listOf(
-            Experience("Plaza Del Chorro De Quevedo", "Una colección impresionante de artefactos precolombinos.", R.drawable.chorro_quevedo),
-            Experience("Palacio de Justicia", "Una colección impresionante de artefactos precolombinos.", R.drawable.chorro_quevedo)
+            Experience("Plaza Del Chorro De Quevedo", "El lugar donde nacio la ciudad de Bogotá", R.drawable.chorro_quevedo),
+            Experience("Palacio de Justicia", "La plaza mas emblematica de Bogotá", R.drawable.plaza_bolivar)
         )
 
         adapter = ExperienceAdapter(experiences)

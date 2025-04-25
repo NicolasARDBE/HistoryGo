@@ -44,7 +44,5 @@ class ExperienceAdapter(private val experiences: List<Experience>) :
         }
     }
 
-
-
     override fun getItemCount(): Int = experiences.size
 }

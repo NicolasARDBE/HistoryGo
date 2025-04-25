@@ -82,6 +82,14 @@ class MenuOpcionesGuia : AppCompatActivity() {
 
         centerOnUserLocation()
         locationOverlay.enableFollowLocation()
+
+
+        //botones de opciones de menu
+        binding.ExpCompletaBtn.setOnClickListener {
+            val intent = Intent(this, ExperienciaCompletaActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     override fun onResume() {

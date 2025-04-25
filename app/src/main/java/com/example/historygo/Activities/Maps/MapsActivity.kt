@@ -396,7 +396,7 @@ class MapsActivity : AppCompatActivity() {
         // Use the helper function to get the URI :
         //val audioUri = getRawUri(this, R.raw.sample_audio)
         //Log.d("MainActivity", "Audio URI: $audioUri") // Log the URI
-        val audioName = "Narración Histórica Chorro de Quevedo"  // CAMBIAR A NOMBRE DE AUDIO
+        val audioName = "Chorro de Quevedo"  // CAMBIAR A NOMBRE DE AUDIO
 
         val audioKey = "guion-v2-chorro.mp3"
         val cloudFrontBaseUrl = "https://d3krfb04kdzji1.cloudfront.net/"
