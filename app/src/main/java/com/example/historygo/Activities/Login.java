@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,6 +18,9 @@ import androidx.core.content.ContextCompat;
 import com.example.historygo.AwsServices.Cognito;
 import com.example.historygo.databinding.ActivityLoginBinding;
 import com.example.historygo.AwsServices.CognitoManager;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 public class Login extends AppCompatActivity {
 
@@ -57,9 +61,17 @@ public class Login extends AppCompatActivity {
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "Por favor, completa todos los campos.", Toast.LENGTH_SHORT).show();
             } else {
-                Cognito authentication = CognitoManager.Companion.getInstance(getApplicationContext()).getCognito();
-                assert authentication != null;
-                authentication.userLogin(email, password);
+                CognitoManager.Companion.getInstance(this, new Function1<Cognito, Unit>() {
+                    public Unit invoke(Cognito cognitoInstance) {
+                        if (cognitoInstance != null) {
+                            // Cognito inicializado, úsalo
+                            cognitoInstance.userLogin(email, password);
+                        } else {
+                            Log.e("MyActivity", "Error: Cognito es null");
+                        }
+                        return Unit.INSTANCE;
+                    }
+                });
             }
         });
 

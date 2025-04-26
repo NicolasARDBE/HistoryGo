@@ -43,7 +43,13 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
 
         // Callback
         dynamoService = DynamoDBService(baseContext) //Aquí ya se ejecuta el dynamoConnectionAndAuth
-        cognito = CognitoManager.getInstance(applicationContext).getCognito()!!
+        CognitoManager.getInstance(this) { cognitoInstance ->
+            if (cognitoInstance != null) {
+                cognito = cognitoInstance
+            } else {
+                Log.e("MiActivity", "Error: Cognito no disponible")
+            }
+        }
         dynamoService.setCallback(this)
 
         Log.d("JWT", "token: $jwtToken")

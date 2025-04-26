@@ -4,19 +4,20 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 
-//Singleton
+// Singleton
 class CognitoManager private constructor(context: Context) {
     private var cognito: Cognito? = null
+
     init {
         cognito = Cognito(context, object : Cognito.OnInitializedCallback {
             override fun onInitialized(cognitoInstance: Cognito) {
-                // Cognito está completamente inicializado, ahora podemos continuar con la lógica de la actividad
+                // Cognito completamente inicializado
                 Log.d("Cognito", "Cognito inicializado correctamente")
+                cognito = cognitoInstance
             }
 
             override fun onError(e: Exception) {
-                // Si hay un error durante la inicialización de Cognito, mostramos un mensaje de error
-                Toast.makeText(context,"Error al inicializar Cognito: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Error al inicializar Cognito: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -25,17 +26,16 @@ class CognitoManager private constructor(context: Context) {
         @Volatile
         private var INSTANCE: CognitoManager? = null
 
-        fun getInstance(context: Context): CognitoManager {
-            return INSTANCE ?: synchronized(this) {
-                val instance = INSTANCE ?: CognitoManager(context)
-                INSTANCE = instance
-                instance
+        fun getInstance(context: Context, onReady: (Cognito?) -> Unit) {
+            if (INSTANCE == null) {
+                synchronized(this) {
+                    if (INSTANCE == null) {
+                        INSTANCE = CognitoManager(context)
+                    }
+                }
             }
+            // Retorna la instancia de Cognito (puede ser null si no se inicializó todavía)
+            onReady(INSTANCE?.cognito)
         }
-    }
-
-    // Método para obtener la instancia de Cognito
-    fun getCognito(): Cognito? {
-        return cognito
     }
 }
