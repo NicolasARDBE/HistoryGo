@@ -72,7 +72,7 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="313dp"
-        android:layout_height="137.83dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/poppins_regular"
         android:text="Contextualización"
@@ -98,7 +98,7 @@
     <Button
         android:id="@+id/startRoute"
         android:layout_width="135dp"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:backgroundTint="@color/blue"
         android:fontFamily="@font/poppins_regular"

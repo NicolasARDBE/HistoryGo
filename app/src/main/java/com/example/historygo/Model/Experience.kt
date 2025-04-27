@@ -1,7 +1,8 @@
 package com.example.historygo.Model
 
 data class Experience(
+    val id: Int,
     val title: String,
     val description: String,
-    val imageResId: Int // ID de recurso drawable
+    val imageUrl: String // ID de recurso drawable
 )
