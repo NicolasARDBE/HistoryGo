@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.example.historygo.Activities.Maps.MapsActivity
 import com.example.historygo.clientsdk.HistorygoapiClient
 import com.example.historygo.clientsdk.model.TouristSpotGet
+import java.net.URLEncoder
 
 class SelectedExperience : AppCompatActivity() {
 
@@ -76,6 +77,14 @@ class SelectedExperience : AppCompatActivity() {
             startActivity(Intent(this, NavegacionPopUpGeozona::class.java))
         }
 
-
+        binding.imageButton.setOnClickListener{
+            val encodedAddress = URLEncoder.encode(touristSpotSelected.item.address.s, "UTF-8")
+            val gmmIntentUri = Uri.parse("geo:0,0?q=$encodedAddress")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            val chooser = Intent.createChooser(mapIntent, "Abrir con...")
+            if (mapIntent.resolveActivity(packageManager) != null) {
+                startActivity(chooser)
+            }
+        }
     }
 }

@@ -145,7 +145,7 @@ public class Cognito {
             cognitoUser.getSessionInBackground(authenticationHandler);
         } catch (Exception e) {
             Log.e("CognitoLogin", "Error during login: " + e.getMessage(), e);
-            Toast.makeText(appContext, "Error al conectar con Azure.", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, "Revise su conexión", Toast.LENGTH_LONG).show();
         }
     }
 
