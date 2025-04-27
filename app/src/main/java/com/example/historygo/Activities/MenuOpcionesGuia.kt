@@ -56,7 +56,7 @@ class MenuOpcionesGuia : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         map.onResume()
-        map.controller.setZoom(23.0)
+        map.controller.setZoom(21.0)
         map.controller.animateTo(chorroLocation)
     }
 

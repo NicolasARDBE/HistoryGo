@@ -45,7 +45,7 @@ class ExperienceAdapter(private val experiences: List<Experience>) :
             val context = holder.itemView.context
             val intent = Intent(context, SelectedExperience::class.java)
             // En el putExtra poner el nombre/id de la experiencia seleccionada
-            intent.putExtra("title", experience.title)
+            intent.putExtra("id", experience.id)
             context.startActivity(intent)
         }
     }

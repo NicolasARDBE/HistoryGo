@@ -44,7 +44,8 @@ class ExpererienceMenuActivity : AppCompatActivity() {
                 // Crear una lista de objetos Experience
                 val experiences = touristSpots.map { touristSpot ->
                     Experience(
-                        touristSpot .name,
+                        touristSpot.touristSpotId.toInt(),
+                        touristSpot.name,
                         touristSpot.description,
                         // Asumimos que tienes un recurso de imagen relacionado con el nombre
                         // Aquí puedes agregar lógica para asociar imágenes si es necesario
