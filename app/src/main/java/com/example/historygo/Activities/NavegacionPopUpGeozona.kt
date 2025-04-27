@@ -1,46 +1,235 @@
 package com.example.historygo.Activities
 
+import android.Manifest
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.widget.Button
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
+import com.example.historygo.Activities.Fragments.ReproductorFragment
+import com.example.historygo.Helper.GeofenceHelper
 import com.example.historygo.R
+import com.example.historygo.clientsdk.HistorygoapiClient
 import com.example.historygo.databinding.ActivityNavegacionPopUpGeozonaBinding
+import com.google.android.gms.location.Geofence
+import com.google.android.gms.location.GeofencingClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
 class NavegacionPopUpGeozona : AppCompatActivity() {
     private lateinit var binding: ActivityNavegacionPopUpGeozonaBinding
     private lateinit var geocoder: Geocoder
+    private lateinit var locationOverlay: MyLocationNewOverlay
     private lateinit var map : MapView
-    private var testLocation = GeoPoint(4.59, -74.06)
+
+    // Ubicación del Chorro de Quevedo en Bogotá
+    private val chorroLocationLatLng = LatLng(4.5972, -74.0697)
+
+    private lateinit var geofencingClient: GeofencingClient
+    private lateinit var geofenceHelper: GeofenceHelper
+
+    private var lastKnownLocation: GeoPoint? = null
+    private val REQUEST_PERMISSIONS_REQUEST_CODE = 1
+    private val GEOFENCE_ID = "CHORRO_QUEVEDO_ID"
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //API Gateway
+        val factory = ApiClientFactory()
+        val client: HistorygoapiClient = factory.build(HistorygoapiClient::class.java)
+
+        val jwtToken = getSharedPreferences("auth", Context.MODE_PRIVATE)
+            .getString("jwt_token", null)
+
+        geocoder = Geocoder(this)
+
+        // Geofencing
+        geofencingClient = LocationServices.getGeofencingClient(this)
+        geofenceHelper = GeofenceHelper(this)
+
+        askPermission()
         super.onCreate(savedInstanceState)
         binding = ActivityNavegacionPopUpGeozonaBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (intent?.getBooleanExtra("mostrar_popup", false) == true) {
+            mostrarPopup()
+        }
+
         Configuration.getInstance().load(this,
             androidx.preference.PreferenceManager.getDefaultSharedPreferences(this))
         map = binding.map
         map.setTileSource(TileSourceFactory.MAPNIK)
         map.setMultiTouchControls(true)
 
-        geocoder = Geocoder(this)
-        mostrarPopup()
+        // Agregar overlay para mostrar la ubicación del usuario
+        locationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(this), map)
+        locationOverlay.enableMyLocation()
+        map.overlays.add(locationOverlay)
+
+        centerOnUserLocation()
+        locationOverlay.enableFollowLocation()
+
+        if (jwtToken != null) {
+            Log.d("mapTest", "token: $jwtToken")
+            setupAudioPlayback(client, jwtToken)
+        }
     }
 
     override fun onResume() {
         super.onResume()
         map.onResume()
-        map.controller.setZoom(15.0)
-        map.controller.animateTo(testLocation)
+        locationOverlay.enableMyLocation()
+        centerOnUserLocation()
     }
+
     override fun onPause() {
         super.onPause()
         map.onPause()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            REQUEST_PERMISSIONS_REQUEST_CODE -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    // Permiso concedido, no hacer nada adicional
+                } else {
+                    finish()
+                    Toast.makeText(this, "Funcionalidades reducidas", Toast.LENGTH_LONG).show()
+                }
+                return
+            }
+
+            else -> {
+                // Ignorar todas las demás solicitudes
+            }
+        }
+    }
+
+    private fun centerOnUserLocation() {
+        val handler = Handler()
+        handler.postDelayed({
+            val lastLocation = locationOverlay.myLocation
+            if (lastLocation != null) {
+                if (lastKnownLocation != null) {
+                    val distance = lastKnownLocation!!.distanceToAsDouble(lastLocation)
+                    if (distance > 30) {
+                        lastKnownLocation = lastLocation
+                    }
+                } else {
+                    lastKnownLocation = lastLocation
+                }
+
+                map.controller.setCenter(lastLocation)
+                map.controller.setZoom(15)
+            } else {
+                Toast.makeText(this, "Buscando ubicación...", Toast.LENGTH_SHORT).show()
+            }
+        }, 1000)
+    }
+
+    private fun askPermission() {
+        when {
+            ContextCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                addGeofence(chorroLocationLatLng, 50f)
+            }
+
+            ActivityCompat.shouldShowRequestPermissionRationale(
+                this, Manifest.permission.ACCESS_FINE_LOCATION
+            ) -> {
+                requestPermissions(
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    REQUEST_PERMISSIONS_REQUEST_CODE
+                )
+            }
+
+            else -> {
+                requestPermissions(
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    REQUEST_PERMISSIONS_REQUEST_CODE
+                )
+            }
+        }
+    }
+
+    private fun addGeofence(latLng: LatLng, radius: Float) {
+        val geofence = geofenceHelper.getGeofence(
+            GEOFENCE_ID,
+            latLng,
+            radius,
+            Geofence.GEOFENCE_TRANSITION_ENTER or
+                    Geofence.GEOFENCE_TRANSITION_DWELL or
+                    Geofence.GEOFENCE_TRANSITION_EXIT
+        )
+        val geofencingRequest = geofenceHelper.getGeofencingRequest(geofence)
+        val pendingIntent: PendingIntent = geofenceHelper.getPendingIntent()
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        geofencingClient.addGeofences(geofencingRequest, pendingIntent)
+            .addOnSuccessListener {
+                Log.d("MenuOpcionesGuia", "onSuccess: Geofence Added...")
+            }
+            .addOnFailureListener { e ->
+                val errorMessage = geofenceHelper.getErrorString(e)
+                Log.d("MenuOpcionesGuia", "onFailure: $errorMessage")
+            }
+    }
+
+
+    //REPRODUCTOR AUDIO
+    private fun setupAudioPlayback(client: HistorygoapiClient, jwtToken: String) {
+        // Use the helper function to get the URI :
+        //val audioUri = getRawUri(this, R.raw.sample_audio)
+        //Log.d("MainActivity", "Audio URI: $audioUri") // Log the URI
+        val audioName = "Chorro de Quevedo"  // CAMBIAR A NOMBRE DE AUDIO
+
+        val audioKey = "guion-trayecto-chorro.mp3"
+        val cloudFrontBaseUrl = "https://d3krfb04kdzji1.cloudfront.net/"
+        val audioUrl = "$cloudFrontBaseUrl$audioKey"
+
+
+        val fragment = ReproductorFragment.newInstance(audioUrl, audioName)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView2, fragment)
+            .commit()
+    }
+    private fun getRawUri(context: Context, rawResId: Int): String {
+        return "android.resource://${context.packageName}/$rawResId"
     }
 
     fun mostrarPopup() {
@@ -71,5 +260,14 @@ class NavegacionPopUpGeozona : AppCompatActivity() {
 
         // 5. Muestra el diálogo
         dialog.show()
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent) // actualiza el intent actual
+
+        if (intent.getBooleanExtra("mostrar_popup", false)) {
+            mostrarPopup()
+        }
     }
 }
