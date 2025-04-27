@@ -72,9 +72,9 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
             userId = binding.Email.getText().toString().replace(" ", "");
-            authentication.addAttribute("family_name", userId);
+            authentication.addAttribute("family_name", name);
             authentication.addAttribute("email", binding.Email.getText().toString().replace(" ", ""));
-            authentication.signUpInBackground(userId, binding.Password.getText().toString());
+            authentication.signUpInBackground(email, binding.Password.getText().toString());
 
             Intent intent = new Intent(RegisterActivity.this, VerifyAcountActivity.class);
             intent.putExtra("userId", userId); // si necesitas pasarlo

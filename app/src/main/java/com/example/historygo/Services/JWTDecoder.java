@@ -14,4 +14,24 @@ public class JWTDecoder {
         }
         return null;
     }
+
+    public String decodeJWTCognitoFamilyName(String jwtToken) {
+        try {
+            JWT jwt = new JWT(jwtToken);
+            return jwt.getClaim("family_name").asString();
+        } catch (Exception e) {
+            Log.e("JWT", "Error al decodificar el JWT: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public String decodeJWTCognitoEmail(String jwtToken) {
+        try {
+            JWT jwt = new JWT(jwtToken);
+            return jwt.getClaim("email").asString();
+        } catch (Exception e) {
+            Log.e("JWT", "Error al decodificar el JWT: " + e.getMessage());
+        }
+        return null;
+    }
 }
