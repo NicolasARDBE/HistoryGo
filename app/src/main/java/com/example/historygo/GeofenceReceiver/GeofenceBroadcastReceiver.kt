@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.example.historygo.Activities.MenuOpcionesGuia
+import com.example.historygo.Activities.NavegacionPopUpGeozona
 import com.example.historygo.Services.NotificationService
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
@@ -40,7 +41,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
          when (transitionType) {
             Geofence.GEOFENCE_TRANSITION_ENTER -> {
                 message =  "Has entrado a la zona del Chorro de Quevedo"
-                val intent = Intent(context, MenuOpcionesGuia::class.java).apply {
+                val intent = Intent(context, NavegacionPopUpGeozona::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
                     putExtra("mostrar_popup", true)
                 }

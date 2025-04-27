@@ -133,9 +133,20 @@ public class Cognito {
     }
 
     public void userLogin(String userId, String password) {
-        cognitoUser = userPool.getUser(userId);
-        this.userPassword = password;
-        cognitoUser.getSessionInBackground(authenticationHandler);
+        try {
+            if (userPool == null) {
+                throw new NullPointerException("userPool is null");
+            }
+            cognitoUser = userPool.getUser(userId);
+            this.userPassword = password;
+            if (cognitoUser == null) {
+                throw new NullPointerException("Failed to get CognitoUser from userPool");
+            }
+            cognitoUser.getSessionInBackground(authenticationHandler);
+        } catch (Exception e) {
+            Log.e("CognitoLogin", "Error during login: " + e.getMessage(), e);
+            Toast.makeText(appContext, "Error al conectar con Azure.", Toast.LENGTH_LONG).show();
+        }
     }
 
     AuthenticationHandler authenticationHandler = new AuthenticationHandler() {

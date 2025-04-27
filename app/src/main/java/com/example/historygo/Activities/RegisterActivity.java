@@ -2,6 +2,7 @@ package com.example.historygo.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -12,6 +13,9 @@ import com.example.historygo.AwsServices.CognitoManager;
 import com.example.historygo.databinding.ActivityRegisterBinding;
 
 import java.util.Objects;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -27,7 +31,19 @@ public class RegisterActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         initViewComponents();
-        authentication = CognitoManager.Companion.getInstance(getApplicationContext()).getCognito();
+
+        CognitoManager.Companion.getInstance(this, new Function1<Cognito, Unit>() {
+            public Unit invoke(Cognito cognitoInstance) {
+                if (cognitoInstance != null) {
+                    // Cognito inicializado, úsalo
+                    authentication = cognitoInstance;
+                } else {
+                    Log.e("MyActivity", "Error: Cognito es null");
+                }
+                return Unit.INSTANCE;
+            }
+        });
+
 
         binding.LoginBtn.setOnClickListener(v -> {
             //Toast.makeText(MainActivity.this, "This is a Toast message!", Toast.LENGTH_SHORT).show();
