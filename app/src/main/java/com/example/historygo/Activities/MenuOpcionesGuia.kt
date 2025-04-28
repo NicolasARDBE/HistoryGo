@@ -39,17 +39,17 @@ class MenuOpcionesGuia : AppCompatActivity() {
 
 
         //botones de opciones de menu
-        binding.ExpCompletaBtn.setOnClickListener {
+        binding.CarruselBtn.setOnClickListener {
             val intent = Intent(this, ExperienciaCompletaActivity::class.java)
             startActivity(intent)
         }
 
-        binding.RepAudioBtn.setOnClickListener{
-
+        binding.ExperienciaInmBtn.setOnClickListener{
+            val intent = Intent(this, Display360DegreeImage::class.java)
+            startActivity(intent)
         }
 
         binding.RepVideosBtn.setOnClickListener{
-
         }
     }
 
