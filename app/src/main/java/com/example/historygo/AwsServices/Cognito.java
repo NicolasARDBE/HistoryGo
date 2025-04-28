@@ -23,7 +23,13 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.ForgotPas
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
 import com.amazonaws.regions.Regions;
+import com.amazonaws.services.cognitoidentityprovider.model.InvalidParameterException;
+import com.amazonaws.services.cognitoidentityprovider.model.InvalidPasswordException;
+import com.amazonaws.services.cognitoidentityprovider.model.NotAuthorizedException;
 import com.amazonaws.services.cognitoidentityprovider.model.SignUpResult;
+import com.amazonaws.services.cognitoidentityprovider.model.UserNotConfirmedException;
+import com.amazonaws.services.cognitoidentityprovider.model.UserNotFoundException;
+import com.amazonaws.services.cognitoidentityprovider.model.UsernameExistsException;
 import com.example.historygo.Activities.ExpererienceMenuActivity;
 import com.example.historygo.Azure.AzureSecretsManager;
 
@@ -106,7 +112,15 @@ public class Cognito {
 
         @Override
         public void onFailure(Exception exception) {
-            Toast.makeText(appContext, "Sign-up failed", Toast.LENGTH_LONG).show();
+            String errorMessage = "Error en el registro:" + exception.getMessage();
+
+            if (exception instanceof UserNotConfirmedException) {
+                errorMessage = "Error en el registro: El usuario aún no está confirmado. Verifique su correo electrónico.";
+            } else if (exception instanceof InvalidPasswordException) {
+                errorMessage = "Error en el registro: La contraseña ingresada no es válida.";
+            }
+
+            Toast.makeText(appContext, errorMessage, Toast.LENGTH_LONG).show();
             Log.d(TAG, "Sign-up failed: " + exception);
         }
     };
@@ -193,7 +207,16 @@ public class Cognito {
 
         @Override
         public void onFailure(Exception exception) {
-            Toast.makeText(appContext, "Sign in Failure.\n" + exception.toString(), Toast.LENGTH_LONG).show();
+            String message = "Error en inicio de sesión: " + exception.getMessage();
+            Log.d("excepcion inicio sesion", exception.getMessage());
+            if (exception instanceof UserNotConfirmedException) {
+                message = "Error en inicio de sesión: Usuario no confirmado. Verifica tu correo.";
+            } else if (exception instanceof NotAuthorizedException) {
+                message = "Error en inicio de sesión: Usuario o contraseña incorrectos";
+            } else if (exception instanceof UserNotFoundException) {
+                message = "Usuario no encontrado. Verifica tu usuario.";
+            }
+            Toast.makeText(appContext, message, Toast.LENGTH_LONG).show();
         }
     };
 
@@ -215,12 +238,20 @@ public class Cognito {
         @Override
         public void getResetCode(ForgotPasswordContinuation continuation) {
             forgotPasswordContinuation = continuation;
-            Toast.makeText(appContext, "Código de verificación enviado. Verifica tu email o SMS.", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, "Código de verificación enviado. Verifica tu email.", Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onFailure(Exception exception) {
-            Toast.makeText(appContext, "Error al restablecer contraseña: " + exception.getMessage(), Toast.LENGTH_LONG).show();
+            String errorMessage = "Error al restablecer la contraseña: " + exception.getMessage();
+
+            if (exception instanceof UserNotFoundException) {
+                errorMessage = "Error al restablecer la contraseña. No se encontró un usuario con ese correo electrónico.";
+            } else if (exception instanceof InvalidParameterException) {
+                errorMessage = "Error al restablecer la contraseña. El código de verificación es inválido. Intente nuevamente.";
+            }
+
+            Toast.makeText(appContext, errorMessage, Toast.LENGTH_LONG).show();
             Log.e(TAG, "Error en recuperación de contraseña", exception);
         }
     };
