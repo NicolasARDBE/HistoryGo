@@ -76,10 +76,13 @@
         android:layout_marginTop="15dp"
         android:fontFamily="@font/poppins_regular"
         android:text="Contextualización"
-        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivExperience" />
+        app:layout_constraintTop_toBottomOf="@+id/ivExperience"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="10sp"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeStepGranularity="2sp"/>
 
     <ImageButton
         android:id="@+id/imageButton"
