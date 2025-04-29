@@ -16,15 +16,9 @@ class ForgotPasswordActivity : AppCompatActivity() {
     private val jwtDecoder: JWTDecoder = JWTDecoder()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val jwtToken = getSharedPreferences("auth", Context.MODE_PRIVATE)
-            .getString("jwt_token", null)
 
         super.onCreate(savedInstanceState)
         binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
-
-        if(jwtToken != null){
-            binding.Correotv.setText(jwtDecoder.decodeJWTCognitoEmail(jwtToken))
-        }
 
         CognitoManager.getInstance(this) { cognitoInstance ->
             if (cognitoInstance != null) {
