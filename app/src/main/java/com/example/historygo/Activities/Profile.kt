@@ -9,14 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.historygo.AwsServices.Cognito
 import com.example.historygo.AwsServices.CognitoManager
 import com.example.historygo.AwsServices.OnAttributesReceivedCallback
-import com.example.historygo.R
 import com.example.historygo.Services.JWTDecoder
 import com.example.historygo.Services.NotificationService
 import com.example.historygo.databinding.ActivityProfileBinding
 
 class Profile : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
-    private val jwtDecoder: JWTDecoder = JWTDecoder()
     private lateinit var cognito: Cognito
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,13 +23,9 @@ class Profile : AppCompatActivity() {
         setContentView(binding.root)
         enableEdgeToEdge()
 
-        val jwtToken = getSharedPreferences("auth", Context.MODE_PRIVATE)
-            .getString("jwt_token", null)
-
         CognitoManager.getInstance(this) { cognitoInstance ->
             if (cognitoInstance != null) {
                 cognito = cognitoInstance
-
                 // Aquí se piden los atributos una vez que Cognito está listo
                 fetchUserAttributes()
             } else {

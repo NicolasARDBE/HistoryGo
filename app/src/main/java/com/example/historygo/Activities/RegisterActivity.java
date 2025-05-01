@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.historygo.AwsServices.Cognito;
 import com.example.historygo.AwsServices.CognitoManager;
 import com.example.historygo.databinding.ActivityRegisterBinding;
@@ -46,7 +44,6 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         binding.LoginBtn.setOnClickListener(v -> {
-            //Toast.makeText(MainActivity.this, "This is a Toast message!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(RegisterActivity.this, Login.class);
             startActivity(intent);
         });
