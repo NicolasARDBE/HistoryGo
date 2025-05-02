@@ -15,7 +15,6 @@ import com.example.historygo.Adapters.ImageAdapter
 import com.example.historygo.R
 import com.example.historygo.clientsdk.HistorygoapiClient
 import com.example.historygo.databinding.ActivityExperienciaCompletaBinding
-import com.example.historygo.databinding.ActivitySelectedExperienceBinding
 
 class ExperienciaCompletaActivity : AppCompatActivity() {
     private lateinit var binding: ActivityExperienciaCompletaBinding
@@ -31,12 +30,19 @@ class ExperienciaCompletaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityExperienciaCompletaBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setContentView(R.layout.activity_experiencia_completa)
         enableEdgeToEdge()
         val factory = ApiClientFactory()
         val client: HistorygoapiClient = factory.build(HistorygoapiClient::class.java)
         val jwtToken = getSharedPreferences("auth", Context.MODE_PRIVATE)
             .getString("jwt_token", null)
+
+        // Márgenes para la pantalla completa
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            // Solo aplica padding a los lados y parte superior
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+            insets
+        }
 
         // Márgenes para la pantalla completa
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->

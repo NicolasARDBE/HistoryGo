@@ -12,19 +12,15 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.historygo.R
 import com.example.historygo.databinding.ActivitySelectedExperienceBinding
-import androidx.core.net.toUri
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.bumptech.glide.Glide
-import com.example.historygo.Activities.Maps.MapsActivity
 import com.example.historygo.clientsdk.HistorygoapiClient
-import com.example.historygo.clientsdk.model.TouristSpotGet
 import java.net.URLEncoder
 
 class SelectedExperience : AppCompatActivity() {
 
     //create binding for the activity
     private lateinit var binding: ActivitySelectedExperienceBinding
-
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
