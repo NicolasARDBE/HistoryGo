@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"
-        android:text="@string/bienvenido"
+        android:text="@string/welcome"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -68,7 +68,7 @@
             android:layout_height="48dp"
             android:background="@drawable/rectangle"
             android:inputType="textPassword"
-            android:hint="@string/password"
+            android:hint="@string/prompt_password"
             app:hintEnabled="false"
             android:padding="12dp"
             android:drawableStart="@drawable/lock_icon"
@@ -78,16 +78,16 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-
     <EditText
         android:id="@+id/Email"
         android:layout_width="300dp"
         android:layout_height="48dp"
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
+        android:autofillHints=""
         android:background="@drawable/rectangle"
         android:drawablePadding="10dp"
-        android:hint="@string/correo"
+        android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
         android:padding="12dp"
         android:textColorHint="#808080"
@@ -104,22 +104,38 @@
         android:id="@+id/ForgotPasswordBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/poppins_regular"
-        android:text="@string/olvidaste_t_contrase_a"
+        android:text="@string/prompt_forgot"
         android:textColor="@color/black"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/RegisterBtn"
+        app:layout_constraintBottom_toTopOf="@id/VerifyAccountBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_input_layout"
         app:layout_constraintVertical_bias="0.215" />
 
+    <TextView
+        android:id="@+id/VerifyAccountBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/verify_account"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ForgotPasswordBtn" />
+
     <Button
         android:id="@+id/LoginBtn"
         android:layout_width="164dp"
         android:layout_height="48dp"
-        android:text="@string/iniciar_sesi_n"
+        android:text="@string/sign_in"
         android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -131,12 +147,24 @@
         android:id="@+id/RegisterBtn"
         android:layout_width="236dp"
         android:layout_height="48dp"
-        android:text="@string/crear_nueva_cuenta"
+        android:text="@string/sign_up"
         android:backgroundTint="@color/naranjaPrincipal"
         app:layout_constraintBottom_toTopOf="@+id/LoginBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.975" />
+
+    <Switch
+        android:id="@+id/languageSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:checked="false"
+        android:text="@string/switchEnEs"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BienvenidoTitulo"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

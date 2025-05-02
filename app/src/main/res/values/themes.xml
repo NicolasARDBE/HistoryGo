@@ -1,8 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.HistoryGo" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Fuente personalizada -->
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <!-- Otros colores u opciones pueden ir aquí -->
     </style>
 
     <style name="Theme.HistoryGo" parent="Base.Theme.HistoryGo" />

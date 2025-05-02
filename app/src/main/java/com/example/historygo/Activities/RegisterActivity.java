@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.historygo.AwsServices.Cognito;
 import com.example.historygo.AwsServices.CognitoManager;
+import com.example.historygo.Helper.BaseActivity;
+import com.example.historygo.R;
 import com.example.historygo.databinding.ActivityRegisterBinding;
 
 import java.util.Objects;
@@ -17,7 +16,7 @@ import java.util.Objects;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity {
 
     private ActivityRegisterBinding binding;
 
@@ -32,21 +31,18 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(view);
         initViewComponents();
 
-        CognitoManager.Companion.getInstance(this, new Function1<Cognito, Unit>() {
-            public Unit invoke(Cognito cognitoInstance) {
-                if (cognitoInstance != null) {
-                    // Cognito inicializado, úsalo
-                    authentication = cognitoInstance;
-                } else {
-                    Log.e("MyActivity", "Error: Cognito es null");
-                }
-                return Unit.INSTANCE;
+        CognitoManager.Companion.getInstance(this, cognitoInstance -> {
+            if (cognitoInstance != null) {
+                // Cognito inicializado, úsalo
+                authentication = cognitoInstance;
+            } else {
+                Log.e("MyActivity", "Error: Cognito es null");
             }
+            return Unit.INSTANCE;
         });
 
 
         binding.LoginBtn.setOnClickListener(v -> {
-            //Toast.makeText(MainActivity.this, "This is a Toast message!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(RegisterActivity.this, Login.class);
             startActivity(intent);
         });
@@ -62,12 +58,12 @@ public class RegisterActivity extends AppCompatActivity {
 
             if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 // Muestra un mensaje de error
-                Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.fields, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (!password.equals(confirmPassword)) {
-                Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.passwords_dont_match, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -77,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
             authentication.signUpInBackground(email, binding.Password.getText().toString());
 
             Intent intent = new Intent(RegisterActivity.this, VerifyAcountActivity.class);
-            intent.putExtra("userId", userId); // si necesitas pasarlo
+            intent.putExtra("email", userId);
             startActivity(intent);
         });
     }

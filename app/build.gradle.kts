@@ -99,4 +99,7 @@ dependencies {
 
     //GeoFencing
     implementation(libs.play.services.location)
+
+    //Carrusel de imágenes
+    implementation ("androidx.viewpager2:viewpager2:1.1.0")
 }

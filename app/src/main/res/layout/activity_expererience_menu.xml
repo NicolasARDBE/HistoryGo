@@ -13,7 +13,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NUESTRAS EXPERIENCIAS"
+        android:text="@string/our_experiences"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginTop="50dp"
@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toTopOf="@id/navigationBarFragmentContainer" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navigationBarFragmentContainer"
