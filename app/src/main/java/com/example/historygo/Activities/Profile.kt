@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.historygo.AwsServices.Cognito
 import com.example.historygo.AwsServices.CognitoManager
 import com.example.historygo.AwsServices.OnAttributesReceivedCallback
-import com.example.historygo.Services.JWTDecoder
 import com.example.historygo.Services.NotificationService
 import com.example.historygo.databinding.ActivityProfileBinding
 

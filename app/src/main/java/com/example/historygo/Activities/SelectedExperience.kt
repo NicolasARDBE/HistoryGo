@@ -72,7 +72,6 @@ class SelectedExperience : AppCompatActivity() {
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                // Aquí puedes mostrar un error al usuario si quieres
             }
         }
 

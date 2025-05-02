@@ -47,9 +47,7 @@ class ExpererienceMenuActivity : AppCompatActivity() {
                         touristSpot.touristSpotId.toInt(),
                         touristSpot.name,
                         touristSpot.description,
-                        // Asumimos que tienes un recurso de imagen relacionado con el nombre
-                        // Aquí puedes agregar lógica para asociar imágenes si es necesario
-                        // Placeholder
+
                         touristSpot.imageKey
                     )
                 }
@@ -62,7 +60,7 @@ class ExpererienceMenuActivity : AppCompatActivity() {
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                // Manejar el error (puedes mostrar un mensaje de error si lo deseas)
+                // Manejar el error
             }
         }.start()
     }

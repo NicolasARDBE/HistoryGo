@@ -70,12 +70,11 @@ class Display360DegreeImage : AppCompatActivity() {
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {
-                    // Opcional: manejar si se limpia la imagen
                 }
 
                 override fun onLoadFailed(errorDrawable: Drawable?) {
                     super.onLoadFailed(errorDrawable)
-                    // Aquí podrías mostrar un mensaje de error al usuario
+                    // Mensaje Error
                 }
             })
     }

@@ -89,7 +89,6 @@
         android:layout_width="135dp"
         android:layout_height="53dp"
         android:background="@drawable/rounden_button"
-        android:contentDescription="Mapa"
         android:padding="10dp"
         android:scaleType="centerInside"
         android:src="@drawable/map_icon"

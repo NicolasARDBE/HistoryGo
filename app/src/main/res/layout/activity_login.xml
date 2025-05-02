@@ -78,13 +78,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-
     <EditText
         android:id="@+id/Email"
         android:layout_width="300dp"
         android:layout_height="48dp"
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
+        android:autofillHints=""
         android:background="@drawable/rectangle"
         android:drawablePadding="10dp"
         android:hint="@string/prompt_email"
@@ -158,14 +158,13 @@
     <Switch
         android:id="@+id/languageSwitch"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:checked="false"
         android:text="@string/switchEnEs"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/BienvenidoTitulo"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.1"
-        android:checked="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BienvenidoTitulo"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
