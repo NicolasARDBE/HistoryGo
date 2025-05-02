@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_medium"
-        android:text="@string/perfil"
+        android:text="@string/profile"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/view"
         android:layout_margin="75dp"
-        android:text="@string/nombre"
+        android:text="@string/name"
         android:backgroundTint="@color/black"
         android:fontFamily="@font/poppins_medium"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,14 +68,14 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/name"
         android:layout_margin="75dp"
-        android:text="@string/correo_electronico"
+        android:text="@string/prompt_email"
         android:backgroundTint="@color/black"
         android:fontFamily="@font/poppins_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textSize="20sp"/>
 
-    <EditText
+    <TextView
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
         android:backgroundTint="@color/blue"
         android:fontFamily="@font/poppins_regular"
         android:padding="12dp"
-        android:text="Cambiar Contraseña"
+        android:text="@string/change_password"
         app:layout_constraintBottom_toTopOf="@+id/signOutBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -141,7 +141,7 @@
         android:backgroundTint="@color/blue"
         android:fontFamily="@font/poppins_regular"
         android:padding="12dp"
-        android:text="Actualizar Perfil"
+        android:text="@string/update_profile"
         app:layout_constraintBottom_toTopOf="@+id/changePasswordBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -157,7 +157,7 @@
         android:backgroundTint="@color/blue"
         android:fontFamily="@font/poppins_regular"
         android:padding="12dp"
-        android:text="Cerrar Sesión"
+        android:text="@string/sign_out"
         app:layout_constraintBottom_toTopOf="@+id/navigationBarFragmentContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

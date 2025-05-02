@@ -35,6 +35,7 @@ import com.amazonaws.services.cognitoidentityprovider.model.UserNotConfirmedExce
 import com.amazonaws.services.cognitoidentityprovider.model.UserNotFoundException;
 import com.example.historygo.Activities.ExpererienceMenuActivity;
 import com.example.historygo.Azure.AzureSecretsManager;
+import com.example.historygo.R;
 
 import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
@@ -120,9 +121,9 @@ public class Cognito {
             String errorMessage = "Error en el registro:" + exception.getMessage();
 
             if (exception instanceof UserNotConfirmedException) {
-                errorMessage = "Error en el registro: El usuario aún no está confirmado. Verifique su correo electrónico.";
+                errorMessage = appContext.getString(R.string.signup_error_user_not_confirmed);
             } else if (exception instanceof InvalidPasswordException) {
-                errorMessage = "Error en el registro: La contraseña ingresada no es válida.";
+                errorMessage =  appContext.getString(R.string.signup_error_invalid_password);
             }
 
             Toast.makeText(appContext, errorMessage, Toast.LENGTH_LONG).show();
@@ -138,7 +139,7 @@ public class Cognito {
     GenericHandler confirmationCallback = new GenericHandler() {
         @Override
         public void onSuccess() {
-            Toast.makeText(appContext, "User Confirmed", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, R.string.user_confirmed, Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -164,7 +165,7 @@ public class Cognito {
             cognitoUser.getSessionInBackground(authenticationHandler);
         } catch (Exception e) {
             Log.e("CognitoLogin", "Error during login: " + e.getMessage(), e);
-            Toast.makeText(appContext, "Revise su conexión", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, R.string.connection_error, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -174,7 +175,7 @@ public class Cognito {
 
         @Override
         public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
-            Toast.makeText(appContext, "Sign in success", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, R.string.sign_in_success, Toast.LENGTH_LONG).show();
 
             CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                     appContext, identityPoolID, awsRegion
@@ -186,8 +187,15 @@ public class Cognito {
             logins.put("cognito-idp.us-east-2.amazonaws.com/" + userPoolID, jwtToken);
             credentialsProvider.setLogins(logins);
 
-            String identityId = credentialsProvider.getIdentityId();
-            Log.i("AWS", "Identity ID obtenido: " + identityId);
+            executor.execute(() -> {
+                try {
+                    String identityId = credentialsProvider.getIdentityId();
+                    Log.i("AWS", "Identity ID obtenido: " + identityId);
+
+                } catch (Exception e) {
+                    Log.e("AWS", "Error al obtener Identity ID", e);
+                }
+            });
 
             SharedPreferences sharedPreferences = appContext.getSharedPreferences("auth", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -215,11 +223,11 @@ public class Cognito {
             String message = "Error en inicio de sesión: " + exception.getMessage();
             Log.d("excepcion inicio sesion", exception.getMessage());
             if (exception instanceof UserNotConfirmedException) {
-                message = "Error en inicio de sesión: Usuario no confirmado. Verifica tu correo.";
+                message = appContext.getString(R.string.login_error_unconfirmed);
             } else if (exception instanceof NotAuthorizedException) {
-                message = "Error en inicio de sesión: Usuario o contraseña incorrectos";
+                message = appContext.getString(R.string.login_error_unauthorized);
             } else if (exception instanceof UserNotFoundException) {
-                message = "Usuario no encontrado. Verifica tu usuario.";
+                message = appContext.getString(R.string.login_error_not_found);
             }
             Toast.makeText(appContext, message, Toast.LENGTH_LONG).show();
         }
@@ -237,13 +245,13 @@ public class Cognito {
     ForgotPasswordHandler forgotPasswordHandler = new ForgotPasswordHandler() {
         @Override
         public void onSuccess() {
-            Toast.makeText(appContext, "Contraseña restablecida correctamente", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, R.string.password_reset_success, Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void getResetCode(ForgotPasswordContinuation continuation) {
             forgotPasswordContinuation = continuation;
-            Toast.makeText(appContext, "Código de verificación enviado. Verifica tu email.", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, R.string.verification_code_sent, Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -251,9 +259,9 @@ public class Cognito {
             String errorMessage = "Error al restablecer la contraseña: " + exception.getMessage();
 
             if (exception instanceof UserNotFoundException) {
-                errorMessage = "Error al restablecer la contraseña. No se encontró un usuario con ese correo electrónico.";
+                errorMessage = appContext.getString(R.string.password_reset_error_not_found);
             } else if (exception instanceof InvalidParameterException) {
-                errorMessage = "Error al restablecer la contraseña. El código de verificación es inválido. Intente nuevamente.";
+                errorMessage = appContext.getString(R.string.password_reset_error_invalid_code);
             }
 
             Toast.makeText(appContext, errorMessage, Toast.LENGTH_LONG).show();
@@ -267,7 +275,7 @@ public class Cognito {
             forgotPasswordContinuation.setVerificationCode(verificationCode);
             forgotPasswordContinuation.continueTask();
         } else {
-            Toast.makeText(appContext, "Primero solicita la recuperación de contraseña", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, R.string.request_password_reset_first, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -280,11 +288,11 @@ public class Cognito {
         cognitoUser.updateAttributesInBackground(userAttributes, new UpdateAttributesHandler() {
             @Override
             public void onSuccess(List<CognitoUserCodeDeliveryDetails> attributesVerificationList) {
-                Toast.makeText(appContext, "Attributes updated successfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(appContext, R.string.attributes_updated, Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(Exception exception) {
-                Toast.makeText(appContext, "Failed to update attributes: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(appContext, R.string.attributes_update_failed + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("Cognito", "Attribute update error", exception);
             }
         });
@@ -310,12 +318,12 @@ public class Cognito {
         cognitoUser.changePasswordInBackground(oldPassword, newPassword, new GenericHandler() {
             @Override
             public void onSuccess() {
-                Toast.makeText(appContext, "Password changed successfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(appContext, R.string.password_change_success, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Exception exception) {
-                Toast.makeText(appContext, "Error changing password: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(appContext, R.string.password_change_error + exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -2,7 +2,8 @@
     <string name="app_name" translatable="false">HistoryGo</string>
 
     <!-- Strings used for Login Activity -->
-    <string name="empty_fields">Please complete all fields</string>
+    <string name="fields">Please complete all fields.</string>
+    <string name="switchEnEs" translatable="false">Español / English</string>
     <string name="notification_granted">Permission for notifications granted.</string>
     <string name="notification_denied">Permission for notifications denied.</string>
     <string name="welcome">"Welcome !"</string>
@@ -15,7 +16,7 @@
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="invalid_password">Password must be > 5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
 
@@ -51,6 +52,8 @@
     <string name="name">Name</string>
     <string name="confirm_password">Confirm password</string>
     <string name="continueR">Continue</string>
+    <string name="alreadyAccount">I already have an account</string>
+
 
 
     <!-- Strings used for Fogotten Passsword Activity -->
@@ -70,7 +73,7 @@
     <string name="our_experiences">OUR EXPERIENCES</string>
 
     <!-- Profile Screen -->
-    <string name="profile">Profile</string>
+    <string name="profile">PROFILE</string>
     <string name="start">Start</string>
     <string name="update_profile">Update Profile</string>
     <string name="change_password">Change Password</string>
@@ -119,31 +122,17 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <!-- Strings used for GeofenceBroadcastReceiver -->
+    <string name="arriving_area">You have entered the Chorro de Quevedo area</string>
+    <string name="leaving_area">You have left the Chorro de Quevedo area.</string>
 
-        <string name="home">Home</string>
-        <string name="favorites">Favorites</string>
-        <string name="archive">Archive</string>
-        <string name="perfil">PERFIL</string>
-        <string name="nombre">Nombre</string>
-        <string name="correo_electronico">Correo Electronico</string>
-        <string name="password">Password</string>
-        <string name="enviar_c_digo">Enviar Código</string>
-        <string name="crea_tu_cuenta">Crea tu cuenta</string>
-        <string name="crea_tu_cuenta_y_comienza_a_disfrutar_de_nuestras_experiencias">Crea tu cuenta y comienza a disfrutar de nuestras experiencias</string>
-        <string name="continuar">Continuar</string>
-        <string name="correo">Correo</string>
-        <string name="contrasena">Contraseña</string>
-        <string name="confirmar_contrasena">Confirmar contraseña</string>
-        <string name="te_hemos_enviado_un_c_digo_de_verificaci_n_a_tu_correo_electr_nico">Te hemos enviado un código de verificación a tu correo electrónico</string>
-        <string name="verificar">Verificar</string>
-        <string name="c_digo_verficaci_n">Código Verficación</string>
-        <string name="verificar_cuenta">Verificar Cuenta</string>
-        <string name="regresar">Regresar</string>
-        <string name="ya_tengo_una_cuenta">Ya tengo una cuenta</string>
-        <string name="crear_nueva_cuenta">Crear nueva cuenta</string>
-        <string name="iniciar_sesi_n">Iniciar Sesión</string>
-        <string name="olvidaste_t_contrase_a">¿Olvidaste tú contraseña?</string>
-        <string name="bienvenido">¡Bienvenido!</string>
-        <string name="experiencia_completa">EXPERIENCIA COMPLETA</string>
+    <string name="open_with">Abrir con…</string>
 
+    <string name="home" translatable="false">Home</string>
+    <string name="favorites" translatable="false">Favorites</string>
+    <string name="archive" translatable="false">Archive</string>
+
+    <string name="chorro_description">Chorro de Quevedo is a small square in the historic center of Bogotá, Colombia, that is a tourist spot and of great historical interest.</string>
+    <string name="chorro_address" translatable="false">Cl. 12b #22 2-98</string>
+    <string name="chorro_name" translatable="false">PLAZA DEL CHORRO DE QUEVEDO</string>
     </resources>

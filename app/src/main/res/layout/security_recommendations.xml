@@ -11,7 +11,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recomendaciones de Seguridad"
+        android:text="@string/safety_recommendations_title"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@android:color/black"
@@ -26,7 +26,7 @@
             android:id="@+id/tvMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="• Evite portar objetos de alto valor a la vista.\n\n• Mantenga su dispositivo móvil asegurado y utilice audífonos discretos si decide usar audio.\n\n• Realice el recorrido en horarios diurnos y en compañía, si es posible.\n\n• Permanezca en zonas turísticas bien iluminadas; evite calles poco concurridas.\n\n• En caso de emergencia, comuníquese con las autoridades o busque ayuda en sitios oficiales.\n\n• Siga su intuición y evite situaciones sospechosas o riesgosas."
+            android:text="@string/safety_recommendations_body"
             android:textSize="16sp"
             android:textColor="@android:color/black" />
     </ScrollView>
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/azulOscuro"
-        android:text="Continuar"
+        android:text="@string/continueR"
         android:layout_gravity="center"/>
 
 </LinearLayout>

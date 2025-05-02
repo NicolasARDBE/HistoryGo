@@ -27,7 +27,6 @@ import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.osmdroid.bonuspack.routing.OSRMRoadManager
 import org.osmdroid.bonuspack.routing.Road
@@ -173,7 +172,7 @@ class NavegacionPopUpGeozona : AppCompatActivity() {
                     // Permiso concedido, no hacer nada adicional
                 } else {
                     finish()
-                    Toast.makeText(this, "Funcionalidades reducidas", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, R.string.toast_reduced_functionality, Toast.LENGTH_LONG).show()
                 }
                 return
             }
@@ -203,7 +202,7 @@ class NavegacionPopUpGeozona : AppCompatActivity() {
 
                 onLocationAvailable(lastLocation)
             } else {
-                Toast.makeText(this, "Buscando ubicación...", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.toast_searching_location, Toast.LENGTH_SHORT).show()
             }
         }, 1000)
     }
@@ -332,7 +331,7 @@ class NavegacionPopUpGeozona : AppCompatActivity() {
         // Use the helper function to get the URI :
         //val audioUri = getRawUri(this, R.raw.sample_audio)
         //Log.d("MainActivity", "Audio URI: $audioUri") // Log the URI
-        val audioName = "Chorro de Quevedo"  // CAMBIAR A NOMBRE DE AUDIO
+        val audioName = applicationContext.getString(R.string.audio_name_chorro)   // CAMBIAR A NOMBRE DE AUDIO
 
         val audioKey = "guion-trayecto-chorro.mp3"
         val cloudFrontBaseUrl = "https://d3krfb04kdzji1.cloudfront.net/"

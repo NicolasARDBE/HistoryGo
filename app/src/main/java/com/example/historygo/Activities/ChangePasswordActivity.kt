@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.historygo.AwsServices.Cognito
 import com.example.historygo.AwsServices.CognitoManager
 import com.example.historygo.databinding.ActivityChangePasswordBinding
+import com.example.historygo.R
 
 class ChangePasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChangePasswordBinding
@@ -35,7 +36,7 @@ class ChangePasswordActivity : AppCompatActivity() {
             if (oldPassword.isEmpty() || newPassword.isEmpty()) {
                 Toast.makeText(
                     applicationContext,
-                    "Por favor, completa todos los campos.",
+                    R.string.fields,
                     Toast.LENGTH_SHORT
                 ).show()
             } else {

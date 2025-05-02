@@ -4,11 +4,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.example.historygo.Activities.MenuOpcionesGuia
 import com.example.historygo.Activities.NavegacionPopUpGeozona
 import com.example.historygo.Services.NotificationService
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
+import com.example.historygo.R
+
 
 class GeofenceBroadcastReceiver : BroadcastReceiver() {
 
@@ -40,7 +41,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         var message: String = null.toString()
          when (transitionType) {
             Geofence.GEOFENCE_TRANSITION_ENTER -> {
-                message =  "Has entrado a la zona del Chorro de Quevedo"
+                message =  context.getString(R.string.arriving_area)
                 val intent = Intent(context, NavegacionPopUpGeozona::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
                     putExtra("mostrar_popup", true)
@@ -49,16 +50,13 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
             }
 
             Geofence.GEOFENCE_TRANSITION_EXIT -> {
-                message = "Has salido de la zona del Chorro de Quevedo"
+                message = context.getString(R.string.leaving_area)
             }
-            else -> null
         }
 
-        if (message != null) {
-            val serviceIntent = Intent(context, NotificationService::class.java).apply {
-                putExtra("notification_message", message)
-            }
-            context.startService(serviceIntent)
+        val serviceIntent = Intent(context, NotificationService::class.java).apply {
+            putExtra("notification_message", message)
         }
+        context.startService(serviceIntent)
     }
 }

@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.historygo.AwsServices.Cognito;
 import com.example.historygo.AwsServices.CognitoManager;
+import com.example.historygo.R;
 import com.example.historygo.databinding.ActivityRegisterBinding;
 
 import java.util.Objects;
@@ -59,12 +60,12 @@ public class RegisterActivity extends AppCompatActivity {
 
             if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 // Muestra un mensaje de error
-                Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.fields, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (!password.equals(confirmPassword)) {
-                Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.passwords_dont_match, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -74,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
             authentication.signUpInBackground(email, binding.Password.getText().toString());
 
             Intent intent = new Intent(RegisterActivity.this, VerifyAcountActivity.class);
-            intent.putExtra("userId", userId); // si necesitas pasarlo
+            intent.putExtra("email", userId);
             startActivity(intent);
         });
     }
