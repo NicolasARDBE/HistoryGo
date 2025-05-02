@@ -7,7 +7,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Geocoder
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.StrictMode
@@ -18,6 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.example.historygo.Activities.Fragments.ReproductorFragment
+import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.Helper.GeofenceHelper
 import com.example.historygo.R
 import com.example.historygo.Services.LightSensorService
@@ -42,7 +42,7 @@ import org.osmdroid.views.overlay.Polygon
 import org.osmdroid.views.overlay.Polyline
 import org.osmdroid.views.overlay.TilesOverlay
 
-class NavegacionPopUpGeozona : AppCompatActivity() {
+class NavegacionPopUpGeozona : BaseActivity() {
     val RADIUS_OF_EARTH_KM = 6371
     private lateinit var binding: ActivityNavegacionPopUpGeozonaBinding
     private lateinit var geocoder: Geocoder
@@ -64,7 +64,6 @@ class NavegacionPopUpGeozona : AppCompatActivity() {
     //Rutas
     private var roadOverlay: Polyline? = null
     lateinit var roadManager: RoadManager
-    private var markers: MutableList<Marker> = mutableListOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -343,9 +342,6 @@ class NavegacionPopUpGeozona : AppCompatActivity() {
             .replace(R.id.fragmentContainerView2, fragment)
             .commit()
     }
-    private fun getRawUri(context: Context, rawResId: Int): String {
-        return "android.resource://${context.packageName}/$rawResId"
-    }
 
     fun mostrarPopup() {
         // 1. Infla el layout
@@ -367,7 +363,7 @@ class NavegacionPopUpGeozona : AppCompatActivity() {
         }
         btnIniciar.setOnClickListener {
             //Binding a menu opciones guia
-            val intent = android.content.Intent(this, MenuOpcionesGuia::class.java)
+            val intent = Intent(this, MenuOpcionesGuia::class.java)
             startActivity(intent)
             dialog.dismiss()
             // Por ejemplo: iniciar otra Activity o lo que necesites

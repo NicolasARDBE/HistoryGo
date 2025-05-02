@@ -5,22 +5,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.example.historygo.AwsServices.Cognito
 import com.example.historygo.AwsServices.CognitoManager
+import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.databinding.ActivityChangePasswordBinding
 import com.example.historygo.R
 
-class ChangePasswordActivity : AppCompatActivity() {
+class ChangePasswordActivity : BaseActivity() {
     private lateinit var binding: ActivityChangePasswordBinding
     private lateinit var cognito: Cognito
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChangePasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val jwtToken = getSharedPreferences("auth", Context.MODE_PRIVATE)
-            .getString("jwt_token", null)
 
         CognitoManager.getInstance(this) { cognitoInstance ->
             if (cognitoInstance != null) {

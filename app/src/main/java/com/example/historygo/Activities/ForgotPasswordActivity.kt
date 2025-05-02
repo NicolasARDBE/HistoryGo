@@ -1,19 +1,17 @@
 package com.example.historygo.Activities
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import com.example.historygo.AwsServices.Cognito
 import com.example.historygo.AwsServices.CognitoManager
+import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.Services.JWTDecoder
 import com.example.historygo.databinding.ActivityForgotPasswordBinding
 
-class ForgotPasswordActivity : AppCompatActivity() {
+class ForgotPasswordActivity : BaseActivity() {
     private lateinit var binding: ActivityForgotPasswordBinding
     private lateinit var cognito: Cognito
-    private val jwtDecoder: JWTDecoder = JWTDecoder()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 

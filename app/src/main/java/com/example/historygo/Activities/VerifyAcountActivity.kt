@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import com.example.historygo.R
 import com.example.historygo.databinding.ActivityVerifyAcountBinding
 import com.example.historygo.AwsServices.Cognito
 import com.example.historygo.AwsServices.CognitoManager
+import com.example.historygo.Helper.BaseActivity
 
-class VerifyAcountActivity : AppCompatActivity() {
+class VerifyAcountActivity : BaseActivity() {
     private lateinit var binding: ActivityVerifyAcountBinding
     private lateinit var cognito: Cognito
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +43,7 @@ class VerifyAcountActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                cognito.confirmUser(binding.editTextEmail.toString(), binding.editTextCode.getText().toString().replace(" ", ""));
+                cognito.confirmUser(binding.editTextEmail.toString(), binding.editTextCode.getText().toString().replace(" ", ""))
                 val intent = android.content.Intent(this, Login::class.java)
                 startActivity(intent)
             }

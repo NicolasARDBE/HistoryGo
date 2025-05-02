@@ -15,6 +15,7 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        LocaleHelper.setLocale(this, LanguagePreference.getLanguage(this))
 
         CognitoManager.getInstance(applicationContext) { cognitoInstance ->
             if (cognitoInstance != null) {
@@ -33,20 +34,24 @@ class MyApplication : Application() {
             }
 
             override fun onActivityStopped(activity: Activity) {
-                activityCount--
-                if (activityCount == 0) {
-                    // App en background o cerrada
-                    Log.d("MyApplication", "App en background, cerrando sesión...")
+                if(cognito.cognitoUser != null){
+                    activityCount--
+                    if (activityCount == 0) {
+                        // App en background o cerrada
+                        Log.d("MyApplication", "App en background, cerrando sesión...")
 
-                    cognito.cognitoCachingCredentialsProvider.clear()
+                        cognito.cognitoCachingCredentialsProvider.clear()
 
-                    val sharedPreferences = getSharedPreferences("mi_app_pref", Context.MODE_PRIVATE)
-                    sharedPreferences.edit().clear().apply()
+                        val sharedPreferences = getSharedPreferences("mi_app_pref", Context.MODE_PRIVATE)
+                        sharedPreferences.edit().clear().apply()
 
-                    val sharedPreferencesJwt = getSharedPreferences("auth", Context.MODE_PRIVATE)
-                    sharedPreferencesJwt.edit().remove("jwt_token").apply()
+                        val sharedPreferencesJwt = getSharedPreferences("auth", Context.MODE_PRIVATE)
+                        sharedPreferencesJwt.edit().remove("jwt_token").apply()
 
-                    cognito.UserSignOut()
+                        cognito.UserSignOut()
+                    }
+                } else {
+                    Log.d("MyApplication", "Cognito null")
                 }
             }
 

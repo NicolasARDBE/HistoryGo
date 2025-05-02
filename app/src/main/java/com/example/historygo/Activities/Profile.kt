@@ -5,14 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import com.example.historygo.AwsServices.Cognito
 import com.example.historygo.AwsServices.CognitoManager
 import com.example.historygo.AwsServices.OnAttributesReceivedCallback
+import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.Services.NotificationService
 import com.example.historygo.databinding.ActivityProfileBinding
 
-class Profile : AppCompatActivity() {
+class Profile : BaseActivity() {
     private lateinit var binding: ActivityProfileBinding
     private lateinit var cognito: Cognito
 

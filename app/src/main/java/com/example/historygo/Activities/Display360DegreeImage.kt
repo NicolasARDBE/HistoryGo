@@ -5,12 +5,12 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.MotionEvent
-import androidx.appcompat.app.AppCompatActivity
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.historygo.Activities.Fragments.ReproductorFragment
+import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.R
 import com.example.historygo.clientsdk.HistorygoapiClient
 import com.example.historygo.databinding.ActivityDisplay360DegreeImageBinding
@@ -18,7 +18,7 @@ import com.panoramagl.PLImage
 import com.panoramagl.PLManager
 import com.panoramagl.PLSphericalPanorama
 
-class Display360DegreeImage : AppCompatActivity() {
+class Display360DegreeImage : BaseActivity() {
     private lateinit var binding: ActivityDisplay360DegreeImageBinding
     private lateinit var plManager: PLManager
     private val cloudFrontBaseUrl = "https://d3krfb04kdzji1.cloudfront.net/"

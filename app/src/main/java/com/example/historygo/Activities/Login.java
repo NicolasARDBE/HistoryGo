@@ -10,19 +10,22 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.historygo.AwsServices.Cognito;
 import com.example.historygo.AwsServices.CognitoManager;
+import com.example.historygo.Helper.BaseActivity;
+import com.example.historygo.Helper.LanguagePreference;
 import com.example.historygo.R;
 import com.example.historygo.databinding.ActivityLoginBinding;
+
+import java.util.Objects;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
-public class Login extends AppCompatActivity {
+public class Login extends BaseActivity {
 
     private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1;
     private ActivityLoginBinding binding;
@@ -36,13 +39,20 @@ public class Login extends AppCompatActivity {
         setContentView(view);
 
         requestNotificationPermission();
+        String currentLanguage = LanguagePreference.getLanguage(this);
+        binding.languageSwitch.setChecked("en".equals(currentLanguage));
+
 
         //Switch de idioma
         binding.languageSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            // Cambiar el idioma cuando se toque el switch
-            String selectedLanguage = isChecked ? "en" : "es"; // "en" para inglés, "es" para español
-        });
+            String language = isChecked ? "en" : "es";
+            LanguagePreference.saveLanguage(this, language);
 
+            // Reinicia la actividad con nuevo intent limpio
+            Intent intent = new Intent(this, getClass());
+            finish();
+            startActivity(intent);
+        });
         binding.RegisterBtn.setOnClickListener(v -> {
             Intent intent = new Intent(Login.this, RegisterActivity.class);
             startActivity(intent);
@@ -54,20 +64,18 @@ public class Login extends AppCompatActivity {
     private void initViewComponents() {
         binding.LoginBtn.setOnClickListener(view -> {
             String email = binding.Email.getText().toString().trim();
-            String password = binding.Password.getText().toString().trim();
+            String password = Objects.requireNonNull(binding.Password.getText()).toString().trim();
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(getApplicationContext(), R.string.fields, Toast.LENGTH_SHORT).show();
             } else {
-                CognitoManager.Companion.getInstance(this, new Function1<Cognito, Unit>() {
-                    public Unit invoke(Cognito cognitoInstance) {
-                        if (cognitoInstance != null) {
-                            cognitoInstance.userLogin(email, password);
-                        } else {
-                            Log.e("Login", "Error: Cognito es null");
-                        }
-                        return Unit.INSTANCE;
+                CognitoManager.Companion.getInstance(this, cognitoInstance -> {
+                    if (cognitoInstance != null) {
+                        cognitoInstance.userLogin(email, password);
+                    } else {
+                        Log.e("Login", "Error: Cognito es null");
                     }
+                    return Unit.INSTANCE;
                 });
             }
         });

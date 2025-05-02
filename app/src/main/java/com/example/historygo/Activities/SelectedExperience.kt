@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +15,8 @@ import com.example.historygo.R
 import com.example.historygo.databinding.ActivitySelectedExperienceBinding
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.bumptech.glide.Glide
+import com.example.historygo.Helper.BaseActivity
+import com.example.historygo.Helper.LanguagePreference
 import com.example.historygo.clientsdk.HistorygoapiClient
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +24,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.URLEncoder
 
-class SelectedExperience : AppCompatActivity() {
+class SelectedExperience : BaseActivity() {
 
     //create binding for the activity
     private lateinit var binding: ActivitySelectedExperienceBinding
@@ -35,6 +36,8 @@ class SelectedExperience : AppCompatActivity() {
 
         binding = ActivitySelectedExperienceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val currentLanguage = LanguagePreference.getLanguage(this)
 
         val id = intent.getIntExtra("id", -1)
 
@@ -59,9 +62,13 @@ class SelectedExperience : AppCompatActivity() {
                 }
 
                 // Actualización de la UI en el hilo principal
+                if(currentLanguage=="es"){
+                    binding.textView.text = touristSpotSelected.item.description.s
+                } else{
+                    binding.textView.text = touristSpotSelected.item.descriptionEn.s
+                }
                 binding.tvTitle.text = touristSpotSelected.item.name.s
                 binding.tvLocation.text = touristSpotSelected.item.address.s
-                binding.textView.text = touristSpotSelected.item.description.s
 
                 val imageUrl = "https://d3krfb04kdzji1.cloudfront.net/${touristSpotSelected.item.imageKey.s}"
                 Glide.with(this@SelectedExperience)

@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
 import com.example.historygo.AwsServices.Cognito;
 import com.example.historygo.AwsServices.CognitoManager;
+import com.example.historygo.Helper.BaseActivity;
 import com.example.historygo.R;
 import com.example.historygo.databinding.ActivityRegisterBinding;
 
@@ -16,7 +16,7 @@ import java.util.Objects;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity {
 
     private ActivityRegisterBinding binding;
 
@@ -31,16 +31,14 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(view);
         initViewComponents();
 
-        CognitoManager.Companion.getInstance(this, new Function1<Cognito, Unit>() {
-            public Unit invoke(Cognito cognitoInstance) {
-                if (cognitoInstance != null) {
-                    // Cognito inicializado, úsalo
-                    authentication = cognitoInstance;
-                } else {
-                    Log.e("MyActivity", "Error: Cognito es null");
-                }
-                return Unit.INSTANCE;
+        CognitoManager.Companion.getInstance(this, cognitoInstance -> {
+            if (cognitoInstance != null) {
+                // Cognito inicializado, úsalo
+                authentication = cognitoInstance;
+            } else {
+                Log.e("MyActivity", "Error: Cognito es null");
             }
+            return Unit.INSTANCE;
         });
 
 

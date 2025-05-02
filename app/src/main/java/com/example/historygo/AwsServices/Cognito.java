@@ -327,4 +327,8 @@ public class Cognito {
             }
         });
     }
+
+    public CognitoUser getCognitoUser(){
+        return cognitoUser;
+    }
 }

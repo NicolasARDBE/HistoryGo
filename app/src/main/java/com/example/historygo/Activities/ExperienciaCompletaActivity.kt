@@ -5,18 +5,18 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.example.historygo.Activities.Fragments.ReproductorFragment
 import com.example.historygo.Adapters.ImageAdapter
+import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.R
 import com.example.historygo.clientsdk.HistorygoapiClient
 import com.example.historygo.databinding.ActivityExperienciaCompletaBinding
 
-class ExperienciaCompletaActivity : AppCompatActivity() {
+class ExperienciaCompletaActivity : BaseActivity() {
     private lateinit var binding: ActivityExperienciaCompletaBinding
     val cloudFrontBaseUrl = "https://d3krfb04kdzji1.cloudfront.net/"
 
