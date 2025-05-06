@@ -175,7 +175,7 @@ public class Cognito {
 
         @Override
         public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
-            Toast.makeText(appContext, R.string.sign_in_success, Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, appContext.getString(R.string.sign_in_success), Toast.LENGTH_LONG).show();
 
             CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                     appContext, identityPoolID, awsRegion

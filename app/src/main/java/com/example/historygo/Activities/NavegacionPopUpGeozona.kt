@@ -59,6 +59,8 @@ class NavegacionPopUpGeozona : BaseActivity() {
 
     private var lastKnownLocation: GeoPoint? = null
     private val REQUEST_PERMISSIONS_REQUEST_CODE = 1
+    private val REQUEST_FOREGROUND_LOCATION = 1001
+    private val REQUEST_BACKGROUND_LOCATION = 1002
     private val GEOFENCE_ID = "CHORRO_QUEVEDO_ID"
 
     //Rutas
@@ -162,25 +164,36 @@ class NavegacionPopUpGeozona : BaseActivity() {
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String>, grantResults: IntArray
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
         when (requestCode) {
-            REQUEST_PERMISSIONS_REQUEST_CODE -> {
+            REQUEST_FOREGROUND_LOCATION -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    // Permiso concedido, no hacer nada adicional
+                    askPermission() // Llamamos de nuevo para pedir el background
                 } else {
+                    Toast.makeText(this, "La app necesita ubicación para funcionar correctamente.", Toast.LENGTH_LONG).show()
                     finish()
-                    Toast.makeText(this, R.string.toast_reduced_functionality, Toast.LENGTH_LONG).show()
                 }
-                return
+            }
+
+            REQUEST_BACKGROUND_LOCATION -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    addGeofence(chorroLocationLatLng, 25f)
+                } else {
+                    Toast.makeText(this, "Sin este permiso, no podremos saber cuando hayas llegado a tu destino.", Toast.LENGTH_LONG).show()
+                }
             }
 
             else -> {
-                // Ignorar todas las demás solicitudes
+                // Otros permisos
             }
         }
     }
+
 
     private fun centerOnUserLocation(onLocationAvailable: (GeoPoint) -> Unit) {
         val handler = Handler()
@@ -208,30 +221,48 @@ class NavegacionPopUpGeozona : BaseActivity() {
 
 
     private fun askPermission() {
-        when {
-            ContextCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED -> {
+        // Primero verificamos ubicación en primer plano
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                REQUEST_FOREGROUND_LOCATION
+            )
+
+        } else {
+            // Ya tenemos foreground, ahora validamos background
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                    // Muestra una explicación al usuario antes de pedir el permiso
+                    MaterialAlertDialogBuilder(this)
+                        .setTitle("Permiso adicional necesario")
+                        .setMessage("Para que la app funcione correctamente incluso cuando no la estés usando, necesitamos permiso de ubicación en segundo plano.")
+                        .setPositiveButton("Aceptar") { _, _ ->
+                            ActivityCompat.requestPermissions(
+                                this,
+                                arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION),
+                                REQUEST_BACKGROUND_LOCATION
+                            )
+                        }
+                        .setNegativeButton("Cancelar") { _, _ ->
+                            Toast.makeText(this, "La funcionalidad estará limitada.", Toast.LENGTH_SHORT).show()
+                        }
+                        .show()
+                } else {
+                    // Ya tiene todos los permisos
+                    addGeofence(chorroLocationLatLng, 25f)
+                }
+            } else {
+                // Android < Q, no se requiere background explícitamente
                 addGeofence(chorroLocationLatLng, 25f)
-            }
-
-            ActivityCompat.shouldShowRequestPermissionRationale(
-                this, Manifest.permission.ACCESS_FINE_LOCATION
-            ) -> {
-                requestPermissions(
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    REQUEST_PERMISSIONS_REQUEST_CODE
-                )
-            }
-
-            else -> {
-                requestPermissions(
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    REQUEST_PERMISSIONS_REQUEST_CODE
-                )
             }
         }
     }
+
 
     private fun addGeofence(latLng: LatLng, radius: Float) {
         val geofence = geofenceHelper.getGeofence(
@@ -318,7 +349,7 @@ class NavegacionPopUpGeozona : BaseActivity() {
     }
 
     fun changeMapColors(light: Float){
-        if(light<1000){
+        if(light<=1){
             map.overlayManager.tilesOverlay.setColorFilter(TilesOverlay.INVERT_COLORS)
         }else{
             map.overlayManager.tilesOverlay.setColorFilter(null)

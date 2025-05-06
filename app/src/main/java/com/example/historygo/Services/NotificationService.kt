@@ -13,6 +13,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.example.historygo.Activities.ExpererienceMenuActivity
 import com.example.historygo.Activities.MenuOpcionesGuia
 import com.example.historygo.R
 
@@ -78,14 +79,25 @@ class NotificationService : Service() {
     @SuppressLint("SuspiciousIndentation")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val message = intent?.getStringExtra("notification_message") ?: "Estás en la zona"
-        notify(
-            buildNotification(
-                "HistoryGO",
-                message,
-                R.drawable.baseline_circle_notifications_24,
-                MenuOpcionesGuia::class.java
+        if(message == baseContext.getString(R.string.arriving_area)){
+            notify(
+                buildNotification(
+                    "HistoryGO",
+                    message,
+                    R.drawable.baseline_circle_notifications_24,
+                    MenuOpcionesGuia::class.java
+                )
             )
-        )
+        } else{
+            notify(
+                buildNotification(
+                    "HistoryGO",
+                    message,
+                    R.drawable.baseline_circle_notifications_24,
+                    ExpererienceMenuActivity::class.java
+                )
+            )
+        }
         return START_STICKY
     }
 }
