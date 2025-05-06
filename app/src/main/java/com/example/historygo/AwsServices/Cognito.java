@@ -47,14 +47,14 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Cognito {
+public class Cognito{
     private final Regions awsRegion = Regions.US_EAST_2;
     private String identityPoolID;
     private String userPoolID;
     private String clientID;
     private CognitoUserPool userPool;
     private CognitoUserAttributes userAttributes; // Used for adding attributes to the user
-    private final Context appContext;
+    private Context appContext;
     private String userPassword;
     private ForgotPasswordContinuation forgotPasswordContinuation;
     @SuppressLint("StaticFieldLeak")
@@ -108,17 +108,17 @@ public class Cognito {
         @Override
         public void onSuccess(CognitoUser user, SignUpResult signUpResult) {
             Log.d(TAG, "Sign-up success");
-            Toast.makeText(appContext, "Sign-up success", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, R.string.sign_up_success, Toast.LENGTH_LONG).show();
             if (!signUpResult.getUserConfirmed()) {
                 // User must be confirmed
             } else {
-                Toast.makeText(appContext, "Error: User Confirmed before", Toast.LENGTH_LONG).show();
+                Toast.makeText(appContext, R.string.signup_error, Toast.LENGTH_LONG).show();
             }
         }
 
         @Override
         public void onFailure(Exception exception) {
-            String errorMessage = "Error en el registro:" + exception.getMessage();
+            String errorMessage = appContext.getString(R.string.signup_error_2, exception.getMessage());
 
             if (exception instanceof UserNotConfirmedException) {
                 errorMessage = appContext.getString(R.string.signup_error_user_not_confirmed);
@@ -175,7 +175,7 @@ public class Cognito {
 
         @Override
         public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
-            Toast.makeText(appContext, R.string.sign_in_success, Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, R.string.sign_in_success, Toast.LENGTH_SHORT).show();
 
             CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                     appContext, identityPoolID, awsRegion
@@ -220,8 +220,7 @@ public class Cognito {
 
         @Override
         public void onFailure(Exception exception) {
-            String message = "Error en inicio de sesión: " + exception.getMessage();
-            Log.d("excepcion inicio sesion", exception.getMessage());
+            String message = appContext.getString(R.string.login_error_generic, exception.getMessage());
             if (exception instanceof UserNotConfirmedException) {
                 message = appContext.getString(R.string.login_error_unconfirmed);
             } else if (exception instanceof NotAuthorizedException) {
@@ -256,7 +255,7 @@ public class Cognito {
 
         @Override
         public void onFailure(Exception exception) {
-            String errorMessage = "Error al restablecer la contraseña: " + exception.getMessage();
+            String errorMessage = appContext.getString(R.string.password_change_error, exception.getMessage());
 
             if (exception instanceof UserNotFoundException) {
                 errorMessage = appContext.getString(R.string.password_reset_error_not_found);
@@ -292,7 +291,7 @@ public class Cognito {
             }
             @Override
             public void onFailure(Exception exception) {
-                Toast.makeText(appContext, R.string.attributes_update_failed + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(appContext, appContext.getString(R.string.attributes_update_failed, exception.getLocalizedMessage()), Toast.LENGTH_SHORT).show();
                 Log.e("Cognito", "Attribute update error", exception);
             }
         });
@@ -323,12 +322,14 @@ public class Cognito {
 
             @Override
             public void onFailure(Exception exception) {
-                Toast.makeText(appContext, R.string.password_change_error + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(appContext, appContext.getString(R.string.password_change_error, exception.getMessage()), Toast.LENGTH_SHORT).show();
             }
         });
     }
-
     public CognitoUser getCognitoUser(){
         return cognitoUser;
+    }
+    public void updateContext(Context newContext) {
+        this.appContext = newContext;
     }
 }

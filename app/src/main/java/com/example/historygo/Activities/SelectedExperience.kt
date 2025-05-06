@@ -23,6 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.URLEncoder
+import androidx.core.net.toUri
 
 class SelectedExperience : BaseActivity() {
 
@@ -45,7 +46,7 @@ class SelectedExperience : BaseActivity() {
         if (id != 0) {
             binding.startRoute.isEnabled = false
             binding.startRoute.setTextColor(Color.LTGRAY)
-            binding.startRoute.text = "Pronto Disponible"
+            binding.startRoute.text = this.getString(R.string.soon_available)
         }
 
         val jwtToken = getSharedPreferences("auth", Context.MODE_PRIVATE)
@@ -98,7 +99,7 @@ class SelectedExperience : BaseActivity() {
                 val encodedAddress = withContext(Dispatchers.IO) {
                     URLEncoder.encode(binding.tvLocation.text.toString(), "UTF-8")
                 }
-                val gmmIntentUri = Uri.parse("geo:0,0?q=$encodedAddress")
+                val gmmIntentUri = "geo:0,0?q=$encodedAddress".toUri()
                 val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                 val chooser = Intent.createChooser(mapIntent, application.getString(R.string.open_with))
                 if (mapIntent.resolveActivity(packageManager) != null) {

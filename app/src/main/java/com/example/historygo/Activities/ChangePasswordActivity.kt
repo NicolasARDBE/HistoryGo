@@ -32,7 +32,7 @@ class ChangePasswordActivity : BaseActivity() {
             val newPassword = binding.resetPasswordtvNew.text.toString()
             if (oldPassword.isEmpty() || newPassword.isEmpty()) {
                 Toast.makeText(
-                    applicationContext,
+                    this,
                     R.string.fields,
                     Toast.LENGTH_SHORT
                 ).show()
