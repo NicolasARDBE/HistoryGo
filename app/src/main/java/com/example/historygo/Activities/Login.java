@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -28,10 +27,17 @@ public class Login extends BaseActivity {
 
     private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1;
     private ActivityLoginBinding binding;
+    private Cognito cognito;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        CognitoManager.Companion.getInstance(this, cognitoInstance -> {
+            cognitoInstance.updateContext(this);
+            cognito = cognitoInstance;
+            return Unit.INSTANCE;
+        });
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -68,14 +74,7 @@ public class Login extends BaseActivity {
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, R.string.fields, Toast.LENGTH_SHORT).show();
             } else {
-                CognitoManager.Companion.getInstance(this, cognitoInstance -> {
-                    if (cognitoInstance != null) {
-                        cognitoInstance.userLogin(email, password);
-                    } else {
-                        Log.e("Login", "Error: Cognito es null");
-                    }
-                    return Unit.INSTANCE;
-                });
+                cognito.userLogin(email, password);
             }
         });
 

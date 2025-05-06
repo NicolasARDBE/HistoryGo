@@ -8,8 +8,6 @@ import com.example.historygo.Activities.NavegacionPopUpGeozona
 import com.example.historygo.Services.NotificationService
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
-import com.example.historygo.R
-
 
 class GeofenceBroadcastReceiver : BroadcastReceiver() {
 
@@ -41,7 +39,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         var message: String = null.toString()
          when (transitionType) {
             Geofence.GEOFENCE_TRANSITION_ENTER -> {
-                message =  context.getString(R.string.arriving_area)
+                message = "You have entered the Chorro de Quevedo area"
                 val intent = Intent(context, NavegacionPopUpGeozona::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
                     putExtra("mostrar_popup", true)
@@ -50,7 +48,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
             }
 
             Geofence.GEOFENCE_TRANSITION_EXIT -> {
-                message = context.getString(R.string.leaving_area)
+                message = "You have left the Chorro de Quevedo area"
             }
         }
 

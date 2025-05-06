@@ -38,7 +38,7 @@ class VerifyAcountActivity : BaseActivity() {
             Log.d("testn", "El email: $email")
             if (email.isEmpty() || verification.isEmpty()) {
                 Toast.makeText(
-                    applicationContext,
+                    this,
                     R.string.fields,
                     Toast.LENGTH_SHORT
                 ).show()

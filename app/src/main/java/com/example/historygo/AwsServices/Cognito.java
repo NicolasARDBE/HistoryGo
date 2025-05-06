@@ -35,7 +35,6 @@ import com.amazonaws.services.cognitoidentityprovider.model.UserNotConfirmedExce
 import com.amazonaws.services.cognitoidentityprovider.model.UserNotFoundException;
 import com.example.historygo.Activities.ExpererienceMenuActivity;
 import com.example.historygo.Azure.AzureSecretsManager;
-import com.example.historygo.Helper.BaseActivity;
 import com.example.historygo.R;
 
 import static android.content.ContentValues.TAG;
@@ -48,14 +47,14 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Cognito extends BaseActivity {
+public class Cognito{
     private final Regions awsRegion = Regions.US_EAST_2;
     private String identityPoolID;
     private String userPoolID;
     private String clientID;
     private CognitoUserPool userPool;
     private CognitoUserAttributes userAttributes; // Used for adding attributes to the user
-    private final Context appContext;
+    private Context appContext;
     private String userPassword;
     private ForgotPasswordContinuation forgotPasswordContinuation;
     @SuppressLint("StaticFieldLeak")
@@ -327,8 +326,10 @@ public class Cognito extends BaseActivity {
             }
         });
     }
-
     public CognitoUser getCognitoUser(){
         return cognitoUser;
+    }
+    public void updateContext(Context newContext) {
+        this.appContext = newContext;
     }
 }

@@ -15,12 +15,15 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.historygo.Activities.ExpererienceMenuActivity
 import com.example.historygo.Activities.MenuOpcionesGuia
+import com.example.historygo.Helper.LanguagePreference
 import com.example.historygo.R
 
 class NotificationService : Service() {
+    private lateinit var currentLanguage: String
     var notid = 0
     override fun onCreate(){
         super.onCreate()
+        currentLanguage = LanguagePreference.getLanguage(this)
         createNotificationChannel()
     }
 
@@ -79,24 +82,46 @@ class NotificationService : Service() {
     @SuppressLint("SuspiciousIndentation")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val message = intent?.getStringExtra("notification_message") ?: "Estás en la zona"
-        if(message == baseContext.getString(R.string.arriving_area)){
-            notify(
-                buildNotification(
-                    "HistoryGO",
-                    message,
-                    R.drawable.baseline_circle_notifications_24,
-                    MenuOpcionesGuia::class.java
+        if(message == "You have entered the Chorro de Quevedo area"){
+            if(currentLanguage == "es"){
+                notify(
+                    buildNotification(
+                        "HistoryGO",
+                        "Has entrado a la zona del Chorro de Quevedo",
+                        R.drawable.baseline_circle_notifications_24,
+                        MenuOpcionesGuia::class.java
+                    )
                 )
-            )
+            } else{
+                notify(
+                    buildNotification(
+                        "HistoryGO",
+                        "You have entered the Chorro de Quevedo area",
+                        R.drawable.baseline_circle_notifications_24,
+                        MenuOpcionesGuia::class.java
+                    )
+                )
+            }
         } else{
-            notify(
-                buildNotification(
-                    "HistoryGO",
-                    message,
-                    R.drawable.baseline_circle_notifications_24,
-                    ExpererienceMenuActivity::class.java
+            if(currentLanguage == "es"){
+                notify(
+                    buildNotification(
+                        "HistoryGO",
+                        "Has salido de la zona del Chorro de Quevedo",
+                        R.drawable.baseline_circle_notifications_24,
+                        ExpererienceMenuActivity::class.java
+                    )
                 )
-            )
+            } else{
+                notify(
+                    buildNotification(
+                        "HistoryGO",
+                        "You have left the Chorro de Quevedo area",
+                        R.drawable.baseline_circle_notifications_24,
+                        ExpererienceMenuActivity::class.java
+                    )
+                )
+            }
         }
         return START_STICKY
     }

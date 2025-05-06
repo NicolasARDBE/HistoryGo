@@ -125,7 +125,7 @@
 
     <!-- Strings used for GeofenceBroadcastReceiver -->
     <string name="arriving_area">You have entered the Chorro de Quevedo area</string>
-    <string name="leaving_area">You have left the Chorro de Quevedo area.</string>
+    <string name="leaving_area">You have left the Chorro de Quevedo area</string>
 
     <string name="open_with">Abrir con…</string>
 
@@ -137,4 +137,6 @@
     <string name="chorro_address" translatable="false">Cl. 12b #22 2-98</string>
     <string name="chorro_name" translatable="false">PLAZA DEL CHORRO DE QUEVEDO</string>
     <string name="defaultD" translatable="false">Default</string>
+
+    <string name="soon_available">Soon Available</string>
     </resources>
