@@ -25,7 +25,8 @@
     <string name="user_already_confirmed">Error: User already confirmed</string>
     <string name="signup_error_user_not_confirmed">Sign-up error: The user is not yet confirmed. Please check your email.</string>
     <string name="signup_error_invalid_password">Sign-up error: The entered password is invalid.</string>
-    <string name="signup_error">Sign-up error: %1$s</string>
+    <string name="signup_error">Sign-up error: User confirmed before</string>
+    <string name="signup_error_2">Sign-up error: %1$s</string>
     <string name="user_confirmed">User Confirmed</string>
     <string name="connection_error">Check your connection</string>
     <string name="sign_in_success">Sign in success</string>

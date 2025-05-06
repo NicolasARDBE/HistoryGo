@@ -23,7 +23,6 @@ import com.example.historygo.databinding.ActivityLoginBinding;
 import java.util.Objects;
 
 import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 public class Login extends BaseActivity {
 
@@ -67,7 +66,7 @@ public class Login extends BaseActivity {
             String password = Objects.requireNonNull(binding.Password.getText()).toString().trim();
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(getApplicationContext(), R.string.fields, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.fields, Toast.LENGTH_SHORT).show();
             } else {
                 CognitoManager.Companion.getInstance(this, cognitoInstance -> {
                     if (cognitoInstance != null) {

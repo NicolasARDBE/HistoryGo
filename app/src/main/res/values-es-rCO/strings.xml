@@ -18,7 +18,7 @@
     <string name="user_already_confirmed">Error: Usuario ya confirmado</string>
     <string name="signup_error_user_not_confirmed">Error de registro: El usuario aún no está confirmado. Por favor, revisa tu correo electrónico.</string>
     <string name="signup_error_invalid_password">Error de registro: La contraseña ingresada no es válida.</string>
-    <string name="signup_error">Error de registro: %1$s</string>
+    <string name="signup_error">Error de registro: Usuario ya resgistrado</string>
     <string name="user_confirmed">Usuario confirmado</string>
     <string name="connection_error">Verifica tu conexión</string>
     <string name="sign_in_success">Inicio de sesión exitoso</string>
@@ -32,6 +32,7 @@
     <string name="password_reset_error_invalid_code">Error al restablecer la contraseña: El código de verificación no es válido. Inténtalo de nuevo.</string>
     <string name="password_reset_error_generic">Error al restablecer la contraseña: %1$s</string>
     <string name="request_password_reset_first">Solicita primero la recuperación de contraseña</string>
+    <string name="signup_error_2">Error en el registro: %1$s</string>
     <string name="attributes_updated">¡Atributos actualizados correctamente!</string>
     <string name="attributes_update_failed">Error al actualizar atributos: %1$s</string>
     <string name="password_change_success">¡Contraseña cambiada con éxito!</string>
