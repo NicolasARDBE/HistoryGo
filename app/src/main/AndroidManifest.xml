@@ -34,7 +34,9 @@
             android:exported="false" />
         <activity
             android:name=".Activities.ExperienciaCompletaActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="locked"/>
         <activity
             android:name=".Activities.VerifyAcountActivity"
             android:exported="false" />

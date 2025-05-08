@@ -76,7 +76,7 @@
     <string name="button_later">Más tarde</string>
     <string name="button_start">Comenzar</string>
     <string name="toast_reduced_functionality">Funcionalidad reducida</string>
-    <string name="toast_searching_location">Buscando ubicación...</string>
+    <string name="toast_searching_location">Buscando ubicación…</string>
     <string name="audio_name_chorro">Chorro de Quevedo</string>
     <string name="button_carousel">Carrusel de imágenes</string>
     <string name="button_immersive_experience">Experiencia inmersiva</string>
@@ -91,4 +91,9 @@
     <string name="chorro_description">El Chorro de Quevedo es una plazoleta en el centro histórico de Bogotá, Colombia, que es un lugar turístico y de gran interés histórico.</string>
     <string name="open_with">Open with…</string>
     <string name="soon_available">Pronto Disponible</string>
+    <string name="complete_experience_title">Experiencia Completa</string>
+
+    <string name="error_audio_play">Error al reproducir audio </string>
+    <string name="error_audio_load">Error al cargar audio </string>
+    <string name="error_audio_not_available">Audio no disponible </string>
 </resources>

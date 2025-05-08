@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.databinding.ActivityMenuOpcionesGuiaBinding
-import com.google.android.gms.maps.model.LatLng
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
@@ -37,17 +36,9 @@ class MenuOpcionesGuia : BaseActivity() {
 
 
         //botones de opciones de menu
-        binding.CarruselBtn.setOnClickListener {
+        binding.EperienciaCompletaBtn.setOnClickListener {
             val intent = Intent(this, ExperienciaCompletaActivity::class.java)
             startActivity(intent)
-        }
-
-        binding.ExperienciaInmBtn.setOnClickListener{
-            val intent = Intent(this, Display360DegreeImage::class.java)
-            startActivity(intent)
-        }
-
-        binding.RepVideosBtn.setOnClickListener{
         }
     }
 
