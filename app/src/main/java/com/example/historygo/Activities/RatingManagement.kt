@@ -43,7 +43,13 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
 
         // Callback
         dynamoService = DynamoDBService(baseContext) //Aquí ya se ejecuta el dynamoConnectionAndAuth
-        cognito = CognitoManager.getInstance(applicationContext).getCognito()!!
+        CognitoManager.getInstance(this) { cognitoInstance ->
+            if (cognitoInstance != null) {
+                cognito = cognitoInstance
+            } else {
+                Log.e("MiActivity", "Error: Cognito no disponible")
+            }
+        }
         dynamoService.setCallback(this)
 
         Log.d("JWT", "token: $jwtToken")
@@ -121,10 +127,17 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
         cognito.cognitoCachingCredentialsProvider.clear()
         val serviceIntent = Intent(this, NotificationService::class.java)
         stopService(serviceIntent)
+
         val sharedPreferences = getSharedPreferences("mi_app_pref", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.clear()
         editor.apply()
+
+        val sharedPreferencesJwt = getSharedPreferences("auth", Context.MODE_PRIVATE)
+        val editorJwt = sharedPreferencesJwt.edit()
+        editorJwt.remove("jwt_token")
+        editorJwt.apply()
+
         cognito.UserSignOut()
     }
 }

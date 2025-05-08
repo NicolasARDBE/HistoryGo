@@ -14,4 +14,6 @@
     <color name="amarillo">#F3C623</color>
     <color name="naranja">#F3C623</color>
     <color name="naranjaPrincipal">#EB8317</color>
+    <color name="lightOrange">#EB8317</color>
+    <color name= "red" >#F0FF0000</color>
 </resources>

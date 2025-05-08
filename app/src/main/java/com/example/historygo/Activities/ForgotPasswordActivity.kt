@@ -2,18 +2,29 @@ package com.example.historygo.Activities
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
 import com.example.historygo.AwsServices.Cognito
 import com.example.historygo.AwsServices.CognitoManager
+import com.example.historygo.Helper.BaseActivity
+import com.example.historygo.Services.JWTDecoder
 import com.example.historygo.databinding.ActivityForgotPasswordBinding
 
-class ForgotPasswordActivity : AppCompatActivity() {
+class ForgotPasswordActivity : BaseActivity() {
     private lateinit var binding: ActivityForgotPasswordBinding
     private lateinit var cognito: Cognito
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
-        cognito = CognitoManager.getInstance(applicationContext).getCognito()!!
+
+        CognitoManager.getInstance(this) { cognitoInstance ->
+            if (cognitoInstance != null) {
+                cognito = cognitoInstance
+            } else {
+                Log.e("MiActivity", "Error: Cognito no disponible")
+            }
+        }
         setContentView(binding.root)
 
         binding.StartProcessBtn.setOnClickListener {

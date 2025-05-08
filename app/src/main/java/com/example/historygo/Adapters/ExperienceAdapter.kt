@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.historygo.Model.Experience
 import com.example.historygo.R
 import com.example.historygo.Activities.SelectedExperience
@@ -32,19 +33,22 @@ class ExperienceAdapter(private val experiences: List<Experience>) :
         val experience = experiences[position]
         holder.experienceTitle.text = experience.title
         holder.description.text = experience.description
-        holder.locationImage.setImageResource(experience.imageResId)
+
+        // Usamos Glide para cargar la imagen desde la URL (S3)
+        Glide.with(holder.itemView.context)
+            .load("https://d3krfb04kdzji1.cloudfront.net/"+experience.imageUrl)  // `imageUrl` debe ser una URL válida
+            .placeholder(R.drawable.carga)  // Imagen mientras se carga
+            .error(R.drawable.error)  // Imagen en caso de error
+            .into(holder.locationImage)
 
         holder.cardView.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, SelectedExperience::class.java)
-            intent.putExtra("title", experience.title)
-            intent.putExtra("description", experience.description)
-            intent.putExtra("image", experience.imageResId)
+            // En el putExtra poner el nombre/id de la experiencia seleccionada
+            intent.putExtra("id", experience.id)
             context.startActivity(intent)
         }
     }
-
-
 
     override fun getItemCount(): Int = experiences.size
 }

@@ -1,0 +1,94 @@
+<resources>
+    <string name="alreadyAccount">Ya tengo una cuenta</string>
+    <string name="fields">Por favor, completa todos los campos.</string>
+    <string name="notification_granted">Permiso para notificaciones concedido.</string>
+    <string name="notification_denied">Permiso para notificaciones denegado.</string>
+    <string name="welcome">¡Bienvenido!</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="prompt_email">Correo electrónico</string>
+    <string name="prompt_forgot">¿Olvidaste tu contraseña?</string>
+    <string name="sign_in">Iniciar sesión</string>
+    <string name="sign_up">Crear nueva cuenta</string>
+    <string name="action_sign_in">Iniciar sesión o registrarse</string>
+    <string name="action_sign_in_short">Iniciar sesión</string>
+    <string name="invalid_username">Nombre de usuario no válido</string>
+    <string name="invalid_password">La contraseña debe tener más de 5 caracteres</string>
+    <string name="login_failed">Error de inicio de sesión</string>
+    <string name="sign_up_success">Registro exitoso</string>
+    <string name="user_already_confirmed">Error: Usuario ya confirmado</string>
+    <string name="signup_error_user_not_confirmed">Error de registro: El usuario aún no está confirmado. Por favor, revisa tu correo electrónico.</string>
+    <string name="signup_error_invalid_password">Error de registro: La contraseña ingresada no es válida.</string>
+    <string name="signup_error">Error de registro: Usuario ya resgistrado</string>
+    <string name="user_confirmed">Usuario confirmado</string>
+    <string name="connection_error">Verifica tu conexión</string>
+    <string name="sign_in_success">Inicio de sesión exitoso</string>
+    <string name="login_error_unconfirmed">Error de inicio de sesión: Usuario no confirmado. Revisa tu correo electrónico.</string>
+    <string name="login_error_unauthorized">Error de inicio de sesión: Usuario o contraseña incorrectos.</string>
+    <string name="login_error_not_found">Usuario no encontrado. Verifica tu nombre de usuario.</string>
+    <string name="login_error_generic">Error de inicio de sesión: %1$s</string>
+    <string name="password_reset_success">Contraseña restablecida correctamente</string>
+    <string name="verification_code_sent">Código de verificación enviado. Revisa tu correo electrónico.</string>
+    <string name="password_reset_error_not_found">Error al restablecer la contraseña: No se encontró ningún usuario con ese correo.</string>
+    <string name="password_reset_error_invalid_code">Error al restablecer la contraseña: El código de verificación no es válido. Inténtalo de nuevo.</string>
+    <string name="password_reset_error_generic">Error al restablecer la contraseña: %1$s</string>
+    <string name="request_password_reset_first">Solicita primero la recuperación de contraseña</string>
+    <string name="signup_error_2">Error en el registro: %1$s</string>
+    <string name="attributes_updated">¡Atributos actualizados correctamente!</string>
+    <string name="attributes_update_failed">Error al actualizar atributos: %1$s</string>
+    <string name="password_change_success">¡Contraseña cambiada con éxito!</string>
+    <string name="password_change_error">Error al cambiar la contraseña: %1$s</string>
+    <string name="passwords_dont_match">Las contraseñas no coinciden</string>
+    <string name="create_your_account">Crea tu cuenta</string>
+    <string name="create_your_account_exp">Crea tu cuenta y comienza a disfrutar nuestras experiencias</string>
+    <string name="name">Nombre</string>
+    <string name="confirm_password">Confirmar contraseña</string>
+    <string name="continueR">Continuar</string>
+    <string name="forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="enter_email">Por favor, ingresa tu correo electrónico para verificar tu identidad</string>
+    <string name="verification_code">Código de verificación</string>
+    <string name="new_password">Nueva contraseña</string>
+    <string name="create_new_password">Crear nueva contraseña</string>
+    <string name="send_code">Enviar código</string>
+    <string name="verify_account">Verificar cuenta</string>
+    <string name="verify_code_email">Hemos enviado un código de verificación a tu correo electrónico</string>
+    <string name="verify">Verificar</string>
+    <string name="our_experiences">NUESTRAS EXPERIENCIAS</string>
+    <string name="profile">PERFIL</string>
+    <string name="start">Comenzar</string>
+    <string name="update_profile">Actualizar perfil</string>
+    <string name="change_password">Cambiar contraseña</string>
+    <string name="sign_out">Cerrar sesión</string>
+    <string name="change_password_title">Cambiar contraseña</string>
+    <string name="change_password_description">Por favor, ingresa tu contraseña actual y la nueva</string>
+    <string name="current_password">Contraseña actual</string>
+    <string name="back_to_profile">Volver al perfil</string>
+    <string name="safety_recommendations_title">Recomendaciones de seguridad</string>
+    <string name="safety_recommendations_body">
+        • Evita mostrar objetos de alto valor.\n\n
+        • Mantén tu teléfono seguro y usa audífonos discretos.\n\n
+        • Realiza el recorrido durante el día y con compañía si es posible.\n\n
+        • Permanece en zonas turísticas bien iluminadas; evita calles desiertas.\n\n
+        • En caso de emergencia, contacta a las autoridades o busca ayuda en lugares oficiales.\n\n
+        • Confía en tu instinto y evita situaciones riesgosas o sospechosas.
+    </string>
+    <string name="popup_title">Has llegado al Chorro de Quevedo</string>
+    <string name="popup_message">¿Quieres comenzar ahora la experiencia interactiva?</string>
+    <string name="button_later">Más tarde</string>
+    <string name="button_start">Comenzar</string>
+    <string name="toast_reduced_functionality">Funcionalidad reducida</string>
+    <string name="toast_searching_location">Buscando ubicación...</string>
+    <string name="audio_name_chorro">Chorro de Quevedo</string>
+    <string name="button_carousel">Carrusel de imágenes</string>
+    <string name="button_immersive_experience">Experiencia inmersiva</string>
+    <string name="button_video_playback">Reproducción de video</string>
+    <string name="carousel_title">Carrusel de imágenes</string>
+    <string name="first_fragment_label">Primer fragmento</string>
+    <string name="second_fragment_label">Segundo fragmento</string>
+    <string name="next">Siguiente</string>
+    <string name="previous">Anterior</string>
+    <string name="arriving_area">Has entrado a la zona del Chorro de Quevedo</string>
+    <string name="leaving_area">Has salido de la zona del Chorro de Quevedo</string>
+    <string name="chorro_description">El Chorro de Quevedo es una plazoleta en el centro histórico de Bogotá, Colombia, que es un lugar turístico y de gran interés histórico.</string>
+    <string name="open_with">Open with…</string>
+    <string name="soon_available">Pronto Disponible</string>
+</resources>

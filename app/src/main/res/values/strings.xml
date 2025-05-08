@@ -1,56 +1,142 @@
 <resources>
-    <string name="app_name">HistoryGo</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
+    <string name="app_name" translatable="false">HistoryGo</string>
+
+    <!-- Strings used for Login Activity -->
+    <string name="fields">Please complete all fields.</string>
+    <string name="switchEnEs" translatable="false">Español / English</string>
+    <string name="notification_granted">Permission for notifications granted.</string>
+    <string name="notification_denied">Permission for notifications denied.</string>
+    <string name="welcome">"Welcome !"</string>
     <string name="prompt_password">Password</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_forgot">Did you forget your password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Create new account</string>
+
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="invalid_password">Password must be > 5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- Strings used for Cognito Class -->
+    <string name="sign_up_success">Sign-up success</string>
+    <string name="user_already_confirmed">Error: User already confirmed</string>
+    <string name="signup_error_user_not_confirmed">Sign-up error: The user is not yet confirmed. Please check your email.</string>
+    <string name="signup_error_invalid_password">Sign-up error: The entered password is invalid.</string>
+    <string name="signup_error">Sign-up error: User confirmed before</string>
+    <string name="signup_error_2">Sign-up error: %1$s</string>
+    <string name="user_confirmed">User Confirmed</string>
+    <string name="connection_error">Check your connection</string>
+    <string name="sign_in_success">Sign in success</string>
+    <string name="login_error_unconfirmed">Login error: User not confirmed. Check your email.</string>
+    <string name="login_error_unauthorized">Login error: Incorrect username or password.</string>
+    <string name="login_error_not_found">User not found. Check your username.</string>
+    <string name="login_error_generic">Login error: %1$s</string>
+    <string name="password_reset_success">Password reset successfully</string>
+    <string name="verification_code_sent">Verification code sent. Check your email.</string>
+    <string name="password_reset_error_not_found">Password reset error: No user found with that email.</string>
+    <string name="password_reset_error_invalid_code">Password reset error: The verification code is invalid. Please try again.</string>
+    <string name="password_reset_error_generic">Password reset error: %1$s</string>
+    <string name="request_password_reset_first">Request password recovery first</string>
+    <string name="attributes_updated">Attributes updated successfully!</string>
+    <string name="attributes_update_failed">Failed to update attributes: %1$s</string>
+    <string name="password_change_success">Password changed successfully!</string>
+    <string name="password_change_error">Error changing password: %1$s</string>
+
+
+    <!-- Strings used for Register Activity -->
+    <string name="passwords_dont_match">Passwords don\'t match</string>
+    <string name="create_your_account">Create your account</string>
+    <string name="create_your_account_exp">Create your account and start enjoying our experiences</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="continueR">Continue</string>
+    <string name="alreadyAccount">I already have an account</string>
+
+
+
+    <!-- Strings used for Fogotten Passsword Activity -->
+    <string name="forgot_password">Forgot your password?</string>
+    <string name="enter_email">Please enter your email to verify it\'s you</string>
+    <string name="verification_code">Verification code</string>
+    <string name="new_password">New password</string>
+    <string name="create_new_password">Create new password</string>
+    <string name="send_code">Send code</string>
+
+    <!-- Strings used for Verify Activity -->
+    <string name="verify_account">Verify Account</string>
+    <string name="verify_code_email">We’ve sent a verification code to your email</string>
+    <string name="verify">Verify</string>
+
+    <!-- Strings used for Experience Menu -->
+    <string name="our_experiences">OUR EXPERIENCES</string>
+
+    <!-- Profile Screen -->
+    <string name="profile">PROFILE</string>
+    <string name="start">Start</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="change_password">Change Password</string>
+    <string name="sign_out">Sign Out</string>
+
+
+    <!-- Change Password Screen -->
+    <string name="change_password_title">Change Password</string>
+    <string name="change_password_description">Please enter your current password and the new one</string>
+    <string name="current_password">Current password</string>
+    <string name="back_to_profile">Back to Profile</string>
+
+    <!-- Safety Recommendations -->
+    <string name="safety_recommendations_title">Safety Recommendations</string>
+    <string name="safety_recommendations_body">
+        • Avoid displaying high-value items.\n\n
+        • Keep your phone secure and use discreet headphones when listening to audio.\n\n
+        • Do the tour during daylight hours and go with company if possible.\n\n
+        • Stay in well-lit tourist areas; avoid empty streets.\n\n
+        • In case of emergency, contact the authorities or seek help in official places.\n\n
+        • Trust your instincts and avoid risky or suspicious situations.
+    </string>
+
+    <!-- Popup strings -->
+    <string name="popup_title">You have arrived at Chorro de Quevedo</string>
+    <string name="popup_message">Would you like to start the interactive experience now?</string>
+    <string name="button_later">Later</string>
+    <string name="button_start">Start</string>
+
+    <!-- NavegacionPopUp -->
+    <string name="toast_reduced_functionality">Reduced functionality</string>
+    <string name="toast_searching_location">Searching for location...</string>
+    <string name="audio_name_chorro">Chorro de Quevedo</string>
+
+    <!-- MenuOpcionesGuia -->
+    <string name="button_carousel">Image Carousel</string>
+    <string name="button_immersive_experience">Immersive Experience</string>
+    <string name="button_video_playback">Video Playback</string>
+
+    <!-- ExperienciaCompleta -->
+    <string name="carousel_title">Image Carousel</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="lorem_ipsum">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
-        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
-        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
-        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
-        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
-        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
-        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
-        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
-        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
-        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
-        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
-        bibendum, vel congue leo egestas.\n\n
-        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
-        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
-        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
-        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
-        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
-        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
-        est.\n\n
-        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
-        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
-        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
-        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
-        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
-        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
-        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
-        convallis.\n\n
-        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
-        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
-        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
-        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
-        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
-        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
-        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
-    </string>
-</resources>
+    <!-- Strings used for GeofenceBroadcastReceiver -->
+    <string name="arriving_area">You have entered the Chorro de Quevedo area</string>
+    <string name="leaving_area">You have left the Chorro de Quevedo area</string>
+
+    <string name="open_with">Abrir con…</string>
+
+    <string name="home" translatable="false">Home</string>
+    <string name="favorites" translatable="false">Favorites</string>
+    <string name="archive" translatable="false">Archive</string>
+
+    <string name="chorro_description">Chorro de Quevedo is a small square in the historic center of Bogotá, Colombia, that is a tourist spot and of great historical interest.</string>
+    <string name="chorro_address" translatable="false">Cl. 12b #22 2-98</string>
+    <string name="chorro_name" translatable="false">PLAZA DEL CHORRO DE QUEVEDO</string>
+    <string name="defaultD" translatable="false">Default</string>
+
+    <string name="soon_available">Soon Available</string>
+    </resources>

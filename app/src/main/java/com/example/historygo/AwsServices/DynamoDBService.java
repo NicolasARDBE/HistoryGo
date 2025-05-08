@@ -1,6 +1,7 @@
 package com.example.historygo.AwsServices;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.document.Table;
 import com.amazonaws.regions.Region;
@@ -9,6 +10,9 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 public class DynamoDBService {
     private static final String RATING_DYNAMODB_TABLE = "Rating";
@@ -21,10 +25,21 @@ public class DynamoDBService {
 
 
     public DynamoDBService(Context context) {
-        cognito = CognitoManager.Companion.getInstance(context).getCognito();
+
+        CognitoManager.Companion.getInstance(context, new Function1<Cognito, Unit>() {
+            public Unit invoke(Cognito cognitoInstance) {
+                if (cognitoInstance != null) {
+                    // Cognito inicializado, úsalo
+                    cognito = cognitoInstance;
+                } else {
+                    Log.e("MyActivity", "Error: Cognito es null");
+                }
+                return Unit.INSTANCE;
+            }
+        });
+
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(this::dynamoConnectionAndAuth);
-
     }
 
     public void dynamoConnectionAndAuth() {

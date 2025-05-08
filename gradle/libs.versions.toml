@@ -37,6 +37,7 @@ awsAndroidSdkService = "2.x.y"
 awsAndroidSdkServiceVersion = "2.79.0"
 
 
+
 [libraries]
 aws-android-sdk-cognitoidentityprovider = { module = "com.amazonaws:aws-android-sdk-cognitoidentityprovider", version.ref = "awsAndroidSdkCore" }
 aws-android-sdk-core = { module = "com.amazonaws:aws-android-sdk-core", version.ref = "awsAndroidSdkCore" }

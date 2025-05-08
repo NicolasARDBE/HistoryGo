@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -8,15 +9,14 @@
     tools:context=".Activities.ExpererienceMenuActivity"
     android:background="@color/bone">
 
-
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NUESTRAS EXPERIENCIAS"
-        android:textSize="18sp"
+        android:text="@string/our_experiences"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/poppins_medium"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,22 +30,16 @@
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toTopOf="@id/navigationBarFragmentContainer" />
 
-    <include
-        android:id="@+id/navigationBar"
-        layout="@layout/navigation_bar"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/navigationBarFragmentContainer"
+        android:name="com.example.historygo.Activities.Fragments.NavegationBarFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        />
-
-
-
-
-
-
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout="@layout/fragment_navegation_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
