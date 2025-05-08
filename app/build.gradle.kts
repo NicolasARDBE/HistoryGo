@@ -57,7 +57,6 @@ dependencies {
     implementation(libs.projectlombok.lombok)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
-    implementation(libs.filament.android)
     implementation(libs.material)
     implementation(libs.constraintlayout.core)
     implementation(libs.constraintlayout.solver)
@@ -101,5 +100,14 @@ dependencies {
     implementation(libs.play.services.location)
 
     //Carrusel de imágenes
-    implementation ("androidx.viewpager2:viewpager2:1.1.0")
+    implementation (libs.viewpager2)
+
+    // ExoPlayer
+    implementation(libs.media3.exoplayer)
+    implementation(libs.media3.ui)
+
+    // ARSceneview
+    implementation (libs.arsceneview)
+    implementation (libs.fragment.ktx)
+
 }

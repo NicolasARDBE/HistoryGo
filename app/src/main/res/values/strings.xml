@@ -106,7 +106,7 @@
 
     <!-- NavegacionPopUp -->
     <string name="toast_reduced_functionality">Reduced functionality</string>
-    <string name="toast_searching_location">Searching for location...</string>
+    <string name="toast_searching_location">Searching for location…</string>
     <string name="audio_name_chorro">Chorro de Quevedo</string>
 
     <!-- MenuOpcionesGuia -->
@@ -115,6 +115,7 @@
     <string name="button_video_playback">Video Playback</string>
 
     <!-- ExperienciaCompleta -->
+    <string name="complete_experience_title">Complete Experience</string>
     <string name="carousel_title">Image Carousel</string>
 
     <!-- Strings used for fragments for navigation -->
@@ -139,4 +140,11 @@
     <string name="defaultD" translatable="false">Default</string>
 
     <string name="soon_available">Soon Available</string>
+
+    <string name="chorro_quevedo" translatable="false">Chorro de Quevedo </string>
+
+    <string name="error_audio_play">Error when playing audio </string>
+    <string name="error_audio_load">Error when loading audio </string>
+    <string name="error_audio_not_available">Audio not available </string>
+
     </resources>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.historygo.R
 import com.example.historygo.databinding.FragmentReproductorBinding
 import java.util.Timer
 import java.util.TimerTask
@@ -47,24 +48,23 @@ class ReproductorFragment : Fragment() {
                     setDataSource(audioUriString)
                     setOnPreparedListener {
                         binding.progressBar.max = duration
-                        start()
-                        binding.imageButtonPause.setImageResource(android.R.drawable.ic_media_pause)
-                        startProgressUpdater()
+                        binding.imageButtonPause.setImageResource(android.R.drawable.ic_media_play) // Cambiar a "play" en lugar de "pause"
+                        startProgressUpdater() // Solo actualiza la barra de progreso
                     }
                     setOnErrorListener { _, what, extra ->
                         Log.e("ReproductorFragment", "MediaPlayer error: what=$what, extra=$extra")
-                        binding.textViewNombrePista.text = "Error al reproducir audio"
+                        binding.textViewNombrePista.text = requireContext().getString(R.string.error_audio_play)
                         true
                     }
                     prepareAsync()
                 }
             } catch (e: Exception) {
                 Log.e("ReproductorFragment", "Excepción al reproducir: ${e.localizedMessage}")
-                binding.textViewNombrePista.text = "Error al cargar audio"
+                binding.textViewNombrePista.text = requireContext().getString(R.string.error_audio_load)
             }
         } else {
             Log.e("ReproductorFragment", "Audio URI no proporcionado")
-            binding.textViewNombrePista.text = "Audio no disponible"
+            binding.textViewNombrePista.text = requireContext().getString(R.string.error_audio_not_available)
         }
 
         setupButtons()
@@ -80,11 +80,11 @@ class ReproductorFragment : Fragment() {
             mediaPlayer?.let {
                 if (it.isPlaying) {
                     it.pause()
-                    binding.imageButtonPause.setImageResource(android.R.drawable.ic_media_play)
+                    binding.imageButtonPause.setImageResource(android.R.drawable.ic_media_play) // Cambiar a "play" cuando está en pausa
                 } else {
                     it.start()
-                    binding.imageButtonPause.setImageResource(android.R.drawable.ic_media_pause)
-                    startProgressUpdater()
+                    binding.imageButtonPause.setImageResource(android.R.drawable.ic_media_pause) // Cambiar a "pause" cuando está reproduciendo
+                    startProgressUpdater() // Iniciar la actualización de la barra de progreso
                 }
             }
         }
