@@ -1,26 +1,32 @@
 package com.example.historygo.Activities
 
-import android.os.Bundle
-import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.commit
 import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import androidx.appcompat.widget.Toolbar
 import androidx.core.graphics.Insets
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
-import androidx.core.view.doOnAttach
+import androidx.core.view.*
 import androidx.fragment.app.Fragment
-import com.example.historygo.Activities.Fragments.VideoARFragment
+import androidx.fragment.app.commit
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.exoplayer.ExoPlayer
+import com.example.historygo.Activities.Fragments.MainFragment
+import com.example.historygo.Activities.Fragments.ReproductorARFragment
+import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class ExperienciaCompletaActivity : AppCompatActivity(R.layout.activity_experiencia_completa) {
+class ExperienciaCompletaActivity : BaseActivity() {
+
+    private lateinit var exoPlayer: ExoPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_experiencia_completa)
 
         setFullScreen(
             findViewById(R.id.rootView),
@@ -36,10 +42,39 @@ class ExperienciaCompletaActivity : AppCompatActivity(R.layout.activity_experien
             title = ""
         })
 
+        // Inicializar ExoPlayer
+        exoPlayer = ExoPlayer.Builder(this).build().apply {
+            setMediaItem(MediaItem.fromUri("https://d3krfb04kdzji1.cloudfront.net/chorro-quevedo-video-ia.mp4"))
+            prepare()
+            playWhenReady = false
+            repeatMode = Player.REPEAT_MODE_OFF // Cambiado para permitir que termine
+
+            addListener(object : Player.Listener {
+                override fun onPlaybackStateChanged(playbackState: Int) {
+                    super.onPlaybackStateChanged(playbackState)
+                    if (playbackState == Player.STATE_ENDED) {
+                        runOnUiThread {
+                            mostrarPopup() // Acción al finalizar el video
+                        }
+                    }
+                }
+            })
+        }
+
         supportFragmentManager.commit {
-            add(R.id.containerFragment, VideoARFragment::class.java, Bundle())
+            add(R.id.containerFragment, MainFragment(exoPlayer))
+        }
+
+        supportFragmentManager.commit {
+            replace(R.id.containerFragment2, ReproductorARFragment(exoPlayer))
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        exoPlayer.release() // Liberar recursos del ExoPlayer
+    }
+
     fun Fragment.setFullScreen(
         fullScreen: Boolean = true,
         hideSystemBars: Boolean = true,
@@ -52,7 +87,31 @@ class ExperienciaCompletaActivity : AppCompatActivity(R.layout.activity_experien
             fitsSystemWindows
         )
     }
+
+    fun mostrarPopup() {
+        val dialogView = layoutInflater.inflate(R.layout.start_experience_popup, null)
+
+        val dialog = MaterialAlertDialogBuilder(this)
+            .setView(dialogView)
+            .create()
+
+        val btnDespues = dialogView.findViewById<Button>(R.id.btnDespues)
+        val btnIniciar = dialogView.findViewById<Button>(R.id.btnIniciar)
+
+        btnDespues.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        btnIniciar.setOnClickListener {
+            val intent = Intent(this, Display360DegreeImage::class.java)
+            startActivity(intent)
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
 }
+
 private fun Activity.setFullScreen(
     rootView: View,
     fullScreen: Boolean = true,
