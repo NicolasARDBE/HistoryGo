@@ -46,7 +46,7 @@
                     android:src="@drawable/star"
                     android:clickable="true"
                     android:focusable="true"
-                    app:tint="@android:color/holo_orange_light" />
+                    app:tint="@android:color/darker_gray" />
 
                 <ImageView
                     android:id="@+id/stars2"
