@@ -17,6 +17,8 @@ import com.example.historygo.clientsdk.HistorygoapiClient
 import com.example.historygo.clientsdk.model.RatingPOST
 import com.example.historygo.databinding.ActivitySingleComentBinding
 import java.math.BigDecimal
+import kotlinx.coroutines.*
+
 
 class SingleComentActivity : AppCompatActivity(), DynamoDBInitializationCallback {
 
@@ -89,33 +91,39 @@ class SingleComentActivity : AppCompatActivity(), DynamoDBInitializationCallback
             }
 
             val ratingPost = RatingPOST().apply {
-                touristSpotId = "1" // ✅ IMPORTANTE: este campo puede ser requerido por tu backend
+                touristSpotId = "1"
                 rating = BigDecimal(currentRating)
                 review = reviewText
                 userId = jwtDecoder.decodeJWTCognitoUsername(jwtToken)
             }
 
-            try {
-                Log.d("SingleComentActivity", "Enviando RatingPOST con JWT: $jwtToken")
-                Log.d("SingleComentActivity", "Datos: rating=${ratingPost.rating}, review=${ratingPost.review}, userId=${ratingPost.userId}, touristSpotId=${ratingPost.touristSpotId}")
+            //  Corrutina para no bloquear el hilo principal
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    Log.d("SingleComentActivity", "Enviando RatingPOST con JWT: $jwtToken")
+                    Log.d("SingleComentActivity", "Datos: rating=${ratingPost.rating}, review=${ratingPost.review}, userId=${ratingPost.userId}, touristSpotId=${ratingPost.touristSpotId}")
 
-                val response = client.ratingTablePost(jwtToken, ratingPost)
+                    val response = client.ratingTablePost(jwtToken, ratingPost)
 
-                Log.d("SingleComentActivity", "Respuesta del servidor: $response")
+                    withContext(Dispatchers.Main) {
+                        if (response != null) {
+                            Toast.makeText(this@SingleComentActivity, "Comentario guardado correctamente", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Log.e("SingleComentActivity", "Error: La respuesta no contiene ratingId")
+                            Toast.makeText(this@SingleComentActivity, "Error: No se guardó la reseña", Toast.LENGTH_SHORT).show()
+                        }
+                    }
 
-                if (response != null) {
-                    Toast.makeText(this, "Comentario guardado correctamente", Toast.LENGTH_SHORT).show()
-                } else {
-                    Log.e("SingleComentActivity", "Error: La respuesta no contiene ratingId")
-                    Toast.makeText(this, "Error: No se guardó la reseña", Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Log.e("SingleComentActivity", "Error al enviar comentario: ${e.message}", e)
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@SingleComentActivity, "Error al enviar comentario", Toast.LENGTH_SHORT).show()
+                    }
                 }
-
-            } catch (e: Exception) {
-                Log.e("SingleComentActivity", "Error al enviar comentario: ${e.message}", e)
-                Toast.makeText(this, "Error al enviar comentario", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
 
 
     private fun updateStarColors(rating: Int) {

@@ -148,5 +148,7 @@
 
     <string name="start_immersive_experience_title">Immersive Experience </string>
     <string name="start_immersive_experience">Would you like to start the immersive experience now? </string>
+    <string name="escribir_comentario">escribir comentario</string>
+    <string name="_5">5</string>
 
 </resources>
