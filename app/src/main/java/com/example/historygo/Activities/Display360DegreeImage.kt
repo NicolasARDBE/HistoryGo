@@ -32,7 +32,7 @@ class Display360DegreeImage : BaseActivity() {
         initializePlManager()
 
         // Cargar imagen remota 360 desde CloudFront usando Glide
-        val imageUrl = "${cloudFrontBaseUrl}images/chorro-quevedo-360-2.jpeg"
+        val imageUrl = "${cloudFrontBaseUrl}images/chorro-quevedo-360-3.png"
         loadPanoramaImage(imageUrl)
 
         // API Gateway y reproducción de audio

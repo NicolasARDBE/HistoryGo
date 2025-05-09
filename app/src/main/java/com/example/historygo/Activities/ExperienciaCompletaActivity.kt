@@ -44,7 +44,7 @@ class ExperienciaCompletaActivity : BaseActivity() {
 
         // Inicializar ExoPlayer
         exoPlayer = ExoPlayer.Builder(this).build().apply {
-            setMediaItem(MediaItem.fromUri("https://d3krfb04kdzji1.cloudfront.net/chorro-quevedo-video-ia.mp4"))
+            setMediaItem(MediaItem.fromUri("https://d3krfb04kdzji1.cloudfront.net/historia-chorro-v3.mp4"))
             prepare()
             playWhenReady = false
             repeatMode = Player.REPEAT_MODE_OFF // Cambiado para permitir que termine
