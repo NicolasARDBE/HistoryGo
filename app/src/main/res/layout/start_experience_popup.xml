@@ -12,7 +12,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/popup_title"
+        android:text="@string/start_immersive_experience_title"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@android:color/black"
@@ -22,7 +22,7 @@
         android:id="@+id/tvMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/popup_message"
+        android:text="@string/start_immersive_experience"
         android:textSize="16sp"
         android:textColor="@android:color/black"
         android:layout_marginBottom="16dp"/>

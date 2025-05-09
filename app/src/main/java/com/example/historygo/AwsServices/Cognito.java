@@ -11,6 +11,8 @@ import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserAttributes;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserCodeDeliveryDetails;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.AuthenticationContinuation;
@@ -21,33 +23,43 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.Mult
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.AuthenticationHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.ForgotPasswordHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GetDetailsHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.UpdateAttributesHandler;
 import com.amazonaws.regions.Regions;
+import com.amazonaws.services.cognitoidentityprovider.model.InvalidParameterException;
+import com.amazonaws.services.cognitoidentityprovider.model.InvalidPasswordException;
+import com.amazonaws.services.cognitoidentityprovider.model.NotAuthorizedException;
 import com.amazonaws.services.cognitoidentityprovider.model.SignUpResult;
+import com.amazonaws.services.cognitoidentityprovider.model.UserNotConfirmedException;
+import com.amazonaws.services.cognitoidentityprovider.model.UserNotFoundException;
 import com.example.historygo.Activities.ExpererienceMenuActivity;
 import com.example.historygo.Azure.AzureSecretsManager;
+import com.example.historygo.R;
 
 import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Cognito {
+public class Cognito{
     private final Regions awsRegion = Regions.US_EAST_2;
     private String identityPoolID;
     private String userPoolID;
     private String clientID;
     private CognitoUserPool userPool;
     private CognitoUserAttributes userAttributes; // Used for adding attributes to the user
-    private final Context appContext;
+    private Context appContext;
     private String userPassword;
     private ForgotPasswordContinuation forgotPasswordContinuation;
     @SuppressLint("StaticFieldLeak")
     private static CognitoUser cognitoUser;
+
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -96,17 +108,25 @@ public class Cognito {
         @Override
         public void onSuccess(CognitoUser user, SignUpResult signUpResult) {
             Log.d(TAG, "Sign-up success");
-            Toast.makeText(appContext, "Sign-up success", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, R.string.sign_up_success, Toast.LENGTH_LONG).show();
             if (!signUpResult.getUserConfirmed()) {
                 // User must be confirmed
             } else {
-                Toast.makeText(appContext, "Error: User Confirmed before", Toast.LENGTH_LONG).show();
+                Toast.makeText(appContext, R.string.signup_error, Toast.LENGTH_LONG).show();
             }
         }
 
         @Override
         public void onFailure(Exception exception) {
-            Toast.makeText(appContext, "Sign-up failed", Toast.LENGTH_LONG).show();
+            String errorMessage = appContext.getString(R.string.signup_error_2, exception.getMessage());
+
+            if (exception instanceof UserNotConfirmedException) {
+                errorMessage = appContext.getString(R.string.signup_error_user_not_confirmed);
+            } else if (exception instanceof InvalidPasswordException) {
+                errorMessage =  appContext.getString(R.string.signup_error_invalid_password);
+            }
+
+            Toast.makeText(appContext, errorMessage, Toast.LENGTH_LONG).show();
             Log.d(TAG, "Sign-up failed: " + exception);
         }
     };
@@ -119,7 +139,7 @@ public class Cognito {
     GenericHandler confirmationCallback = new GenericHandler() {
         @Override
         public void onSuccess() {
-            Toast.makeText(appContext, "User Confirmed", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, R.string.user_confirmed, Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -145,7 +165,7 @@ public class Cognito {
             cognitoUser.getSessionInBackground(authenticationHandler);
         } catch (Exception e) {
             Log.e("CognitoLogin", "Error during login: " + e.getMessage(), e);
-            Toast.makeText(appContext, "Revise su conexión", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, R.string.connection_error, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -155,28 +175,35 @@ public class Cognito {
 
         @Override
         public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
-            Toast.makeText(appContext, "Sign in success", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, R.string.sign_in_success, Toast.LENGTH_SHORT).show();
 
-            CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(appContext, identityPoolID, awsRegion);
+            CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                    appContext, identityPoolID, awsRegion
+            );
 
             String jwtToken = userSession.getIdToken().getJWTToken();
 
             Map<String, String> logins = new HashMap<>();
-            logins.put("cognito-idp.us-east-2.amazonaws.com/" + userPoolID, userSession.getIdToken().getJWTToken());
+            logins.put("cognito-idp.us-east-2.amazonaws.com/" + userPoolID, jwtToken);
             credentialsProvider.setLogins(logins);
 
-            String identityId = credentialsProvider.getIdentityId();
-            Log.i("AWS", "Identity ID obtenido: " + identityId);
+            executor.execute(() -> {
+                try {
+                    String identityId = credentialsProvider.getIdentityId();
+                    Log.i("AWS", "Identity ID obtenido: " + identityId);
+
+                } catch (Exception e) {
+                    Log.e("AWS", "Error al obtener Identity ID", e);
+                }
+            });
 
             SharedPreferences sharedPreferences = appContext.getSharedPreferences("auth", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("jwt_token", jwtToken); // token es tu JWT en String
+            editor.putString("jwt_token", jwtToken);
             editor.apply();
-
 
             Intent intent = new Intent(appContext, ExpererienceMenuActivity.class);
             intent.putExtra("JWTTOKEN", jwtToken);
-
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             appContext.startActivity(intent);
         }
@@ -193,7 +220,15 @@ public class Cognito {
 
         @Override
         public void onFailure(Exception exception) {
-            Toast.makeText(appContext, "Sign in Failure.\n" + exception.toString(), Toast.LENGTH_LONG).show();
+            String message = appContext.getString(R.string.login_error_generic, exception.getMessage());
+            if (exception instanceof UserNotConfirmedException) {
+                message = appContext.getString(R.string.login_error_unconfirmed);
+            } else if (exception instanceof NotAuthorizedException) {
+                message = appContext.getString(R.string.login_error_unauthorized);
+            } else if (exception instanceof UserNotFoundException) {
+                message = appContext.getString(R.string.login_error_not_found);
+            }
+            Toast.makeText(appContext, message, Toast.LENGTH_LONG).show();
         }
     };
 
@@ -209,18 +244,26 @@ public class Cognito {
     ForgotPasswordHandler forgotPasswordHandler = new ForgotPasswordHandler() {
         @Override
         public void onSuccess() {
-            Toast.makeText(appContext, "Contraseña restablecida correctamente", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, R.string.password_reset_success, Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void getResetCode(ForgotPasswordContinuation continuation) {
             forgotPasswordContinuation = continuation;
-            Toast.makeText(appContext, "Código de verificación enviado. Verifica tu email o SMS.", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, R.string.verification_code_sent, Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onFailure(Exception exception) {
-            Toast.makeText(appContext, "Error al restablecer contraseña: " + exception.getMessage(), Toast.LENGTH_LONG).show();
+            String errorMessage = appContext.getString(R.string.password_change_error, exception.getMessage());
+
+            if (exception instanceof UserNotFoundException) {
+                errorMessage = appContext.getString(R.string.password_reset_error_not_found);
+            } else if (exception instanceof InvalidParameterException) {
+                errorMessage = appContext.getString(R.string.password_reset_error_invalid_code);
+            }
+
+            Toast.makeText(appContext, errorMessage, Toast.LENGTH_LONG).show();
             Log.e(TAG, "Error en recuperación de contraseña", exception);
         }
     };
@@ -231,11 +274,62 @@ public class Cognito {
             forgotPasswordContinuation.setVerificationCode(verificationCode);
             forgotPasswordContinuation.continueTask();
         } else {
-            Toast.makeText(appContext, "Primero solicita la recuperación de contraseña", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, R.string.request_password_reset_first, Toast.LENGTH_LONG).show();
         }
     }
 
     public CognitoCachingCredentialsProvider getCognitoCachingCredentialsProvider() {
         return new CognitoCachingCredentialsProvider(appContext, identityPoolID, awsRegion);
+    }
+
+    public void updateUserAttributes(String familyName) {
+        userAttributes.addAttribute("family_name", familyName);
+        cognitoUser.updateAttributesInBackground(userAttributes, new UpdateAttributesHandler() {
+            @Override
+            public void onSuccess(List<CognitoUserCodeDeliveryDetails> attributesVerificationList) {
+                Toast.makeText(appContext, R.string.attributes_updated, Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Exception exception) {
+                Toast.makeText(appContext, appContext.getString(R.string.attributes_update_failed, exception.getLocalizedMessage()), Toast.LENGTH_SHORT).show();
+                Log.e("Cognito", "Attribute update error", exception);
+            }
+        });
+    }
+
+    public void getUserAttributes(OnAttributesReceivedCallback callback) {
+        cognitoUser.getDetailsInBackground(new GetDetailsHandler() {
+            @Override
+            public void onSuccess(CognitoUserDetails cognitoUserDetails) {
+                Map<String, String> attributes = cognitoUserDetails.getAttributes().getAttributes();
+                callback.onReceived(attributes); // Devuelve los atributos por el callback
+            }
+
+            @Override
+            public void onFailure(Exception exception) {
+                callback.onError(exception); // Devuelve el error por el callback
+            }
+        });
+    }
+
+    public void changePassword(String oldPassword, String newPassword) {
+        // Change the user's password
+        cognitoUser.changePasswordInBackground(oldPassword, newPassword, new GenericHandler() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(appContext, R.string.password_change_success, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Exception exception) {
+                Toast.makeText(appContext, appContext.getString(R.string.password_change_error, exception.getMessage()), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public CognitoUser getCognitoUser(){
+        return cognitoUser;
+    }
+    public void updateContext(Context newContext) {
+        this.appContext = newContext;
     }
 }

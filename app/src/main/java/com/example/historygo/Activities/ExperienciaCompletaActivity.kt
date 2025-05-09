@@ -1,54 +1,152 @@
 package com.example.historygo.Activities
 
-import android.content.Context
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
-import com.example.historygo.Activities.Fragments.ReproductorFragment
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import androidx.appcompat.widget.Toolbar
+import androidx.core.graphics.Insets
+import androidx.core.view.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.exoplayer.ExoPlayer
+import com.example.historygo.Activities.Fragments.MainFragment
+import com.example.historygo.Activities.Fragments.ReproductorARFragment
+import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.R
-import com.example.historygo.clientsdk.HistorygoapiClient
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class ExperienciaCompletaActivity : AppCompatActivity() {
+class ExperienciaCompletaActivity : BaseActivity() {
+
+    private lateinit var exoPlayer: ExoPlayer
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        //API Gateway
-        val factory = ApiClientFactory()
-        val client: HistorygoapiClient = factory.build(HistorygoapiClient::class.java)
-        val jwtToken = getSharedPreferences("auth", Context.MODE_PRIVATE)
-            .getString("jwt_token", null)
-
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_experiencia_completa)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        setFullScreen(
+            findViewById(R.id.rootView),
+            fullScreen = true,
+            hideSystemBars = false,
+            fitsSystemWindows = false
+        )
+
+        setSupportActionBar(findViewById<Toolbar>(R.id.toolbar)?.apply {
+            doOnApplyWindowInsets { systemBarsInsets ->
+                (layoutParams as ViewGroup.MarginLayoutParams).topMargin = systemBarsInsets.top
+            }
+            title = ""
+        })
+
+        // Inicializar ExoPlayer
+        exoPlayer = ExoPlayer.Builder(this).build().apply {
+            setMediaItem(MediaItem.fromUri("https://d3krfb04kdzji1.cloudfront.net/historia-chorro-v3.mp4"))
+            prepare()
+            playWhenReady = false
+            repeatMode = Player.REPEAT_MODE_OFF // Cambiado para permitir que termine
+
+            addListener(object : Player.Listener {
+                override fun onPlaybackStateChanged(playbackState: Int) {
+                    super.onPlaybackStateChanged(playbackState)
+                    if (playbackState == Player.STATE_ENDED) {
+                        runOnUiThread {
+                            mostrarPopup() // Acción al finalizar el video
+                        }
+                    }
+                }
+            })
         }
 
-        if (jwtToken != null) {
-            setupAudioPlayback(client, jwtToken)
+        supportFragmentManager.commit {
+            add(R.id.containerFragment, MainFragment(exoPlayer))
+        }
+
+        supportFragmentManager.commit {
+            replace(R.id.containerFragment2, ReproductorARFragment(exoPlayer))
         }
     }
 
-    //REPRODUCTOR AUDIO
-    private fun setupAudioPlayback(client: HistorygoapiClient, jwtToken: String) {
-        // Use the helper function to get the URI :
-        //val audioUri = getRawUri(this, R.raw.sample_audio)
-        //Log.d("MainActivity", "Audio URI: $audioUri") // Log the URI
-        val audioName = "Chorro de Quevedo"  // CAMBIAR A NOMBRE DE AUDIO
+    override fun onDestroy() {
+        super.onDestroy()
+        exoPlayer.release() // Liberar recursos del ExoPlayer
+    }
 
-        val audioKey = "guion-v2-chorro.mp3"
-        val cloudFrontBaseUrl = "https://d3krfb04kdzji1.cloudfront.net/"
-        val audioUrl = "$cloudFrontBaseUrl$audioKey"
+    fun Fragment.setFullScreen(
+        fullScreen: Boolean = true,
+        hideSystemBars: Boolean = true,
+        fitsSystemWindows: Boolean = true
+    ) {
+        requireActivity().setFullScreen(
+            this.requireView(),
+            fullScreen,
+            hideSystemBars,
+            fitsSystemWindows
+        )
+    }
 
+    fun mostrarPopup() {
+        val dialogView = layoutInflater.inflate(R.layout.start_experience_popup, null)
 
-        val fragment = ReproductorFragment.newInstance(audioUrl, audioName)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView2, fragment)
-            .commit()
+        val dialog = MaterialAlertDialogBuilder(this)
+            .setView(dialogView)
+            .create()
+
+        val btnDespues = dialogView.findViewById<Button>(R.id.btnDespues)
+        val btnIniciar = dialogView.findViewById<Button>(R.id.btnIniciar)
+
+        btnDespues.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        btnIniciar.setOnClickListener {
+            val intent = Intent(this, Display360DegreeImage::class.java)
+            startActivity(intent)
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+}
+
+private fun Activity.setFullScreen(
+    rootView: View,
+    fullScreen: Boolean = true,
+    hideSystemBars: Boolean = true,
+    fitsSystemWindows: Boolean = true
+) {
+    rootView.viewTreeObserver?.addOnWindowFocusChangeListener { hasFocus ->
+        if (hasFocus) {
+            WindowCompat.setDecorFitsSystemWindows(window, fitsSystemWindows)
+            WindowInsetsControllerCompat(window, rootView).apply {
+                if (hideSystemBars) {
+                    if (fullScreen) {
+                        hide(
+                            WindowInsetsCompat.Type.statusBars() or
+                                    WindowInsetsCompat.Type.navigationBars()
+                        )
+                    } else {
+                        show(
+                            WindowInsetsCompat.Type.statusBars() or
+                                    WindowInsetsCompat.Type.navigationBars()
+                        )
+                    }
+                    systemBarsBehavior =
+                        WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                }
+            }
+        }
+    }
+}
+
+private fun View.doOnApplyWindowInsets(action: (systemBarsInsets: Insets) -> Unit) {
+    doOnAttach {
+        ViewCompat.setOnApplyWindowInsetsListener(this) { _, insets ->
+            action(insets.getInsets(WindowInsetsCompat.Type.systemBars()))
+            WindowInsetsCompat.CONSUMED
+        }
     }
 }

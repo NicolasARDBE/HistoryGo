@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
         android:fontFamily="@font/poppins_medium"
-        android:text="@string/crea_tu_cuenta"
+        android:text="@string/create_your_account"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -28,7 +28,7 @@
         android:layout_marginTop="12dp"
         android:fontFamily="@font/poppins_regular"
         android:gravity="center"
-        android:text="@string/crea_tu_cuenta_y_comienza_a_disfrutar_de_nuestras_experiencias"
+        android:text="@string/create_your_account_exp"
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +56,7 @@
             android:layout_marginBottom="14dp"
             android:autofillHints="name"
             android:background="@drawable/rectangle"
-            android:hint="@string/nombre"
+            android:hint="@string/name"
             android:textColorHint="#808080"
             android:inputType="text"
             android:textSize="16sp"
@@ -70,11 +70,12 @@
             android:layout_marginBottom="14dp"
             android:autofillHints="emailAddress"
             android:background="@drawable/rectangle"
-            android:hint="@string/correo"
+            android:hint="@string/prompt_email"
             android:inputType="textEmailAddress"
             android:textColorHint="#808080"
             android:drawableStart="@drawable/mail_icon"
-            android:drawablePadding="10dp"/>
+            android:drawablePadding="10dp"
+            android:textSize="16sp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/password_input_layout"
@@ -92,7 +93,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Email"
             app:layout_constraintVertical_bias="0.15"
-            android:layout_marginBottom="14dp">
+            android:layout_marginBottom="14dp"
+            android:textSize="16sp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/Password"
@@ -100,7 +102,7 @@
                 android:layout_height="48dp"
                 android:background="@drawable/rectangle"
                 android:inputType="textPassword"
-                android:hint="@string/contrasena"
+                android:hint="@string/prompt_password"
                 app:hintEnabled="false"
                 android:padding="12dp"
                 android:drawableStart="@drawable/lock_icon"
@@ -133,13 +135,14 @@
                 android:layout_height="48dp"
                 android:background="@drawable/rectangle"
                 android:inputType="textPassword"
-                android:hint="@string/confirmar_contrasena"
+                android:hint="@string/confirm_password"
                 app:hintEnabled="false"
                 android:padding="12dp"
                 android:drawableStart="@drawable/lock_icon"
                 android:drawablePadding="10dp"
                 android:textColorHint="#808080"
-                android:ems="10" />
+                android:ems="10"
+                android:textSize="16sp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
@@ -151,7 +154,7 @@
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
         android:backgroundTint="@color/blue"
-        android:text="@string/continuar"
+        android:text="@string/continueR"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
@@ -164,7 +167,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="@string/ya_tengo_una_cuenta"
+        android:text="@string/alreadyAccount"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

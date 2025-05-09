@@ -4,17 +4,19 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.example.historygo.Adapters.ExperienceAdapter
+import com.example.historygo.Helper.BaseActivity
+import com.example.historygo.Helper.LanguagePreference
 import com.example.historygo.Model.Experience
 import com.example.historygo.R
 import com.example.historygo.clientsdk.HistorygoapiClient
-import android.util.Log
 
-class ExpererienceMenuActivity : AppCompatActivity() {
+
+class ExpererienceMenuActivity : BaseActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ExperienceAdapter
@@ -26,6 +28,8 @@ class ExpererienceMenuActivity : AppCompatActivity() {
 
         val jwtToken = getSharedPreferences("auth", Context.MODE_PRIVATE)
             .getString("jwt_token", null)
+
+        val currentLanguage = LanguagePreference.getLanguage(this)
 
         // Inicializar el cliente de AWS
         val factory = ApiClientFactory()
@@ -42,14 +46,18 @@ class ExpererienceMenuActivity : AppCompatActivity() {
                 val touristSpots = touristSpotsResponse.touristSpots
                 Log.d("Exp img", "Mensaje: ${touristSpots[1].imageKey}")
                 // Crear una lista de objetos Experience
+
                 val experiences = touristSpots.map { touristSpot ->
+                    val description = if (currentLanguage == "en") {
+                        touristSpot.descriptionEn
+                    } else {
+                        touristSpot.description
+                    }
+
                     Experience(
                         touristSpot.touristSpotId.toInt(),
                         touristSpot.name,
-                        touristSpot.description,
-                        // Asumimos que tienes un recurso de imagen relacionado con el nombre
-                        // Aquí puedes agregar lógica para asociar imágenes si es necesario
-                        // Placeholder
+                        description,
                         touristSpot.imageKey
                     )
                 }
@@ -62,7 +70,7 @@ class ExpererienceMenuActivity : AppCompatActivity() {
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                // Manejar el error (puedes mostrar un mensaje de error si lo deseas)
+                // Manejar el error
             }
         }.start()
     }

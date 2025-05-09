@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_dialog_rounded_yellow"
-    tools:context=".Activities.Maps.MapsActivity">
+    tools:context=".Activities.Fragments.ReproductorARFragment">
 
     <TextView
         android:id="@+id/textViewNombrePista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/chorro_quevedo"
+        android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

@@ -1,13 +1,13 @@
 package com.example.historygo.Activities.Fragments
 
 import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.historygo.R
 import com.example.historygo.databinding.FragmentReproductorBinding
 import java.util.Timer
 import java.util.TimerTask
@@ -24,7 +24,7 @@ class ReproductorFragment : Fragment() {
             val fragment = ReproductorFragment()
             val args = Bundle()
             args.putString("audioUri", audioUri)
-            args.putString("audioName", audioName) // Store the audio name
+            args.putString("audioName", audioName)
             fragment.arguments = args
             return fragment
         }
@@ -37,33 +37,55 @@ class ReproductorFragment : Fragment() {
         _binding = FragmentReproductorBinding.inflate(inflater, container, false)
 
         val audioUriString = arguments?.getString("audioUri")
-        val audioName = arguments?.getString("audioName") // Retrieve the audio name
+        val audioName = arguments?.getString("audioName")
+
+        binding.textViewNombrePista.text = audioName ?: "Nombre desconocido"
 
         if (audioUriString != null) {
-            val audioUri = Uri.parse(audioUriString)
-            mediaPlayer = MediaPlayer.create(context, audioUri)
-            binding.progressBar.max = mediaPlayer?.duration ?: 0
-
-            // Set the audio name to textViewNombrePista
-            binding.textViewNombrePista.text = audioName ?: "Nombre Desconocido"  // Use a default if null
-
+            mediaPlayer = MediaPlayer()
+            try {
+                mediaPlayer?.apply {
+                    setDataSource(audioUriString)
+                    setOnPreparedListener {
+                        binding.progressBar.max = duration
+                        binding.imageButtonPause.setImageResource(android.R.drawable.ic_media_play) // Cambiar a "play" en lugar de "pause"
+                        startProgressUpdater() // Solo actualiza la barra de progreso
+                    }
+                    setOnErrorListener { _, what, extra ->
+                        Log.e("ReproductorFragment", "MediaPlayer error: what=$what, extra=$extra")
+                        binding.textViewNombrePista.text = requireContext().getString(R.string.error_audio_play)
+                        true
+                    }
+                    prepareAsync()
+                }
+            } catch (e: Exception) {
+                Log.e("ReproductorFragment", "Excepción al reproducir: ${e.localizedMessage}")
+                binding.textViewNombrePista.text = requireContext().getString(R.string.error_audio_load)
+            }
         } else {
-            Log.e("ReproductorFragment", "Audio URI not provided")
-            binding.imageButtonPause.isEnabled = false
+            Log.e("ReproductorFragment", "Audio URI no proporcionado")
+            binding.textViewNombrePista.text = requireContext().getString(R.string.error_audio_not_available)
         }
 
+        setupButtons()
+        return binding.root
+    }
+
+    private fun setupButtons() {
         binding.imageButtonClose.setOnClickListener {
             parentFragmentManager.beginTransaction().remove(this).commit()
         }
 
         binding.imageButtonPause.setOnClickListener {
-            if (mediaPlayer?.isPlaying == true) {
-                mediaPlayer?.pause()
-                binding.imageButtonPause.setImageResource(android.R.drawable.ic_media_play)
-            } else {
-                mediaPlayer?.start()
-                binding.imageButtonPause.setImageResource(android.R.drawable.ic_media_pause)
-                startProgressUpdater()
+            mediaPlayer?.let {
+                if (it.isPlaying) {
+                    it.pause()
+                    binding.imageButtonPause.setImageResource(android.R.drawable.ic_media_play) // Cambiar a "play" cuando está en pausa
+                } else {
+                    it.start()
+                    binding.imageButtonPause.setImageResource(android.R.drawable.ic_media_pause) // Cambiar a "pause" cuando está reproduciendo
+                    startProgressUpdater() // Iniciar la actualización de la barra de progreso
+                }
             }
         }
 
@@ -82,16 +104,17 @@ class ReproductorFragment : Fragment() {
         binding.imageButtonNext.setOnClickListener {
             mediaPlayer?.seekTo(mediaPlayer?.duration ?: 0)
         }
-
-        return binding.root
     }
 
     private fun startProgressUpdater() {
+        timer?.cancel()
         timer = Timer()
         timer?.schedule(object : TimerTask() {
             override fun run() {
                 activity?.runOnUiThread {
-                    binding.progressBar.progress = mediaPlayer?.currentPosition ?: 0
+                    mediaPlayer?.let {
+                        binding.progressBar.progress = it.currentPosition
+                    }
                 }
             }
         }, 0, 1000)
@@ -104,8 +127,8 @@ class ReproductorFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        timer?.cancel()
         mediaPlayer?.release()
         mediaPlayer = null
-        timer?.cancel()
     }
 }
