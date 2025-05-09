@@ -79,4 +79,6 @@
     <string name="olvidaste_t_contrase_a">¿Olvidaste tú contraseña?</string>
     <string name="bienvenido">¡Bienvenido!</string>
     <string name="experiencia_completa">EXPERIENCIA COMPLETA</string>
+    <string name="_5">5</string>
+    <string name="escribir_comentario">Escribir comentario</string>
 </resources>

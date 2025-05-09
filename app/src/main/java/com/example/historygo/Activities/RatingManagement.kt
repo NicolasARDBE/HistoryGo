@@ -69,7 +69,7 @@ class RatingManagement : AppCompatActivity(), DynamoDBInitializationCallback {
             }
         }
 
-        binding.CreateBtn.setOnClickListener{
+        binding.CreateBtn.setOnClickListener {
             val rating = RatingPOST()
             rating.touristSpotId = "1"
             rating.rating = BigDecimal(1)
