@@ -9,9 +9,7 @@ import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.example.historygo.Activities.Fragments.ReproductorFragment
 import com.example.historygo.Helper.BaseActivity
-import com.example.historygo.R
 import com.example.historygo.clientsdk.HistorygoapiClient
 import com.example.historygo.databinding.ActivityDisplay360DegreeImageBinding
 import com.panoramagl.PLImage
@@ -44,7 +42,6 @@ class Display360DegreeImage : BaseActivity() {
             .getString("jwt_token", null)
 
         if (jwtToken != null) {
-            setupAudioPlayback(client, jwtToken)
         }
     }
 
@@ -91,16 +88,5 @@ class Display360DegreeImage : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         plManager.onDestroy()
-    }
-
-    private fun setupAudioPlayback(client: HistorygoapiClient, jwtToken: String) {
-        val audioName = "Chorro de Quevedo"
-        val audioKey = "guion-trayecto-chorro.mp3"
-        val audioUrl = "$cloudFrontBaseUrl$audioKey"
-
-        val fragment = ReproductorFragment.newInstance(audioUrl, audioName)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView2, fragment)
-            .commit()
     }
 }

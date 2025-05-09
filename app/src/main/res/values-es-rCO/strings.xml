@@ -96,4 +96,7 @@
     <string name="error_audio_play">Error al reproducir audio </string>
     <string name="error_audio_load">Error al cargar audio </string>
     <string name="error_audio_not_available">Audio no disponible </string>
+    <string name="start_immersive_experience_title">Experiencia inmersiva </string>
+    <string name="start_immersive_experience">¿Le gustaría empezar ya la experiencia inmersiva? </string>
+
 </resources>
