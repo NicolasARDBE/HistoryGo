@@ -43,7 +43,7 @@ class VerifyAcountActivity : BaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                cognito.confirmUser(binding.editTextEmail.toString(), binding.editTextCode.getText().toString().replace(" ", ""))
+                cognito.confirmUser(binding.editTextEmail.text.toString(), binding.editTextCode.text.toString().replace(" ", ""))
                 val intent = android.content.Intent(this, Login::class.java)
                 startActivity(intent)
             }

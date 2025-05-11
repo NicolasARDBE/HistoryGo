@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.graphics.Insets
 import androidx.core.view.*
@@ -27,6 +28,8 @@ class ExperienciaCompletaActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_experiencia_completa)
+
+        Toast.makeText(baseContext, R.string.qr_message, Toast.LENGTH_SHORT).show()
 
         setFullScreen(
             findViewById(R.id.rootView),
