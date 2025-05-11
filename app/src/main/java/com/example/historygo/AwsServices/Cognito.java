@@ -145,6 +145,9 @@ public class Cognito{
         @Override
         public void onFailure(Exception exception) {
             // User confirmation failed.
+            String errorMessage = appContext.getString(R.string.user_confirmed_error, exception.getMessage());
+            Log.d("testCode", errorMessage);
+            Toast.makeText(appContext, errorMessage, Toast.LENGTH_LONG).show();
         }
     };
 

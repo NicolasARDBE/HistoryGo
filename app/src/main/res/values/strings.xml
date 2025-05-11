@@ -150,5 +150,8 @@
     <string name="start_immersive_experience">Would you like to start the immersive experience now? </string>
     <string name="escribir_comentario">escribir comentario</string>
     <string name="_5">5</string>
+    <string name="user_confirmed_error">Failed to confirm user: %1$s</string>
+    <string name="qr_message">Point your camera at the QR code</string>
+    user_confirmed_error
 
 </resources>

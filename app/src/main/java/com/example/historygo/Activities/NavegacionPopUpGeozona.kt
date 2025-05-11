@@ -18,6 +18,7 @@ import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.example.historygo.Activities.Fragments.ReproductorFragment
 import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.Helper.GeofenceHelper
+import com.example.historygo.Helper.LanguagePreference
 import com.example.historygo.R
 import com.example.historygo.Services.LightSensorService
 import com.example.historygo.clientsdk.HistorygoapiClient
@@ -46,6 +47,7 @@ class NavegacionPopUpGeozona : BaseActivity() {
     private lateinit var locationOverlay: MyLocationNewOverlay
     private lateinit var map : MapView
     private lateinit var lightSensorService: LightSensorService
+    private lateinit var  currentLanguage: String
 
     // Ubicación del Chorro de Quevedo en Bogotá
     private val chorroLocationLatLng = LatLng(4.5972, -74.0697)
@@ -71,6 +73,7 @@ class NavegacionPopUpGeozona : BaseActivity() {
 
         val jwtToken = getSharedPreferences("auth", Context.MODE_PRIVATE)
             .getString("jwt_token", null)
+        currentLanguage = LanguagePreference.getLanguage(this)
 
         // Geofencing
         geofencingClient = LocationServices.getGeofencingClient(this)
@@ -357,8 +360,12 @@ class NavegacionPopUpGeozona : BaseActivity() {
         //val audioUri = getRawUri(this, R.raw.sample_audio)
         //Log.d("MainActivity", "Audio URI: $audioUri") // Log the URI
         val audioName = applicationContext.getString(R.string.audio_name_chorro)   // CAMBIAR A NOMBRE DE AUDIO
-
-        val audioKey = "guion-trayecto-chorro.mp3"
+        val audioKey: String
+        if(currentLanguage == "es"){
+            audioKey = "guion-trayecto-chorro.mp3"
+        } else {
+            audioKey = "guion-trayecto-chorro-en.mp3"
+        }
         val cloudFrontBaseUrl = "https://d3krfb04kdzji1.cloudfront.net/"
         val audioUrl = "$cloudFrontBaseUrl$audioKey"
 
