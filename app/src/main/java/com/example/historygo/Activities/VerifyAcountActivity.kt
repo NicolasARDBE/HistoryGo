@@ -44,9 +44,12 @@ class VerifyAcountActivity : BaseActivity() {
                 ).show()
             } else {
                 cognito.confirmUser(binding.editTextEmail.text.toString(), binding.editTextCode.text.toString().replace(" ", ""))
-                val intent = android.content.Intent(this, Login::class.java)
-                startActivity(intent)
             }
+        }
+
+        binding.textView2.setOnClickListener{
+            val intent = android.content.Intent(this, Login::class.java)
+            startActivity(intent)
         }
     }
 }
