@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.example.historygo.Activities.ExpererienceMenuActivity
 import com.example.historygo.Activities.FeedbackActivity
 import com.example.historygo.Activities.Profile
+import com.example.historygo.Activities.UpdateDeleteComentActivity
 import com.example.historygo.databinding.FragmentNavegationBarBinding
 
 
@@ -28,11 +29,11 @@ class NavegationBarFragment : Fragment() {
             startActivity(Intent(requireContext(), ExpererienceMenuActivity::class.java))
         }
 
-        /*
+
         binding.btnFavorites.setOnClickListener {
-            startActivity(Intent(requireContext(), FeedbackActivity::class.java))
+            startActivity(Intent(requireContext(), UpdateDeleteComentActivity::class.java))
         }
-        */
+
         binding.btnArchive.setOnClickListener {
             startActivity(Intent(requireContext(), FeedbackActivity::class.java))
         }

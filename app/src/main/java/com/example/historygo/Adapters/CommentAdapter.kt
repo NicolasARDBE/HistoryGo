@@ -20,7 +20,7 @@ class CommentAdapter(private val comments: List<ComentarioExperiencia>) :
     RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val userName: TextView = view.findViewById(R.id.nombre)
+        val comentario: TextView = view.findViewById(R.id.review)
         val tiempo: TextView = view.findViewById(R.id.tiempo)
         val stars: List<ImageView> = listOf(
             view.findViewById(R.id.star1),
@@ -50,13 +50,13 @@ class CommentAdapter(private val comments: List<ComentarioExperiencia>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val comment = comments[position]
-        holder.userName.text = convertirFecha(comment.userName)
-        holder.tiempo.text = comment.timestamp
+        holder.tiempo.text = convertirFecha(comment.timestamp)
+        holder.comentario.text = comment.review
 
 
 
 
-        val rating = comment.review.toFloatOrNull()?.toInt() ?: 0
+        val rating = comment.rating
         Log.d("RatingCheck", "Rating convertido: $rating")
 
         for (i in 0 until holder.stars.size) {
