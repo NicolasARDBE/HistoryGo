@@ -29,24 +29,26 @@
         android:roundIcon="@mipmap/ic_historygo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HistoryGo">
-
-        <!-- NUEVA ACTIVIDAD AÑADIDA -->
+        <activity
+            android:name=".Activities.UpdateComentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.UpdateDeleteComentActivity"
+            android:exported="false" /> <!-- NUEVA ACTIVIDAD AÑADIDA -->
         <activity
             android:name=".Activities.FeedbackActivity"
             android:exported="true" />
-
         <activity
             android:name=".Activities.SingleComentActivity"
             android:exported="true" />
-
         <activity
             android:name=".Activities.ChangePasswordActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.ExperienciaCompletaActivity"
-            android:exported="false"
             android:configChanges="orientation|screenSize"
-            android:screenOrientation="locked"/>
+            android:exported="false"
+            android:screenOrientation="locked" />
         <activity
             android:name=".Activities.VerifyAcountActivity"
             android:exported="false" />
@@ -90,6 +92,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

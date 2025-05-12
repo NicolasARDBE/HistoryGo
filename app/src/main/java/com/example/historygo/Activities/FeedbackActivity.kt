@@ -62,29 +62,35 @@ class FeedbackActivity : AppCompatActivity() {
                 val ratingResponse = client.ratingTableGetAllGet(jwtToken)
                 val ratingComment = ratingResponse.ratings
 
-                Log.d("PRUEBA", "general: ${ratingComment}")
-                Log.d("PRUEBA1", "el segundo: ${ratingComment[1]}")
-                Log.d("PRUEBA2", "id turista: ${ratingComment[1].touristSpotId}")
-                Log.d("PRUEBA3", "rating: ${ratingComment[1].rating}")
-                Log.d("PRUEBA4", "comentario: ${ratingComment[1].review}")
-                Log.d("TIME", "tiempo: ${ratingComment[1].timestamp}")
+                for (rating in ratingComment) {
+                    Log.d("RATINGID", "ratingId: ${rating.ratingId}")
+                    Log.d("PRUEBA", "general: ${ratingComment}")
+                    Log.d("PRUEBA2", "id lugar: ${rating.touristSpotId}")
+                    Log.d("PRUEBA3", "rating: ${rating.rating}")
+                    Log.d("PRUEBA4", "comentario: ${rating.review}")
+                    Log.d("TIME", "tiempo: ${rating.timestamp}")
+                    Log.d("USUARIO", "Usuario: ${rating.userId}")
+                }
 
                 val experiencia = ratingComment.map { rating ->
                     ComentarioExperiencia(
-                        rating.touristSpotId.toInt(),
-                        rating.rating,
-                        rating.review,
-                        rating.timestamp,
+                        rating.rating.toInt(),                // rating: Int
+                        rating.review,                        // review: String
+                        rating.timestamp,                     // timestamp: String
+                        rating.userId,                        // userName: String (puedes cambiar si es otro campo)
+                        rating.ratingId,                      // ratingId: String
+                        rating.touristSpotId.toInt()
                     )
                 }
+
 
 
                 val total = experiencia.size
                 val sumatoria = experiencia.sumOf {
                     try {
-                        it.review.toDouble()
+                        it.rating.toDouble()
                     } catch (e: Exception) {
-                        Log.e("ParseError", "No se pudo convertir rating: ${it.review}", e)
+                        Log.e("ParseError", "No se pudo convertir rating: ${it.rating}", e)
                         0.0
                     }
                 }
