@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.graphics.Insets
 import androidx.core.view.*
@@ -17,16 +18,21 @@ import androidx.media3.exoplayer.ExoPlayer
 import com.example.historygo.Activities.Fragments.MainFragment
 import com.example.historygo.Activities.Fragments.ReproductorARFragment
 import com.example.historygo.Helper.BaseActivity
+import com.example.historygo.Helper.LanguagePreference
 import com.example.historygo.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ExperienciaCompletaActivity : BaseActivity() {
 
     private lateinit var exoPlayer: ExoPlayer
+    private lateinit var  currentLanguage: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_experiencia_completa)
+
+        Toast.makeText(baseContext, R.string.qr_message, Toast.LENGTH_SHORT).show()
+        currentLanguage = LanguagePreference.getLanguage(this)
 
         setFullScreen(
             findViewById(R.id.rootView),
@@ -44,7 +50,11 @@ class ExperienciaCompletaActivity : BaseActivity() {
 
         // Inicializar ExoPlayer
         exoPlayer = ExoPlayer.Builder(this).build().apply {
-            setMediaItem(MediaItem.fromUri("https://d3krfb04kdzji1.cloudfront.net/historia-chorro-v3.mp4"))
+            //if(currentLanguage == "es"){
+                setMediaItem(MediaItem.fromUri("https://d3krfb04kdzji1.cloudfront.net/historia-chorro-v3.mp4"))
+            //} else {
+                //setMediaItem(MediaItem.fromUri("https://d3krfb04kdzji1.cloudfront.net/historia-chorro-v3-en.mp4"))
+            //}
             prepare()
             playWhenReady = false
             repeatMode = Player.REPEAT_MODE_OFF // Cambiado para permitir que termine
