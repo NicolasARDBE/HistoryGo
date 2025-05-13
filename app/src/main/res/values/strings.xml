@@ -73,7 +73,7 @@
     <string name="our_experiences">Our Experiences</string>
 
     <!-- Profile Screen -->
-    <string name="profile">PROFILE</string>
+    <string name="profile">Profile</string>
     <string name="start">Start</string>
     <string name="update_profile">Update Profile</string>
     <string name="change_password">Change Password</string>

@@ -7,21 +7,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.Profile"
-    android:background="@color/yellow">
+    android:background="@color/YellowPrincipal">
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:fontFamily="@font/poppins_medium"
         android:text="@string/profile"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:fontFamily="@font/poppins_bold"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"/>
 
     <View
         android:id="@+id/view"
@@ -33,7 +35,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:layout_marginTop="25dp"/>
 
     <TextView
         android:id="@+id/labelName"
@@ -68,7 +71,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/name"
-        android:layout_margin="75dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="75dp"
         android:text="@string/prompt_email"
         android:backgroundTint="@color/black"
         android:fontFamily="@font/poppins_medium"
@@ -102,50 +107,36 @@
         tools:layout="@layout/fragment_navegation_bar" />
 
     <Button
-        android:id="@+id/changePasswordBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/blue"
-        android:fontFamily="@font/poppins_regular"
-        android:padding="12dp"
-        android:text="@string/change_password"
-        app:layout_constraintBottom_toTopOf="@+id/signOutBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/updateProfileBtn"
-        android:layout_width="0dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/rounden_button"
         android:backgroundTint="@color/blue"
         android:fontFamily="@font/poppins_regular"
         android:padding="12dp"
         android:text="@string/update_profile"
-        app:layout_constraintBottom_toTopOf="@+id/changePasswordBtn"
+        android:layout_marginStart="55dp"
+        app:layout_constraintBottom_toTopOf="@+id/signOutBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <Button
         android:id="@+id/signOutBtn"
-        android:layout_width="0dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="100dp"
+        android:background="@drawable/rounden_button"
         android:layout_marginBottom="64dp"
         android:backgroundTint="@color/blue"
         android:fontFamily="@font/poppins_regular"
         android:padding="12dp"
         android:text="@string/sign_out"
         app:layout_constraintBottom_toTopOf="@+id/navigationBarFragmentContainer"
+        app:layout_constraintTop_toBottomOf="@id/updateProfileBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
