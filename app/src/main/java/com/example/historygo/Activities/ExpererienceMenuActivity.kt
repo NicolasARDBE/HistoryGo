@@ -49,9 +49,9 @@ class ExpererienceMenuActivity : BaseActivity() {
 
                 val experiences = touristSpots.map { touristSpot ->
                     val description = if (currentLanguage == "en") {
-                        touristSpot.descriptionEn
+                        touristSpot.shortDescriptionEn
                     } else {
-                        touristSpot.description
+                        touristSpot.shortDescription
                     }
 
                     Experience(
