@@ -95,7 +95,7 @@
         android:padding="10dp"
         android:scaleType="centerInside"
         android:src="@drawable/map_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/navigationBarFragmentContainer"
         app:layout_constraintEnd_toStartOf="@+id/startRoute"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -110,12 +110,16 @@
         android:padding="10dp"
         android:scaleType="centerInside"
         android:text="@string/start"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/navigationBarFragmentContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.832"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.504" />
+        app:layout_constraintVertical_bias="0.504"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeMaxTextSize="18sp"
+        android:autoSizeStepGranularity="1sp"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navigationBarFragmentContainer"
