@@ -106,6 +106,9 @@
     <string name="salir">Salir</string>
     <string name="comentarioupdate">¡Bienvenido a la sección de comentarios!</string>
     <string name="en_esta_secci_n_podr_s_editar_y_eliminar_tus_comentarios">En esta sección podrás editar y eliminar tus comentarios.</string>
-    <string name="reviews">reseñas</string>
+    <string name="reviews">Reseñas</string>
+    <string name="review">Reseña</string>
+    <string name="calificaci_n">Calificación</string>
+    <string name="escribe_tu_rese_a">Escribe tu reseña</string>
 
 </resources>
