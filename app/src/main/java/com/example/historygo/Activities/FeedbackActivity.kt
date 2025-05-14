@@ -16,11 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.example.historygo.Adapters.CommentAdapter
+import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.Model.ComentarioExperiencia
 import com.example.historygo.R
 import com.example.historygo.clientsdk.HistorygoapiClient
 
-class FeedbackActivity : AppCompatActivity() {
+class FeedbackActivity : BaseActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CommentAdapter
@@ -102,7 +103,7 @@ class FeedbackActivity : AppCompatActivity() {
                     scoreTextView.text = String.format("%.1f", promedio)
 
                     // Mostrar número de reseñas
-                    reviewsTextView.text = "$total reseñas"
+                    reviewsTextView.text = "$total "
 
                     // Pintar estrellas
                     val scoreInt = promedio.toInt()

@@ -154,6 +154,9 @@
     <string name="user_confirmed_error">Failed to confirm user: %1$s</string>
     <string name="qr_message">Point your camera at the QR code</string>
     <string name="salir">Exit</string>
+    <string name="comentarioupdate">Welcome to comments section!</string>
+    <string name="en_esta_secci_n_podr_s_editar_y_eliminar_tus_comentarios">In this section you will be able to delete and update your comments.</string>
+    <string name="reviews">reviews</string>
     user_confirmed_error
 
 </resources>

@@ -104,4 +104,8 @@
     <string name="_5">5</string>
     <string name="actualizar_comentario">Actualizar Comentario</string>
     <string name="salir">Salir</string>
+    <string name="comentarioupdate">¡Bienvenido a la sección de comentarios!</string>
+    <string name="en_esta_secci_n_podr_s_editar_y_eliminar_tus_comentarios">En esta sección podrás editar y eliminar tus comentarios.</string>
+    <string name="reviews">reseñas</string>
+
 </resources>

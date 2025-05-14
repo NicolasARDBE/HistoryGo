@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.example.historygo.AwsServices.Cognito
 import com.example.historygo.AwsServices.CognitoManager
+import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.R
 import com.example.historygo.Services.JWTDecoder
 import com.example.historygo.clientsdk.HistorygoapiClient
@@ -18,7 +19,7 @@ import com.example.historygo.databinding.ActivityUpdateComentBinding
 import kotlinx.coroutines.*
 import java.math.BigDecimal
 
-class UpdateComentActivity : AppCompatActivity() {
+class UpdateComentActivity : BaseActivity() {
 
     private lateinit var binding: ActivityUpdateComentBinding
     private lateinit var client: HistorygoapiClient
@@ -31,6 +32,8 @@ class UpdateComentActivity : AppCompatActivity() {
     private var touristSpotId: String? = null
     private var ratingId: String? = null
     private var jwtToken: String? = null
+    private var initialRating: Double = 0.0
+    private var initialReview: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,16 +51,12 @@ class UpdateComentActivity : AppCompatActivity() {
             findViewById(R.id.stars5)
         )
 
-        stars.forEachIndexed { index, imageView ->
-            imageView.setOnClickListener {
-                currentRating = index + 1
-                updateStarColors(currentRating)
-            }
-        }
-
         // Recuperar datos del Intent
         touristSpotId = intent.getStringExtra("TOURIST_SPOT_ID")
         ratingId = intent.getStringExtra("RATING_ID")
+        initialRating = intent.getDoubleExtra("rating", 0.0)
+        initialReview = intent.getStringExtra("review") ?: ""
+
         jwtToken = getSharedPreferences("auth", Context.MODE_PRIVATE)
             .getString("jwt_token", null)
 
@@ -65,6 +64,17 @@ class UpdateComentActivity : AppCompatActivity() {
             Toast.makeText(this, "Datos faltantes para la actualización", Toast.LENGTH_SHORT).show()
             finish()
             return
+        }
+
+        currentRating = initialRating.toInt()
+        updateStarColors(currentRating)
+        binding.Review.setText(initialReview)
+
+        stars.forEachIndexed { index, imageView ->
+            imageView.setOnClickListener {
+                currentRating = index + 1
+                updateStarColors(currentRating)
+            }
         }
 
         CognitoManager.getInstance(this) { cognitoInstance ->
@@ -109,7 +119,6 @@ class UpdateComentActivity : AppCompatActivity() {
 
                         finish()
                     }
-
 
                 } catch (e: Exception) {
                     Log.e("UpdateComentActivity", "Error actualizando: ${e.message}", e)

@@ -12,6 +12,7 @@ import com.example.historygo.AwsServices.Cognito
 import com.example.historygo.AwsServices.CognitoManager
 import com.example.historygo.AwsServices.DynamoDBInitializationCallback
 import com.example.historygo.AwsServices.DynamoDBService
+import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.R
 import com.example.historygo.Services.JWTDecoder
 import com.example.historygo.clientsdk.HistorygoapiClient
@@ -21,7 +22,7 @@ import java.math.BigDecimal
 import kotlinx.coroutines.*
 
 
-class SingleComentActivity : AppCompatActivity(), DynamoDBInitializationCallback {
+class SingleComentActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySingleComentBinding
     private lateinit var dynamoService: DynamoDBService
@@ -54,10 +55,6 @@ class SingleComentActivity : AppCompatActivity(), DynamoDBInitializationCallback
                 updateStarColors(currentRating)
             }
         }
-
-        // Inicializar DynamoDB y Cognito
-        dynamoService = DynamoDBService(baseContext)
-        dynamoService.setCallback(this)
 
         CognitoManager.getInstance(this) { cognitoInstance ->
             if (cognitoInstance != null) {
@@ -146,7 +143,4 @@ class SingleComentActivity : AppCompatActivity(), DynamoDBInitializationCallback
         }
     }
 
-    override fun onDynamoDBInitialized() {
-        // Lógica adicional si es necesario
-    }
 }

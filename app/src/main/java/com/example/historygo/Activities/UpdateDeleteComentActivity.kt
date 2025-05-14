@@ -16,13 +16,14 @@ import com.example.historygo.AwsServices.Cognito
 import com.example.historygo.AwsServices.CognitoManager
 import com.example.historygo.AwsServices.DynamoDBInitializationCallback
 import com.example.historygo.AwsServices.DynamoDBService
+import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.Model.ComentarioExperiencia
 import com.example.historygo.R
 import com.example.historygo.Services.JWTDecoder
 import com.example.historygo.clientsdk.HistorygoapiClient
 import com.example.historygo.databinding.ActivityUpdateDeleteComentBinding
 
-class UpdateDeleteComentActivity : AppCompatActivity(), DynamoDBInitializationCallback {
+class UpdateDeleteComentActivity : BaseActivity() {
     private lateinit var binding: ActivityUpdateDeleteComentBinding
     private lateinit var dynamoService: DynamoDBService
     private lateinit var cognito: Cognito
@@ -46,9 +47,6 @@ class UpdateDeleteComentActivity : AppCompatActivity(), DynamoDBInitializationCa
         recyclerView = findViewById(R.id.recyclerComentarios)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Callback
-        dynamoService = DynamoDBService(baseContext)
-        dynamoService.setCallback(this)
 
 
         val sharedPreferences = getSharedPreferences("auth", Context.MODE_PRIVATE)
@@ -115,10 +113,6 @@ class UpdateDeleteComentActivity : AppCompatActivity(), DynamoDBInitializationCa
                 Log.e("UpdateDeleteComent", "Error: Cognito no disponible")
             }
         }
-    }
-
-    override fun onDynamoDBInitialized() {
-        // Aquí puedes colocar lógica si es necesario cuando se inicializa DynamoDB
     }
 
     private fun deleteComment(touristSpotId: String, ratingId: String) {
