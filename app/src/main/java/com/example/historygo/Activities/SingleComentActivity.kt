@@ -1,6 +1,7 @@
 package com.example.historygo.Activities
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -11,6 +12,7 @@ import com.example.historygo.AwsServices.Cognito
 import com.example.historygo.AwsServices.CognitoManager
 import com.example.historygo.AwsServices.DynamoDBInitializationCallback
 import com.example.historygo.AwsServices.DynamoDBService
+import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.R
 import com.example.historygo.Services.JWTDecoder
 import com.example.historygo.clientsdk.HistorygoapiClient
@@ -20,7 +22,7 @@ import java.math.BigDecimal
 import kotlinx.coroutines.*
 
 
-class SingleComentActivity : AppCompatActivity(), DynamoDBInitializationCallback {
+class SingleComentActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySingleComentBinding
     private lateinit var dynamoService: DynamoDBService
@@ -53,10 +55,6 @@ class SingleComentActivity : AppCompatActivity(), DynamoDBInitializationCallback
                 updateStarColors(currentRating)
             }
         }
-
-        // Inicializar DynamoDB y Cognito
-        dynamoService = DynamoDBService(baseContext)
-        dynamoService.setCallback(this)
 
         CognitoManager.getInstance(this) { cognitoInstance ->
             if (cognitoInstance != null) {
@@ -94,6 +92,7 @@ class SingleComentActivity : AppCompatActivity(), DynamoDBInitializationCallback
                 touristSpotId = "1"
                 rating = BigDecimal(currentRating)
                 review = reviewText
+                name = jwtDecoder.decodeJWTCognitoFamilyName(jwtToken)
                 userId = jwtDecoder.decodeJWTCognitoUsername(jwtToken)
             }
 
@@ -108,11 +107,18 @@ class SingleComentActivity : AppCompatActivity(), DynamoDBInitializationCallback
                     withContext(Dispatchers.Main) {
                         if (response != null) {
                             Toast.makeText(this@SingleComentActivity, "Comentario guardado correctamente", Toast.LENGTH_SHORT).show()
+
+                            val intent = Intent(this@SingleComentActivity, FeedbackActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                            startActivity(intent)
+
+                            finish()
                         } else {
                             Log.e("SingleComentActivity", "Error: La respuesta no contiene ratingId")
                             Toast.makeText(this@SingleComentActivity, "Error: No se guardó la reseña", Toast.LENGTH_SHORT).show()
                         }
                     }
+
 
                 } catch (e: Exception) {
                     Log.e("SingleComentActivity", "Error al enviar comentario: ${e.message}", e)
@@ -137,7 +143,4 @@ class SingleComentActivity : AppCompatActivity(), DynamoDBInitializationCallback
         }
     }
 
-    override fun onDynamoDBInitialized() {
-        // Lógica adicional si es necesario
-    }
 }

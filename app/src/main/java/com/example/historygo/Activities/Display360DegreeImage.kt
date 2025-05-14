@@ -1,15 +1,19 @@
 package com.example.historygo.Activities
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.MotionEvent
+import android.view.View
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.historygo.Helper.BaseActivity
+import com.example.historygo.R
 import com.example.historygo.clientsdk.HistorygoapiClient
 import com.example.historygo.databinding.ActivityDisplay360DegreeImageBinding
 import com.panoramagl.PLImage
@@ -23,6 +27,13 @@ class Display360DegreeImage : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Botón que redirige a FeedBackActivity
+        val signOutBtn: View = findViewById(R.id.signOutBtn)
+        signOutBtn.setOnClickListener {
+            val intent = Intent(this, FeedbackActivity::class.java)
+            startActivity(intent)
+        }
 
         // Inflar layout
         binding = ActivityDisplay360DegreeImageBinding.inflate(layoutInflater)

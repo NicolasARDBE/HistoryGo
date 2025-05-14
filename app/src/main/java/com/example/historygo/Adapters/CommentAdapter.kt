@@ -21,6 +21,7 @@ class CommentAdapter(private val comments: List<ComentarioExperiencia>) :
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val comentario: TextView = view.findViewById(R.id.review)
+        val nombre: TextView = view.findViewById(R.id.username)
         val tiempo: TextView = view.findViewById(R.id.tiempo)
         val stars: List<ImageView> = listOf(
             view.findViewById(R.id.star1),
@@ -52,6 +53,7 @@ class CommentAdapter(private val comments: List<ComentarioExperiencia>) :
         val comment = comments[position]
         holder.tiempo.text = convertirFecha(comment.timestamp)
         holder.comentario.text = comment.review
+        holder.nombre.text = comment.name
 
 
 

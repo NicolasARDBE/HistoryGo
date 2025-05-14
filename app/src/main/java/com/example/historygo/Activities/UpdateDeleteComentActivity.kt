@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.widget.ImageView
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,13 +16,14 @@ import com.example.historygo.AwsServices.Cognito
 import com.example.historygo.AwsServices.CognitoManager
 import com.example.historygo.AwsServices.DynamoDBInitializationCallback
 import com.example.historygo.AwsServices.DynamoDBService
+import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.Model.ComentarioExperiencia
 import com.example.historygo.R
 import com.example.historygo.Services.JWTDecoder
 import com.example.historygo.clientsdk.HistorygoapiClient
 import com.example.historygo.databinding.ActivityUpdateDeleteComentBinding
 
-class UpdateDeleteComentActivity : AppCompatActivity(), DynamoDBInitializationCallback {
+class UpdateDeleteComentActivity : BaseActivity() {
     private lateinit var binding: ActivityUpdateDeleteComentBinding
     private lateinit var dynamoService: DynamoDBService
     private lateinit var cognito: Cognito
@@ -35,6 +34,9 @@ class UpdateDeleteComentActivity : AppCompatActivity(), DynamoDBInitializationCa
     private lateinit var client: HistorygoapiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+
         super.onCreate(savedInstanceState)
         binding = ActivityUpdateDeleteComentBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -45,9 +47,6 @@ class UpdateDeleteComentActivity : AppCompatActivity(), DynamoDBInitializationCa
         recyclerView = findViewById(R.id.recyclerComentarios)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Callback
-        dynamoService = DynamoDBService(baseContext)
-        dynamoService.setCallback(this)
 
 
         val sharedPreferences = getSharedPreferences("auth", Context.MODE_PRIVATE)
@@ -76,6 +75,7 @@ class UpdateDeleteComentActivity : AppCompatActivity(), DynamoDBInitializationCa
                         it.rating.toInt(),
                         it.review,
                         it.timestamp,
+                        it.name,
                         it.userId,
                         it.ratingId,
                         it.touristSpotId.toInt()
@@ -90,6 +90,7 @@ class UpdateDeleteComentActivity : AppCompatActivity(), DynamoDBInitializationCa
                     Log.d("PRUEBA4", "comentario: ${rating.review}")
                     Log.d("TIME", "tiempo: ${rating.timestamp}")
                     Log.d("USUARIO", "Usuario: ${rating.userId}")
+                    Log.d("NOMBRE", "name: ${rating.name}")
                 }
 
                 Handler(Looper.getMainLooper()).post {
@@ -112,10 +113,6 @@ class UpdateDeleteComentActivity : AppCompatActivity(), DynamoDBInitializationCa
                 Log.e("UpdateDeleteComent", "Error: Cognito no disponible")
             }
         }
-    }
-
-    override fun onDynamoDBInitialized() {
-        // Aquí puedes colocar lógica si es necesario cuando se inicializa DynamoDB
     }
 
     private fun deleteComment(touristSpotId: String, ratingId: String) {

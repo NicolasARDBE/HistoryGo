@@ -2,20 +2,20 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="yellow">#F3C623</color>
+    <color name="yellow">#E4A70A</color>
     <color name="orange">#FF8811</color>
-    <color name="blue">#005678</color>
+    <color name="blue">#10375C</color>
     <color name="blue2">#10375C</color>
     <color name="bone">#F4F6FF</color>
     <color name="skin">#F3E9B5</color>
     <color name="azulOscuro">#10375C</color>
     <color name="azulClaro">#315f8B</color>
     <color name="blanco">#F4F6FF</color>
-    <color name="amarillo">#F3C623</color>
-    <color name="naranja">#F3C623</color>
+    <color name="amarillo">#E4A70A</color>
+    <color name="naranja">#E4A70A</color>
     <color name="naranjaPrincipal">#EB8317</color>
     <color name="lightOrange">#EB8317</color>
-    <color name= "red" >#F0FF0000</color>
+    <color name= "red" >#A01113</color>
     <color name= "BluePrincipal" >#10375C</color>
     <color name= "GreyPrincipal" >#D9D9D9</color>
     <color name= "YellowPrincipal" >#E4A70A</color>

@@ -7,6 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".Activities.Display360DegreeImage">
 
+    <Button
+        android:id="@+id/SignupBtn"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="600dp"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="@color/red"
+        android:text="@string/salir"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></Button>
+
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
