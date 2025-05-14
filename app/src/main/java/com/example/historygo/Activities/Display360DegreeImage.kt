@@ -28,12 +28,7 @@ class Display360DegreeImage : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Botón que redirige a FeedBackActivity
-        val signOutBtn: View = findViewById(R.id.signOutBtn)
-        signOutBtn.setOnClickListener {
-            val intent = Intent(this, FeedbackActivity::class.java)
-            startActivity(intent)
-        }
+
 
         // Inflar layout
         binding = ActivityDisplay360DegreeImageBinding.inflate(layoutInflater)
@@ -51,6 +46,11 @@ class Display360DegreeImage : BaseActivity() {
         val client: HistorygoapiClient = factory.build(HistorygoapiClient::class.java)
         val jwtToken = getSharedPreferences("auth", Context.MODE_PRIVATE)
             .getString("jwt_token", null)
+
+        binding.SignupBtn.setOnClickListener {
+            val intent = Intent(this, FeedbackActivity::class.java)
+            startActivity(intent)
+        }
 
         if (jwtToken != null) {
         }

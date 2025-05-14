@@ -103,7 +103,7 @@ class FeedbackActivity : BaseActivity() {
                     scoreTextView.text = String.format("%.1f", promedio)
 
                     // Mostrar número de reseñas
-                    reviewsTextView.text = "$total "
+                    reviewsTextView.text = "$total " + baseContext.getString(R.string.reviews)
 
                     // Pintar estrellas
                     val scoreInt = promedio.toInt()

@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Calificación" />
+                android:text="@string/calificaci_n" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -90,14 +90,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Reseña" />
+                android:text="@string/review" />
 
             <EditText
                 android:id="@+id/Review"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="Escribe tu reseña"
+                android:hint="@string/escribe_tu_rese_a"
                 android:inputType="text" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -156,7 +156,10 @@
     <string name="salir">Exit</string>
     <string name="comentarioupdate">Welcome to comments section!</string>
     <string name="en_esta_secci_n_podr_s_editar_y_eliminar_tus_comentarios">In this section you will be able to delete and update your comments.</string>
-    <string name="reviews">reviews</string>
+    <string name="reviews">Reviews</string>
+    <string name="review">Review</string>
+    <string name="calificaci_n">Rating</string>
+    <string name="escribe_tu_rese_a">Write your review</string>
     user_confirmed_error
 
 </resources>
