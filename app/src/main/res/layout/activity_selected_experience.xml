@@ -25,18 +25,7 @@
         android:textColor="@color/black"/>
 
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/background_rounded"
-        android:elevation="-1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        android:layout_marginTop="45dp"
-        tools:ignore="MissingConstraints" />
+
 
 
     <TextView
@@ -87,35 +76,40 @@
         android:autoSizeMaxTextSize="20sp"
         android:autoSizeStepGranularity="2sp"/>
 
+
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="135dp"
         android:layout_height="53dp"
-        android:background="@drawable/rounden_button"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="@color/blue"
         android:padding="10dp"
         android:scaleType="centerInside"
         android:src="@drawable/map_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/startRoute"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.238" />
 
     <Button
         android:id="@+id/startRoute"
         android:layout_width="135dp"
         android:layout_height="53dp"
-        android:background="@drawable/rounden_button"
-        app:backgroundTint="@null"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="@color/blue"
         android:fontFamily="@font/poppins_regular"
         android:padding="10dp"
         android:scaleType="centerInside"
         android:text="@string/start"
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.832"
+        app:layout_constraintHorizontal_bias="0.847"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.504" />
+        app:layout_constraintVertical_bias="0.238" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navigationBarFragmentContainer"

@@ -97,22 +97,14 @@
         app:layout_constraintTop_toBottomOf="@id/labelEmail" />
 
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/navigationBarFragmentContainer"
-        android:name="com.example.historygo.Activities.Fragments.NavegationBarFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout="@layout/fragment_navegation_bar" />
-
     <Button
         android:id="@+id/updateProfileBtn"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="75dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/rounden_button"
+        android:background="@drawable/rectangle"
         android:backgroundTint="@color/blue"
         android:fontFamily="@font/poppins_regular"
         android:padding="12dp"
@@ -124,10 +116,12 @@
 
     <Button
         android:id="@+id/signOutBtn"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="75dp"
+        android:layout_height="53dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/rounden_button"
+        android:background="@drawable/rectangle"
         android:backgroundTint="@color/blue"
         android:fontFamily="@font/poppins_regular"
         android:padding="12dp"
@@ -140,11 +134,13 @@
 
     <Button
         android:id="@+id/changePasswordBtn"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="75dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="64dp"
-        android:background="@drawable/rounden_button"
+        android:background="@drawable/rectangle"
         android:backgroundTint="@color/blue"
         android:fontFamily="@font/poppins_regular"
         android:padding="12dp"
@@ -154,5 +150,16 @@
         app:layout_constraintTop_toBottomOf="@id/email"
         app:layout_constraintVertical_bias="0.001"
         app:backgroundTint="@null"/>
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/navigationBarFragmentContainer"
+        android:name="com.example.historygo.Activities.Fragments.NavegationBarFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout="@layout/fragment_navegation_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

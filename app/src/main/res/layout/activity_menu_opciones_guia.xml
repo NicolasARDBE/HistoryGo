@@ -11,7 +11,7 @@
         android:id="@+id/map"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="350dp"
+        android:layout_marginBottom="200dp"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,10 +24,12 @@
 
     <Button
         android:id="@+id/EperienciaCompletaBtn"
-        android:layout_width="274dp"
-        android:layout_height="73dp"
+        android:layout_width="250dp"
+        android:layout_height="53dp"
         android:layout_marginStart="64dp"
         android:layout_marginEnd="64dp"
+        android:background="@drawable/button_rectangle"
+        app:backgroundTint="@null"
         android:autoSizeMaxTextSize="18sp"
         android:autoSizeTextType="uniform"
         android:backgroundTint="@color/blue2"

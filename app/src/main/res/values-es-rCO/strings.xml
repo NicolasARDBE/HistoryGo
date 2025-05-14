@@ -100,4 +100,8 @@
     <string name="start_immersive_experience">¿Le gustaría empezar ya la experiencia inmersiva? </string>
     <string name="user_confirmed_error">Error al confirmar usuario: %1$s</string>
     <string name="qr_message">Apunta con tu cámara al código QR</string>
+    <string name="escribir_comentario">Escribir Comentario</string>
+    <string name="_5">5</string>
+    <string name="actualizar_comentario">Actualizar Comentario</string>
+    <string name="salir">Salir</string>
 </resources>
