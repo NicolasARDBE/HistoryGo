@@ -105,6 +105,7 @@
         android:layout_width="135dp"
         android:layout_height="53dp"
         android:background="@drawable/rounden_button"
+        app:backgroundTint="@null"
         android:fontFamily="@font/poppins_regular"
         android:padding="10dp"
         android:scaleType="centerInside"

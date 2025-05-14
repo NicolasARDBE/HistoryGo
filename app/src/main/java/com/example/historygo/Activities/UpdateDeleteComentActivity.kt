@@ -38,7 +38,7 @@ class UpdateDeleteComentActivity : AppCompatActivity(), DynamoDBInitializationCa
 
         super.onCreate(savedInstanceState)
         binding = ActivityUpdateDeleteComentBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_update_delete_coment)
+        setContentView(binding.root)
 
         val factory = ApiClientFactory()
         client = factory.build(HistorygoapiClient::class.java)

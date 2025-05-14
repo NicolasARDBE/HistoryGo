@@ -70,7 +70,7 @@
         android:id="@+id/labelEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintTop_toBottomOf="@id/updateProfileBtn"
         android:layout_marginTop="30dp"
         android:layout_marginStart="75dp"
         android:layout_marginEnd="75dp"
@@ -85,15 +85,16 @@
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/labelEmail"
         android:layout_marginLeft="75dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="75dp"
+        android:background="@drawable/rounded_textview"
         android:fontFamily="@font/poppins_medium"
+        android:padding="5dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textSize="20sp"
-        android:padding="5dp"
-        android:background="@drawable/rounded_textview"/>
+        app:layout_constraintTop_toBottomOf="@id/labelEmail" />
 
 
     <androidx.fragment.app.FragmentContainerView
@@ -110,33 +111,48 @@
         android:id="@+id/updateProfileBtn"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounden_button"
         android:backgroundTint="@color/blue"
         android:fontFamily="@font/poppins_regular"
         android:padding="12dp"
         android:text="@string/update_profile"
-        android:layout_marginStart="55dp"
-        app:layout_constraintBottom_toTopOf="@+id/signOutBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:backgroundTint="@null"/>
 
     <Button
         android:id="@+id/signOutBtn"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounden_button"
-        android:layout_marginBottom="64dp"
         android:backgroundTint="@color/blue"
         android:fontFamily="@font/poppins_regular"
         android:padding="12dp"
         android:text="@string/sign_out"
-        app:layout_constraintBottom_toTopOf="@+id/navigationBarFragmentContainer"
-        app:layout_constraintTop_toBottomOf="@id/updateProfileBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/changePasswordBtn"
+        app:backgroundTint="@null"
+        />
+
+    <Button
+        android:id="@+id/changePasswordBtn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="64dp"
+        android:background="@drawable/rounden_button"
+        android:backgroundTint="@color/blue"
+        android:fontFamily="@font/poppins_regular"
+        android:padding="12dp"
+        android:text="@string/change_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/email"
+        app:layout_constraintVertical_bias="0.001"
+        app:backgroundTint="@null"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
