@@ -1,6 +1,7 @@
 package com.example.historygo.Activities
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -94,6 +95,7 @@ class SingleComentActivity : AppCompatActivity(), DynamoDBInitializationCallback
                 touristSpotId = "1"
                 rating = BigDecimal(currentRating)
                 review = reviewText
+                name = jwtDecoder.decodeJWTCognitoFamilyName(jwtToken)
                 userId = jwtDecoder.decodeJWTCognitoUsername(jwtToken)
             }
 
@@ -108,11 +110,18 @@ class SingleComentActivity : AppCompatActivity(), DynamoDBInitializationCallback
                     withContext(Dispatchers.Main) {
                         if (response != null) {
                             Toast.makeText(this@SingleComentActivity, "Comentario guardado correctamente", Toast.LENGTH_SHORT).show()
+
+                            val intent = Intent(this@SingleComentActivity, FeedbackActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                            startActivity(intent)
+
+                            finish()
                         } else {
                             Log.e("SingleComentActivity", "Error: La respuesta no contiene ratingId")
                             Toast.makeText(this@SingleComentActivity, "Error: No se guardó la reseña", Toast.LENGTH_SHORT).show()
                         }
                     }
+
 
                 } catch (e: Exception) {
                     Log.e("SingleComentActivity", "Error al enviar comentario: ${e.message}", e)

@@ -1,6 +1,7 @@
 package com.example.historygo.Activities
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -101,8 +102,14 @@ class UpdateComentActivity : AppCompatActivity() {
 
                     withContext(Dispatchers.Main) {
                         Toast.makeText(this@UpdateComentActivity, "Comentario actualizado", Toast.LENGTH_SHORT).show()
+
+                        val intent = Intent(this@UpdateComentActivity, UpdateDeleteComentActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+
                         finish()
                     }
+
 
                 } catch (e: Exception) {
                     Log.e("UpdateComentActivity", "Error actualizando: ${e.message}", e)

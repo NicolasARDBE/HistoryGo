@@ -63,6 +63,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
                             android:orientation="horizontal">
 
                             <ImageView
@@ -100,6 +101,15 @@
                                 android:src="@drawable/star"
                                 app:tint="@android:color/darker_gray" />
                         </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/username"
+                            android:text="pepe"
+                            android:textColor="#000"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"

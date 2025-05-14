@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.widget.ImageView
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,6 +33,9 @@ class UpdateDeleteComentActivity : AppCompatActivity(), DynamoDBInitializationCa
     private lateinit var client: HistorygoapiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+
         super.onCreate(savedInstanceState)
         binding = ActivityUpdateDeleteComentBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_update_delete_coment)
@@ -76,6 +77,7 @@ class UpdateDeleteComentActivity : AppCompatActivity(), DynamoDBInitializationCa
                         it.rating.toInt(),
                         it.review,
                         it.timestamp,
+                        it.name,
                         it.userId,
                         it.ratingId,
                         it.touristSpotId.toInt()
@@ -90,6 +92,7 @@ class UpdateDeleteComentActivity : AppCompatActivity(), DynamoDBInitializationCa
                     Log.d("PRUEBA4", "comentario: ${rating.review}")
                     Log.d("TIME", "tiempo: ${rating.timestamp}")
                     Log.d("USUARIO", "Usuario: ${rating.userId}")
+                    Log.d("NOMBRE", "name: ${rating.name}")
                 }
 
                 Handler(Looper.getMainLooper()).post {

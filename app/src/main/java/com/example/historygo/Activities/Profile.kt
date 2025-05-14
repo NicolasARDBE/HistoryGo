@@ -32,11 +32,6 @@ class Profile : BaseActivity() {
             }
         }
 
-        binding.changePasswordBtn.setOnClickListener {
-            val intent = Intent(this, ChangePasswordActivity::class.java)
-            startActivity(intent)
-        }
-
         binding.signOutBtn.setOnClickListener {
             signOut()
             val i = Intent(this, Login::class.java)

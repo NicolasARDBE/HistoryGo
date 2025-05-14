@@ -25,6 +25,7 @@ class UpdateDeleteCommentAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val comentario: TextView = view.findViewById(R.id.review)
         val tiempo: TextView = view.findViewById(R.id.tiempo)
+        val nombre: TextView = view.findViewById(R.id.username)
         val trashIcon: ImageView = view.findViewById(R.id.trash)
         val pen: ImageView = view.findViewById(R.id.pen)
 
@@ -58,6 +59,7 @@ class UpdateDeleteCommentAdapter(
         val comment = comments[position]
         holder.tiempo.text = convertirFecha(comment.timestamp)
         holder.comentario.text = comment.review
+        holder.nombre.text = comment.name
 
         val rating = comment.rating
         for (i in holder.stars.indices) {
