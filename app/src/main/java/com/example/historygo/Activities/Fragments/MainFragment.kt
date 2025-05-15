@@ -1,76 +1,76 @@
 package com.example.historygo.Activities.Fragments
 
-import android.graphics.BitmapFactory
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.historygo.R
 import com.example.historygo.Video.ExoPlayerNode
+import com.google.ar.core.HitResult
 import io.github.sceneview.ar.ARSceneView
-import io.github.sceneview.ar.arcore.addAugmentedImage
-import io.github.sceneview.ar.arcore.getUpdatedAugmentedImages
-import io.github.sceneview.ar.node.AugmentedImageNode
+import io.github.sceneview.ar.arcore.*
+import io.github.sceneview.ar.node.AnchorNode
 import io.github.sceneview.math.Direction
 import io.github.sceneview.math.Position
 import io.github.sceneview.math.Size
 
-
-
-import io.github.sceneview.node.ModelNode
-
-
 class MainFragment(private val exoPlayer: ExoPlayer) : Fragment(R.layout.fragment_main) {
 
-    lateinit var sceneView: ARSceneView
-    val augmentedImageNodes = mutableListOf<AugmentedImageNode>()
+    private lateinit var sceneView: ARSceneView
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sceneView = view.findViewById<ARSceneView>(R.id.sceneView).apply {
-            configureSession { session, config ->
-                config.addAugmentedImage(
-                    session, "qrcode",
-                    requireContext().assets.open("augmentedimages/qrcode.png")
-                        .use(BitmapFactory::decodeStream)
-                )
-            }
-            onSessionUpdated = { session, frame ->
-                frame.getUpdatedAugmentedImages().forEach { augmentedImage ->
-                    if (augmentedImageNodes.none { it.imageName == augmentedImage.name }) {
-                        val augmentedImageNode = AugmentedImageNode(engine, augmentedImage).apply {
-                            when (augmentedImage.name) {
-                                "qrcode" -> {
-                                    val videoNode = ExoPlayerNode(
-                                        engine = engine,
-                                        materialLoader = materialLoader,
-                                        exoPlayer = exoPlayer,
-                                        size = Size(0.3f, 0.2f, 0.0f),
-                                        normal = Direction(0.0f, 0.0f, 1.0f) // ya apunta hacia el usuario
-                                    ).apply {
-                                        position = Position(0.0f, 0.0f, 0.0f)
-                                        // No rotación extra
-                                    }
+        sceneView = view.findViewById(R.id.sceneView)
 
+        // Configurar sesión AR para detectar superficies horizontales
+        sceneView.configureSession { session, config ->
+            config.planeFindingMode = com.google.ar.core.Config.PlaneFindingMode.HORIZONTAL_AND_VERTICAL
+        }
+        var lastAnchorNode: AnchorNode? = null
 
-                                    // Añadir el nodo de video a la escena
-                                    addChildNode(videoNode)
-                                    exoPlayer.playWhenReady = true // Iniciar reproducción
-                                }
-                            }
-                        }
-
-                        // Colocamos la imagen en la posición deseada (por ejemplo, pegada a la pared)
-                        augmentedImageNode.position = Position(0.0f, 0.0f, 0.0f)
-                        //  augmentedImageNode.isRotationEditable = true // Permitir rotación
-                        //  augmentedImageNode.rotation = dev.romainguy.kotlin.math.Float3(0.0f, 0.0f, 180.0f) // Rotación para que mire hacia la cámara
-                        addChildNode(augmentedImageNode)
-                        augmentedImageNodes += augmentedImageNode
+        sceneView.setOnTouchListener { _, motionEvent ->
+            val frame = sceneView.session?.update()
+            if (motionEvent.action == MotionEvent.ACTION_UP && frame != null) {
+                val hitResult = frame.hitTest(motionEvent)
+                    ?.firstOrNull { hit: HitResult ->
+                        val trackable = hit.trackable
+                        trackable is com.google.ar.core.Plane && trackable.isPoseInPolygon(hit.hitPose)
                     }
+
+                hitResult?.let { hit: HitResult ->
+                    // Eliminar el nodo anterior si existe
+                    lastAnchorNode?.let { node ->
+                        sceneView.removeChildNode(node)
+                        node.destroy()
+                    }
+
+                    val anchor = hit.createAnchor()
+                    val anchorNode = AnchorNode(sceneView.engine, anchor)
+
+                    val videoNode = ExoPlayerNode(
+                        engine = sceneView.engine,
+                        materialLoader = sceneView.materialLoader,
+                        exoPlayer = exoPlayer,
+                        size = Size(0.9f, 0.6f), // Ajusta el tamaño del video
+                        normal = Direction(0.0f, 1.0f, 0.0f) // Apuntando hacia arriba
+                    ).apply {
+                        position = Position(0.0f, 0.5f, 0.0f)
+                    }
+
+                    anchorNode.addChildNode(videoNode)
+                    sceneView.addChildNode(anchorNode)
+
+                    // Guardar referencia al nuevo nodo
+                    lastAnchorNode = anchorNode
+
+                    exoPlayer.playWhenReady = true
                 }
             }
+            true
         }
     }
 }
