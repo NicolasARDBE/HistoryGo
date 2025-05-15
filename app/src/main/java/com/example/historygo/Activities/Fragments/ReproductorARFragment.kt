@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.media3.exoplayer.ExoPlayer
+import com.example.historygo.R
 import com.example.historygo.databinding.FragmentReproductorBinding
 import java.util.Timer
 import java.util.TimerTask
@@ -23,7 +24,7 @@ class ReproductorARFragment(private val exoPlayer: ExoPlayer) : Fragment() {
 
         // Configurar el nombre de la pista si está disponible
         val audioName = arguments?.getString("audioName")
-        binding.textViewNombrePista.text = audioName ?: "Historia del Chorro de Quevedo"
+        binding.textViewNombrePista.text = audioName ?: requireContext().getString(R.string.chorro_history)
 
         // Configurar los controles multimedia
         binding.imageButtonPause.setOnClickListener {

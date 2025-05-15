@@ -31,7 +31,7 @@ class ExperienciaCompletaActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_experiencia_completa)
 
-        Toast.makeText(baseContext, R.string.qr_message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(baseContext, R.string.play_video_msg, Toast.LENGTH_SHORT).show()
         currentLanguage = LanguagePreference.getLanguage(this)
 
         setFullScreen(
