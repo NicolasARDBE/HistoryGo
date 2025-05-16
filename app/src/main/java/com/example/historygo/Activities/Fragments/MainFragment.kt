@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.media3.exoplayer.ExoPlayer
+import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.R
 import com.example.historygo.Video.ExoPlayerNode
 import com.google.ar.core.HitResult
@@ -48,6 +50,7 @@ class MainFragment(private val exoPlayer: ExoPlayer) : Fragment(R.layout.fragmen
         sceneView.onSessionUpdated = { session, _ ->
             val planes = session.getAllTrackables(Plane::class.java)
             if (!surfaceDetected && planes.any { it.trackingState == TrackingState.TRACKING }) {
+                Toast.makeText(context, R.string.play_video_msg, Toast.LENGTH_SHORT).show()
                 surfaceDetected = true
                 loadingPlaneIndicator.visibility = View.GONE
             }
