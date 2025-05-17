@@ -110,5 +110,7 @@
     <string name="review">Reseña</string>
     <string name="calificaci_n">Calificación</string>
     <string name="escribe_tu_rese_a">Escribe tu reseña</string>
-
+    <string name="move_device_detect_surface">Mueve tu dispositivo para detectar una superficie</string>
+    <string name="chorro_history">Historia del Chorro de Quevedo</string>
+    <string name="play_video_msg">Toca la superficie donde quieras ver el vídeo</string>
 </resources>

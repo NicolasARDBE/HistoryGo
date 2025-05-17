@@ -31,7 +31,6 @@ class ExperienciaCompletaActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_experiencia_completa)
 
-        Toast.makeText(baseContext, R.string.qr_message, Toast.LENGTH_SHORT).show()
         currentLanguage = LanguagePreference.getLanguage(this)
 
         setFullScreen(
@@ -51,9 +50,9 @@ class ExperienciaCompletaActivity : BaseActivity() {
         // Inicializar ExoPlayer
         exoPlayer = ExoPlayer.Builder(this).build().apply {
             if(currentLanguage == "es"){
-                setMediaItem(MediaItem.fromUri("https://d3krfb04kdzji1.cloudfront.net/historia-chorro-v3.mp4"))
+                setMediaItem(MediaItem.fromUri("https://d3krfb04kdzji1.cloudfront.net/historia-chorro-v4.mp4"))
             } else {
-                setMediaItem(MediaItem.fromUri("https://d3krfb04kdzji1.cloudfront.net/historia-chorro-v3-en.mp4"))
+                setMediaItem(MediaItem.fromUri("https://d3krfb04kdzji1.cloudfront.net/historia-chorro-v4-en.mp4"))
             }
             prepare()
             playWhenReady = false

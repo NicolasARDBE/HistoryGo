@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.example.historygo.AwsServices.Cognito
 import com.example.historygo.AwsServices.CognitoManager
 import com.example.historygo.AwsServices.OnAttributesReceivedCallback
@@ -18,9 +20,16 @@ class Profile : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        enableEdgeToEdge()
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+            insets
+        }
 
         CognitoManager.getInstance(this) { cognitoInstance ->
             if (cognitoInstance != null) {

@@ -160,6 +160,8 @@
     <string name="review">Review</string>
     <string name="calificaci_n">Rating</string>
     <string name="escribe_tu_rese_a">Write your review</string>
+    <string name="move_device_detect_surface">Move your device to detect a surface</string>
+    <string name="chorro_history">Chorro de Quevedo\'s History</string>
+    <string name="play_video_msg">Touch the surface where you want to see the video</string>
     user_confirmed_error
-
 </resources>
