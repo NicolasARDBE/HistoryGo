@@ -52,6 +52,11 @@ class Profile : BaseActivity() {
         binding.updateProfileBtn.setOnClickListener {
             cognito.updateUserAttributes(binding.name.text.toString())
         }
+
+        binding.changePasswordBtn.setOnClickListener {
+            val intent = Intent(this, ChangePasswordActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun fetchUserAttributes() {
