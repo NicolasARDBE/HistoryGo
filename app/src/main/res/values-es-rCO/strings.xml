@@ -52,8 +52,8 @@
     <string name="verify_account">Verificar cuenta</string>
     <string name="verify_code_email">Hemos enviado un código de verificación a tu correo electrónico</string>
     <string name="verify">Verificar</string>
-    <string name="our_experiences">NUESTRAS EXPERIENCIAS</string>
-    <string name="profile">PERFIL</string>
+    <string name="our_experiences">Nuestras Experiencias</string>
+    <string name="profile">Perfil</string>
     <string name="start">Comenzar</string>
     <string name="update_profile">Actualizar perfil</string>
     <string name="change_password">Cambiar contraseña</string>
@@ -76,7 +76,7 @@
     <string name="button_later">Más tarde</string>
     <string name="button_start">Comenzar</string>
     <string name="toast_reduced_functionality">Funcionalidad reducida</string>
-    <string name="toast_searching_location">Buscando ubicación...</string>
+    <string name="toast_searching_location">Buscando ubicación…</string>
     <string name="audio_name_chorro">Chorro de Quevedo</string>
     <string name="button_carousel">Carrusel de imágenes</string>
     <string name="button_immersive_experience">Experiencia inmersiva</string>
@@ -91,4 +91,26 @@
     <string name="chorro_description">El Chorro de Quevedo es una plazoleta en el centro histórico de Bogotá, Colombia, que es un lugar turístico y de gran interés histórico.</string>
     <string name="open_with">Open with…</string>
     <string name="soon_available">Pronto Disponible</string>
+    <string name="complete_experience_title">Experiencia Completa</string>
+
+    <string name="error_audio_play">Error al reproducir audio </string>
+    <string name="error_audio_load">Error al cargar audio </string>
+    <string name="error_audio_not_available">Audio no disponible </string>
+    <string name="start_immersive_experience_title">Experiencia inmersiva </string>
+    <string name="start_immersive_experience">¿Le gustaría empezar ya la experiencia inmersiva? </string>
+    <string name="user_confirmed_error">Error al confirmar usuario: %1$s</string>
+    <string name="qr_message">Apunta con tu cámara al código QR</string>
+    <string name="escribir_comentario">Escribir Comentario</string>
+    <string name="_5">5</string>
+    <string name="actualizar_comentario">Actualizar Comentario</string>
+    <string name="salir">Salir</string>
+    <string name="comentarioupdate">¡Bienvenido a la sección de comentarios!</string>
+    <string name="en_esta_secci_n_podr_s_editar_y_eliminar_tus_comentarios">En esta sección podrás editar y eliminar tus comentarios.</string>
+    <string name="reviews">Reseñas</string>
+    <string name="review">Reseña</string>
+    <string name="calificaci_n">Calificación</string>
+    <string name="escribe_tu_rese_a">Escribe tu reseña</string>
+    <string name="move_device_detect_surface">Mueve tu dispositivo para detectar una superficie</string>
+    <string name="chorro_history">Historia del Chorro de Quevedo</string>
+    <string name="play_video_msg">Toca la superficie donde quieras ver el vídeo</string>
 </resources>

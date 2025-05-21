@@ -1,15 +1,17 @@
 package com.example.historygo.Activities
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.MotionEvent
+import android.view.View
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.example.historygo.Activities.Fragments.ReproductorFragment
 import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.R
 import com.example.historygo.clientsdk.HistorygoapiClient
@@ -26,6 +28,8 @@ class Display360DegreeImage : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+
         // Inflar layout
         binding = ActivityDisplay360DegreeImageBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -34,7 +38,7 @@ class Display360DegreeImage : BaseActivity() {
         initializePlManager()
 
         // Cargar imagen remota 360 desde CloudFront usando Glide
-        val imageUrl = "${cloudFrontBaseUrl}images/chorro-quevedo-360-2.jpeg"
+        val imageUrl = "${cloudFrontBaseUrl}images/chorro-quevedo-360-4.png"
         loadPanoramaImage(imageUrl)
 
         // API Gateway y reproducción de audio
@@ -43,8 +47,12 @@ class Display360DegreeImage : BaseActivity() {
         val jwtToken = getSharedPreferences("auth", Context.MODE_PRIVATE)
             .getString("jwt_token", null)
 
+        binding.SignupBtn.setOnClickListener {
+            val intent = Intent(this, FeedbackActivity::class.java)
+            startActivity(intent)
+        }
+
         if (jwtToken != null) {
-            setupAudioPlayback(client, jwtToken)
         }
     }
 
@@ -91,16 +99,5 @@ class Display360DegreeImage : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         plManager.onDestroy()
-    }
-
-    private fun setupAudioPlayback(client: HistorygoapiClient, jwtToken: String) {
-        val audioName = "Chorro de Quevedo"
-        val audioKey = "guion-trayecto-chorro.mp3"
-        val audioUrl = "$cloudFrontBaseUrl$audioKey"
-
-        val fragment = ReproductorFragment.newInstance(audioUrl, audioName)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView2, fragment)
-            .commit()
     }
 }

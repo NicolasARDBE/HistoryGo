@@ -7,6 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".Activities.Display360DegreeImage">
 
+    <Button
+        android:id="@+id/SignupBtn"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="600dp"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="@color/red"
+        android:text="@string/salir"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -14,18 +28,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView2"
-        android:name="com.example.historygo.Activities.Fragments.ReproductorFragment"
-        android:layout_width="354dp"
-        android:layout_height="160dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.903" />
+        android:elevation="-1dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

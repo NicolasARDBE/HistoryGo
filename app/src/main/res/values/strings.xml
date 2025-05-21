@@ -56,7 +56,6 @@
     <string name="alreadyAccount">I already have an account</string>
 
 
-
     <!-- Strings used for Fogotten Passsword Activity -->
     <string name="forgot_password">Forgot your password?</string>
     <string name="enter_email">Please enter your email to verify it\'s you</string>
@@ -71,10 +70,10 @@
     <string name="verify">Verify</string>
 
     <!-- Strings used for Experience Menu -->
-    <string name="our_experiences">OUR EXPERIENCES</string>
+    <string name="our_experiences">Our Experiences</string>
 
     <!-- Profile Screen -->
-    <string name="profile">PROFILE</string>
+    <string name="profile">Profile</string>
     <string name="start">Start</string>
     <string name="update_profile">Update Profile</string>
     <string name="change_password">Change Password</string>
@@ -106,7 +105,7 @@
 
     <!-- NavegacionPopUp -->
     <string name="toast_reduced_functionality">Reduced functionality</string>
-    <string name="toast_searching_location">Searching for location...</string>
+    <string name="toast_searching_location">Searching for location…</string>
     <string name="audio_name_chorro">Chorro de Quevedo</string>
 
     <!-- MenuOpcionesGuia -->
@@ -115,6 +114,7 @@
     <string name="button_video_playback">Video Playback</string>
 
     <!-- ExperienciaCompleta -->
+    <string name="complete_experience_title">Complete Experience</string>
     <string name="carousel_title">Image Carousel</string>
 
     <!-- Strings used for fragments for navigation -->
@@ -135,8 +135,33 @@
 
     <string name="chorro_description">Chorro de Quevedo is a small square in the historic center of Bogotá, Colombia, that is a tourist spot and of great historical interest.</string>
     <string name="chorro_address" translatable="false">Cl. 12b #22 2-98</string>
-    <string name="chorro_name" translatable="false">PLAZA DEL CHORRO DE QUEVEDO</string>
+    <string name="chorro_name" translatable="false">Plaza Del Chorro De Quevedo</string>
     <string name="defaultD" translatable="false">Default</string>
 
     <string name="soon_available">Soon Available</string>
-    </resources>
+
+    <string name="chorro_quevedo" translatable="false">Chorro de Quevedo </string>
+
+    <string name="error_audio_play">Error when playing audio </string>
+    <string name="error_audio_load">Error when loading audio </string>
+    <string name="error_audio_not_available">Audio not available </string>
+
+    <string name="start_immersive_experience_title">Immersive Experience </string>
+    <string name="start_immersive_experience">Would you like to start the immersive experience now? </string>
+    <string name="escribir_comentario">Leave a Comment</string>
+    <string name="_5">5</string>
+    <string name="actualizar_comentario">Update a Comment</string>
+    <string name="user_confirmed_error">Failed to confirm user: %1$s</string>
+    <string name="qr_message">Point your camera at the QR code</string>
+    <string name="salir">Exit</string>
+    <string name="comentarioupdate">Welcome to comments section!</string>
+    <string name="en_esta_secci_n_podr_s_editar_y_eliminar_tus_comentarios">In this section you will be able to delete and update your comments.</string>
+    <string name="reviews">Reviews</string>
+    <string name="review">Review</string>
+    <string name="calificaci_n">Rating</string>
+    <string name="escribe_tu_rese_a">Write your review</string>
+    <string name="move_device_detect_surface">Move your device to detect a surface</string>
+    <string name="chorro_history">Chorro de Quevedo\'s History</string>
+    <string name="play_video_msg">Touch the surface where you want to see the video</string>
+    user_confirmed_error
+</resources>

@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.location.Geocoder
 import android.os.Bundle
 import android.os.Handler
 import android.os.StrictMode
@@ -19,6 +18,7 @@ import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.example.historygo.Activities.Fragments.ReproductorFragment
 import com.example.historygo.Helper.BaseActivity
 import com.example.historygo.Helper.GeofenceHelper
+import com.example.historygo.Helper.LanguagePreference
 import com.example.historygo.R
 import com.example.historygo.Services.LightSensorService
 import com.example.historygo.clientsdk.HistorygoapiClient
@@ -35,7 +35,6 @@ import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
-import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 import org.osmdroid.views.overlay.Polygon
@@ -45,10 +44,10 @@ import org.osmdroid.views.overlay.TilesOverlay
 class NavegacionPopUpGeozona : BaseActivity() {
     val RADIUS_OF_EARTH_KM = 6371
     private lateinit var binding: ActivityNavegacionPopUpGeozonaBinding
-    private lateinit var geocoder: Geocoder
     private lateinit var locationOverlay: MyLocationNewOverlay
     private lateinit var map : MapView
     private lateinit var lightSensorService: LightSensorService
+    private lateinit var  currentLanguage: String
 
     // Ubicación del Chorro de Quevedo en Bogotá
     private val chorroLocationLatLng = LatLng(4.5972, -74.0697)
@@ -58,7 +57,6 @@ class NavegacionPopUpGeozona : BaseActivity() {
     private lateinit var geofenceHelper: GeofenceHelper
 
     private var lastKnownLocation: GeoPoint? = null
-    private val REQUEST_PERMISSIONS_REQUEST_CODE = 1
     private val REQUEST_FOREGROUND_LOCATION = 1001
     private val REQUEST_BACKGROUND_LOCATION = 1002
     private val GEOFENCE_ID = "CHORRO_QUEVEDO_ID"
@@ -75,14 +73,13 @@ class NavegacionPopUpGeozona : BaseActivity() {
 
         val jwtToken = getSharedPreferences("auth", Context.MODE_PRIVATE)
             .getString("jwt_token", null)
-
-        geocoder = Geocoder(this)
+        currentLanguage = LanguagePreference.getLanguage(this)
 
         // Geofencing
         geofencingClient = LocationServices.getGeofencingClient(this)
         geofenceHelper = GeofenceHelper(this)
-
         askPermission()
+
         super.onCreate(savedInstanceState)
         binding = ActivityNavegacionPopUpGeozonaBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -133,7 +130,7 @@ class NavegacionPopUpGeozona : BaseActivity() {
 
         if (jwtToken != null) {
             Log.d("mapTest", "token: $jwtToken")
-            setupAudioPlayback(client, jwtToken)
+            setupAudioPlayback()
         }
     }
 
@@ -185,6 +182,7 @@ class NavegacionPopUpGeozona : BaseActivity() {
                     addGeofence(chorroLocationLatLng, 25f)
                 } else {
                     Toast.makeText(this, "Sin este permiso, no podremos saber cuando hayas llegado a tu destino.", Toast.LENGTH_LONG).show()
+                    finish()
                 }
             }
 
@@ -357,13 +355,17 @@ class NavegacionPopUpGeozona : BaseActivity() {
     }
 
     //REPRODUCTOR AUDIO
-    private fun setupAudioPlayback(client: HistorygoapiClient, jwtToken: String) {
+    private fun setupAudioPlayback() {
         // Use the helper function to get the URI :
         //val audioUri = getRawUri(this, R.raw.sample_audio)
         //Log.d("MainActivity", "Audio URI: $audioUri") // Log the URI
         val audioName = applicationContext.getString(R.string.audio_name_chorro)   // CAMBIAR A NOMBRE DE AUDIO
-
-        val audioKey = "guion-trayecto-chorro.mp3"
+        val audioKey: String
+        if(currentLanguage == "es"){
+            audioKey = "guion-trayecto-chorro.mp3"
+        } else {
+            audioKey = "guion-trayecto-chorro-en.mp3"
+        }
         val cloudFrontBaseUrl = "https://d3krfb04kdzji1.cloudfront.net/"
         val audioUrl = "$cloudFrontBaseUrl$audioKey"
 

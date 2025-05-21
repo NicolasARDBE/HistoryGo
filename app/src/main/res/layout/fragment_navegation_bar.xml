@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="60dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/orange"
+    android:background="@color/BluePrincipal"
     android:orientation="horizontal"
     android:gravity="center"
     android:padding="8dp"
-    android:backgroundTint="@color/orange">
+    android:backgroundTint="@color/BluePrincipal">
 
     <ImageButton
         android:id="@+id/btnHome"
@@ -24,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:src="@drawable/heart_icon"
+        android:src="@drawable/comment"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/favorites"/>
 

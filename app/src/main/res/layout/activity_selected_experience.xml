@@ -5,18 +5,19 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/yellow"
+    android:background="@color/YellowPrincipal"
     tools:context=".Activities.SelectedExperience">
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/poppins_medium"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:fontFamily="@font/poppins_bold"
         android:text="@string/chorro_name"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        android:layout_marginTop="45dp"
         tools:ignore="MissingConstraints" />
 
 
@@ -40,8 +42,8 @@
         android:id="@+id/tvLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/rounded_text_background"
         android:padding="8dp"
         android:text="@string/chorro_address"
@@ -52,7 +54,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivExperience"
@@ -64,7 +66,7 @@
         app:layout_constraintBottom_toTopOf="@id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/view"
+        app:layout_constraintTop_toBottomOf="@id/tvLocation"
         app:shapeAppearanceOverlay="@style/RoundedImage"
         app:strokeColor="@color/yellow"
         app:strokeWidth="4dp" />
@@ -92,7 +94,7 @@
         android:padding="10dp"
         android:scaleType="centerInside"
         android:src="@drawable/map_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/navigationBarFragmentContainer"
         app:layout_constraintEnd_toStartOf="@+id/startRoute"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -100,18 +102,23 @@
     <Button
         android:id="@+id/startRoute"
         android:layout_width="135dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:backgroundTint="@color/blue"
+        android:layout_height="53dp"
+        android:background="@drawable/rounden_button"
+        app:backgroundTint="@null"
         android:fontFamily="@font/poppins_regular"
         android:padding="10dp"
         android:scaleType="centerInside"
         android:text="@string/start"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/navigationBarFragmentContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.832"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.504"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeMaxTextSize="18sp"
+        android:autoSizeStepGranularity="1sp"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navigationBarFragmentContainer"

@@ -49,7 +49,8 @@ public class Login extends BaseActivity {
 
 
         //Switch de idioma
-        binding.languageSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        binding.languageSwitch.setOnCheckedChangeListener((buttonView,
+                                                           isChecked) -> {
             String language = isChecked ? "en" : "es";
             LanguagePreference.saveLanguage(this, language);
 
@@ -72,7 +73,8 @@ public class Login extends BaseActivity {
             String password = Objects.requireNonNull(binding.Password.getText()).toString().trim();
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, R.string.fields, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.fields, Toast.LENGTH_SHORT)
+                        .show();
             } else {
                 cognito.userLogin(email, password);
             }
@@ -90,13 +92,10 @@ public class Login extends BaseActivity {
 
     private void requestNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(
-                        this,
-                        new String[]{Manifest.permission.POST_NOTIFICATIONS},
-                        NOTIFICATION_PERMISSION_REQUEST_CODE
-                );
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.
+                    POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.
+                        permission.POST_NOTIFICATIONS}, NOTIFICATION_PERMISSION_REQUEST_CODE);
             }
         }
     }
@@ -107,11 +106,12 @@ public class Login extends BaseActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, R.string.notification_granted, Toast.LENGTH_SHORT).show();
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, R.string.notification_granted,
+                        Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, R.string.notification_denied, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.notification_denied,
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }
